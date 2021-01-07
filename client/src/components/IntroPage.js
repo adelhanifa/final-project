@@ -3,6 +3,8 @@ import Navbar from './Navbar';
 import { Link } from "react-router-dom";
 import AboutUs from "./AboutUs";
 import TeamWorker from './TeamWorker';
+import Footer from "./Footer";
+import Contact from './Contact';
 const IntroPage = () => {
     let d = new Date();
     return (
@@ -19,7 +21,9 @@ const IntroPage = () => {
             <main id="main">
                 <AboutUs />
                 <TeamWorker />
+                <Contact />
             </main>
+            <Footer/>
         </>
 
     )
