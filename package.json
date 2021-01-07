@@ -1,0 +1,33 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adelhanifa/final-project.git"
+  },
+  "keywords": [
+    "Goals",
+    "make",
+    "it",
+    "true"
+  ],
+  "author": "Asreen & Adel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adelhanifa/final-project/issues"
+  },
+  "homepage": "https://github.com/adelhanifa/final-project#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "react-bootstrap": "^1.4.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-form": "^8.3.7",
+    "redux-thunk": "^2.3.0"
+  }
+}
