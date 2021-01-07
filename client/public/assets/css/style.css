@@ -478,12 +478,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 --------------------------------------------------------------*/
 #intro {
   width: 100%!important;
-  height: 100vh;
-  background: url(../img/intro-bg4.jpg) top center!important;
- background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
-  position: relative;
+  height: 100vh!important;
+  background: url(../img/intro-bg3.jpg) top center!important;
+  background-repeat: no-repeat!important;
+  background-size: cover!important;
+  overflow: hidden!important;
+  position: relative!important;
 }
 
 @media (min-width: 1024px) {
@@ -522,7 +522,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   }
 }
 
-#intro h1 {
+#intro h3 {
   color: #fff;
   font-family: "Raleway", sans-serif;
   font-size: 56px;
@@ -530,12 +530,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   text-transform: uppercase;
 }
 
-#intro h1 span {
+#intro h3 span {
   color: #f82249;
 }
 
 @media (max-width: 991px) {
-  #intro h1 {
+  #intro h3 {
     font-size: 34px;
   }
 }
