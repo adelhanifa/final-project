@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link as SLink } from 'react-scroll'
 import { Link } from 'react-router-dom'
-import Navbar from 'react-bootstrap/Navbar'
-import { Nav } from 'react-bootstrap';
+// import Navbar from 'react-bootstrap/Navbar'
+// import { Nav } from 'react-bootstrap';
 
 const NavBar = () => {
     return (
@@ -34,8 +34,8 @@ const NavBar = () => {
 
             <div className="container">
                 
-                <a href="/" className="scrollto float-left mylogo">
-                    <img src="assets/img/logo/right-red_white.png" alt="logo" title="" />
+                <a href="/" className="scrollto float-left ">
+                    <img className=" mylogo" src="assets/img/logo/right-red_white.png" alt="logo" title="" />
                 </a>
 
                 <nav className="nav-menu-container float-right">

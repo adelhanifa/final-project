@@ -17,9 +17,9 @@ const TeamWorker = () => {
                   <h3><a href="speaker-details.html">Asreen Ilyas</a></h3>
                   <p>Web-developer</p>
                   <div className="social">
-                    <a href=""><i className="fa fa-twitter"></i></a>
-                    <a href=""><i className="fa fa-facebook"></i></a>
-                    <a href=""><i className="fa fa-google-plus"></i></a>
+                    <a href="/"><i className="fa fa-twitter"></i></a>
+                    <a href="/"><i className="fa fa-facebook"></i></a>
+                    <a href="/"><i className="fa fa-google-plus"></i></a>
                     <a href="https://www.linkedin.com/in/asreen-ilyas-31b10719a"><i className="fa fa-linkedin"></i></a>
                   </div>
                 </div>
@@ -32,10 +32,10 @@ const TeamWorker = () => {
                   <h3><a href="/speaker-details.html">Adel Hanifa</a></h3>
                   <p>Web-developer</p>
                   <div className="social">
-                    <a href=""><i className="fa fa-twitter"></i></a>
-                    <a href=""><i className="fa fa-facebook"></i></a>
-                    <a href=""><i className="fa fa-google-plus"></i></a>
-                    <a href=""><i className="fa fa-linkedin"></i></a>
+                    <a href="/"><i className="fa fa-twitter"></i></a>
+                    <a href="/"><i className="fa fa-facebook"></i></a>
+                    <a href="/"><i className="fa fa-google-plus"></i></a>
+                    <a href="/"><i className="fa fa-linkedin"></i></a>
                   </div>
                 </div>
               </div>
