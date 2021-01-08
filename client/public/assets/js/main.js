@@ -6,16 +6,16 @@
 */
 !(function($) {
   "use strict";
-
+// alert(1)
   // Back to top button
-  $(window).scroll(function() {
+  $(window).on('scroll',function() {
     if ($(this).scrollTop() > 100) {
       $('.back-to-top').fadeIn('slow');
     } else {
       $('.back-to-top').fadeOut('slow');
     }
   });
-  $('.back-to-top').click(function() {
+  $('.back-to-top').on('click',function() {
     $('html, body').animate({
       scrollTop: 0
     }, 1500, 'easeInOutExpo');
@@ -23,7 +23,7 @@
   });
 
   // Header fixed on scroll
-  $(window).scroll(function() {
+  $(window).on('scroll',function() {
     if ($(this).scrollTop() > 100) {
       $('#header').addClass('header-scrolled');
     } else {
@@ -47,12 +47,14 @@
   });
 
   // Initiate superfish on nav menu
-  $('.nav-menu').superfish({
-    animation: {
-      opacity: 'show'
-    },
-    speed: 400
-  });
+ 
+
+  // $('.nav-menu').superfish({
+  //   animation: {
+  //     opacity: 'show'
+  //   },
+  //   speed: 400
+  // });
 
   // Mobile Navigation
   if ($('#nav-menu-container').length) {
@@ -80,7 +82,7 @@
       $('#mobile-body-overly').toggle();
     });
 
-    $(document).click(function(e) {
+    $(document).on('click',function(e) {
       var container = $("#mobile-nav, #mobile-nav-toggle");
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         if ($('body').hasClass('mobile-nav-active')) {
@@ -131,7 +133,7 @@
   });
 
   // Activate smooth scroll on page load with hash links in the url
-  $(document).ready(function() {
+  $(function() {
     if (window.location.hash) {
       var initial_nav = window.location.hash;
       if ($(initial_nav).length) {
