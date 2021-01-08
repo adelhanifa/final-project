@@ -1,6 +1,6 @@
 
 .register{
-  background: -webkit-linear-gradient(left, #21202c, #d34e3c);
+  background: -webkit-linear-gradient(left, #0d0d0e,  #f82249);
   margin-top: 3%;
   padding: 3%;
 }
@@ -65,7 +65,7 @@
 .register .nav-tabs{
   margin-top: 3%;
   border: none;
-  background: #0062cc;
+  background: #f82249;
   border-radius: 1.5rem;
   width: 28%;
   float: right;
@@ -84,7 +84,7 @@
 .register .nav-tabs .nav-link.active{
   width: 100px;
   color: #0062cc;
-  border: 2px solid #0062cc;
+  border: 2px solid #20251c;
   border-top-left-radius: 1.5rem;
   border-bottom-left-radius: 1.5rem;
 }
