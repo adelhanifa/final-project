@@ -13,6 +13,13 @@ body , .App {
   color: #2f3138;
   font-family: "Open Sans", sans-serif;
 }
+#userform{
+  background:#2c2c2c;
+  padding: 50px 50px;
+}
+#formid{
+  margin: 0 auto;
+}
 
 a {
   color: #f82249;
@@ -671,17 +678,17 @@ body.mobile-nav-active #mobile-nav-toggle {
 # About Section
 --------------------------------------------------------------*/
 #about {
-  background: url("../img/about-bg.jpg");
-  background-size: cover;
-  overflow: hidden;
-  position: relative;
-  color: #fff;
-  padding: 60px 0 40px 0;
+  background: url(../img/about-bg.jpg)!important;
+  background-size: cover!important;
+  overflow: hidden!important;
+  position: relative!important;
+  color: #fff!important;
+  padding: 60px 0 40px 0!important;
 }
 
 @media (min-width: 1024px) {
   #about {
-    background-attachment: fixed;
+    background-attachment: fixed!important;
   }
 }
 

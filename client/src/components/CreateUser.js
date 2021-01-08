@@ -33,25 +33,25 @@ export default class CreateUser extends Component {
     }
     render() {
         return (
-            <div className="row">
-                <Form onSubmit={this.onSubmit} className="card col col-8 m-3">
+            <div className="row" id='userform'>
+                <Form onSubmit={this.onSubmit} className="card col col-8" id="formid">
                     <h3>Here we go !</h3>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label>User Name</Form.Label>
                         <Form.Control
                             required
                             type="text"
                             placeholder="Enter user name"
                             value={this.state.username}
-                            onChange={this.onChangeUsername} />
-
+                            onChange={this.onChangeUsername}
+                        />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label>User Nickname</Form.Label>
                         <Form.Control
                             required
                             type="text"
-                            placeholder="Enter user name"
+                            placeholder="Enter your nickname you want to appeare with it "
                             value={this.state.username}
                             onChange={this.onChangeUsername} />
                     </Form.Group>
