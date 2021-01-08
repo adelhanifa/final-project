@@ -7,9 +7,8 @@ const Footer = () => {
         <div className="container">
           <div className="row">
 
-            <div className="col-lg-3 col-md-6 footer-info">
-              <img src="assets/img/logo.png" alt="TheEvenet" />
-              <p>In alias aperiam. Placeat tempore facere. Officiis voluptate ipsam vel eveniet est dolor et totam porro. Perspiciatis ad omnis fugit molestiae recusandae possimus. Aut consectetur id quis. In inventore consequatur ad voluptate cupiditate debitis accusamus repellat cumque.</p>
+            <div className="col-lg-3 col-md-6">
+              <img src="assets/img/logo/down-white_red.png" alt="" />
             </div>
 
             <div className="col-lg-3 col-md-6 footer-links">

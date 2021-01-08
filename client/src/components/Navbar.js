@@ -7,11 +7,11 @@ import { Nav } from 'react-bootstrap';
 const NavBar = () => {
     return (
         <header className="header float-right" id="header">
-            <Navbar  expand="lg">
+            {/* <Navbar  expand="lg">
                 <div className="container">
                 <Navbar.Brand href="#home">
                     <div className="logo pull-left" id="logo">
-                        <a href="/" className="scrollto float-left"><img src="assets/img/logo-big1.png" alt="logo" title="" /></a>
+                        <a href="/" className="scrollto float-left"><img src="assets/img/logo/text right- red white.png" alt="logo" title="" /></a>
                     </div>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,12 +30,13 @@ const NavBar = () => {
                     </Nav>
                 </Navbar.Collapse>
                 </div>
-            </Navbar>
+            </Navbar> */}
 
             <div className="container">
-                <div className="logo pull-left" id="logo">
-                    <a href="/" className="scrollto"><img src="assets/img/logo-big1.png" alt="logo" title="logo" /></a>
-                </div>
+                
+                <a href="/" className="scrollto float-left mylogo">
+                    <img src="assets/img/logo/right-red_white.png" alt="logo" title="" />
+                </a>
 
                 <nav className="nav-menu-container float-right">
                     <ul className="nav-menu">
