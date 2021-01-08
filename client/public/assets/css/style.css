@@ -277,6 +277,10 @@ h1, h2, h3, h4, h5, h6 {
   #nav-menu-container {
     display: none;
   }
+  .navbar-nav{
+    background: rgba(6, 12, 34, 0.98);
+  }
+  
 }
 
 /* Nav Meu Styling */
@@ -376,7 +380,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Mobile Nav Toggle */
-#mobile-nav-toggle {
+.navbar-toggler {
   position: fixed;
   right: 0;
   top: 0;
@@ -391,12 +395,12 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
-#mobile-nav-toggle i {
+.navbar-toggler span {
   color: #fff;
 }
 
 @media (max-width: 991px) {
-  #mobile-nav-toggle {
+  .navbar-toggler {
     display: inline;
   }
 }
@@ -405,7 +409,7 @@ h1, h2, h3, h4, h5, h6 {
 #mobile-nav {
   position: fixed;
   top: 0;
-  padding-top: 18px;
+  padding: 18px;
   bottom: 0;
   z-index: 998;
   background: rgba(6, 12, 34, 0.9);
@@ -482,7 +486,7 @@ body.mobile-nav-active #mobile-nav {
   left: 0;
 }
 
-body.mobile-nav-active #mobile-nav-toggle {
+body.mobile-nav-active #navbar-toggler {
   color: #fff;
 }
 
