@@ -44,7 +44,7 @@ const NavBar = () => {
                         <li><SLink to="about" smooth={true}>About us</SLink></li>
                         <li><SLink to="speakers" smooth={true}>Our Team</SLink></li>
                         <li><SLink to="contact" smooth={true}>Contact</SLink></li>
-                        <li><Link to="/login/register" >login/register</Link></li>
+                        <li><Link to="/login/register">login/register</Link></li>
                         <li><Link to="/sign out" >sign out</Link></li>
                         <li className="buy-tickets"><a href="#buy-tickets">Create Goal</a></li>
                     </ul>
