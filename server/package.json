@@ -9,6 +9,7 @@
   "author": "Asreen & Adel",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "*",
     "cors": "*",
     "dotenv": "*",
     "express": "*",
