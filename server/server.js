@@ -19,10 +19,12 @@ app.use(express.json());
 const usersRouter = require('./routes/usersRouter.js');
 const goalsRouter = require('./routes/goalsRouter.js');
 const groupsRouter = require('./routes/groupsRouter.js');
+const sendEmailRouter = require('./routes/sendEmailRouter.js');
 
 app.use('/users', usersRouter);
 app.use('/goals', goalsRouter);
 app.use('/groups', groupsRouter);
+app.use('/send-email', sendEmailRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: http://localhost:${port}`);
