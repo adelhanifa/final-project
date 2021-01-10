@@ -80,7 +80,7 @@ class FormUser extends React.Component {
     console.log({ fileImg: e.target.files[0] })
     let fileImg = e.target.files[0];
     // this.verifyImage(fileImg)
-    this.setState({ profileImage: fileImg })
+    this.setState({ profileImg: fileImg })
   }
   verifyImage = (img) => {
     return new Promise((resolve, reject) => {
@@ -104,23 +104,22 @@ class FormUser extends React.Component {
 
   onSubmitFormUser = (event) => {
     event.preventDefault();
-    console.log({ image: this.state.profileImage })
+    console.log({ image: this.state.profileImg })
 
     const formData = new FormData()
     formData.append('profileImg', this.state.profileImg)
+    formData.append('firstName', this.state.firstName)
+    formData.append('lastName', this.state.lastName)
+    formData.append('password', this.state.password)
+    formData.append('email', this.state.email)
+
     console.log({ formData })
 
-    let newUser = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      password: this.state.password,
-      email: this.state.email,
-      profileImage: formData
-    }
-    axios.post("/user/create", newUser, {
-    }).then(res => {
-      console.log(res)
+    axios.post("/user/create", formData, {})
+    .then(res => {
+      console.log(res.data)
     })
+
 
     if (formValid(this.state)) {
       console.log(this.state)
@@ -251,7 +250,7 @@ class FormUser extends React.Component {
                             type="file"
                             className="form-control"
                             placeholder="Chosse a picture *"
-                            name="profileImage"
+                            name="profileImg"
                             initialvalue={this.state.profileImg}
                             accept="image/*"
                           />
