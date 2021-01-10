@@ -21,9 +21,9 @@ const goalsRouter = require('./routes/goalsRouter.js');
 const groupsRouter = require('./routes/groupsRouter.js');
 const sendEmailRouter = require('./routes/sendEmailRouter.js');
 
-app.use('/users', usersRouter);
-app.use('/goals', goalsRouter);
-app.use('/groups', groupsRouter);
+app.use('/user', usersRouter);
+app.use('/goal', goalsRouter);
+app.use('/group', groupsRouter);
 app.use('/send-email', sendEmailRouter);
 
 app.listen(port, () => {
