@@ -7,7 +7,7 @@ const userSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  photo: String,
+  profileImg: String,
   goals: [{type: String}],
   joinedGroup: [{ type: Schema.Types.ObjectId, ref: 'Group'}]
 }, 

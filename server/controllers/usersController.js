@@ -12,6 +12,9 @@ exports.findAllUsers = (req, res) => {
 
 //create a new user with send email
 exports.createNewUser = (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    req.body.photo =  url + '/public/img/' + req.file.filename
+
     console.log('******************************************');
 
     // hash Pasword
