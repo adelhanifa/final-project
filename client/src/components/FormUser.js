@@ -5,26 +5,57 @@ import formValid from "../formValid";
 class FormUser extends React.Component {
   constructor(props) {
     super(props);
-    this.regExp = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
+
+
     this.state = {
       firstName: '',
       lastName: '',
       password: '',
       email: '',
-      interests: [],
+      profileImg: '',
       isError: {
         firstName: '',
         lastName: '',
         email: '',
-        password: ''
-        // files:{
-        //   profileImage: '',
-        //   imagePreviewUrl:''
-        // }
-      
+        password: '',
+        profileImg: ''
       }
     }
   }
+
+  formValChange = e => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    let regExp = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
+    let isError = { ...this.state.isError };
+
+    switch (name) {
+      case "firstName":
+        isError.firstName =
+          value.length < 4 ? "Atleast 4 characaters required" : "";
+        break;
+      case "lastName":
+        isError.lastName =
+          value.length < 4 ? "Atleast 4 characaters required" : "";
+        break;
+      case "email":
+        isError.email = regExp.test(value)
+          ? ""
+          : "Email address is invalid";
+        break;
+      case "password":
+        isError.password =
+          value.length < 6 ? "Atleast 6 characaters required" : "";
+        break;
+      default:
+        break;
+    }
+
+    this.setState({
+      isError,
+      [name]: value
+    })
+  };
 
   onSubmitSignIn = (event) => {
     event.preventDefault();
@@ -34,42 +65,66 @@ class FormUser extends React.Component {
       email: event.target.email.value,
       password: event.target.password.value
     }
-    console.log({ user });
-    this.setState(user)
-    // console.log(this.state)
+
+    if (this.state.isError.email && this.state.isError.password) return " "
+    else {
+      this.setState(user);
+      console.log({ state: this.state })
+      axios.post('/user/log-in', user)
+    }
+
   }
 
-  handleImage =(e) => {
-    var fd = new FormData()
-    console.log({fd})
-    fd.append('files',this.state.files,this.state.files.profileImage)
-    var statebody = Object.assign({},this.state,{files:null})
-    fd.append('state',JSON.stringify(statebody))
-    axios.post('/api/',fd)
-                .then((res)=>{
-        console.log(res)
-    }).catch((e)=>{
-        console.log(e)
-    })
-}
 
-handleFiles(e){
-    this.setState({files:e.target.files})
-}
+  handleFiles = (e) => {
+    console.log({ fileImg: e.target.files[0] })
+    let fileImg = e.target.files[0];
+    // this.verifyImage(fileImg)
+    this.setState({ profileImage: fileImg })
+  }
+  verifyImage = (img) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.addEventListener('load', event => {
+        let picFile = event.target
+        let imgNew = new Image()
+        imgNew.addEventListener('load', () => {
+          resolve(reader.result)
+        })
+        imgNew.addEventListener('error', () => {
+          reject()
+        })
+        imgNew.src = picFile.result
+        console.log({ picFile: picFile.result })
+      })
+      reader.readAsDataURL(img)
+      console.log(reader.readAsDataURL(img))
+    })
+  }
 
   onSubmitFormUser = (event) => {
     event.preventDefault();
+    console.log({ image: this.state.profileImage })
+
+    const formData = new FormData()
+    formData.append('profileImg', this.state.profileImg)
+    console.log({ formData })
+
     let newUser = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       password: this.state.password,
       email: this.state.email,
-      profileImage: this.state.profileImage
+      profileImage: formData
     }
+    axios.post("/user/create", newUser, {
+    }).then(res => {
+      console.log(res)
+    })
 
-    
     if (formValid(this.state)) {
       console.log(this.state)
+      // axios.post('/user/signup', newUser)
     } else {
       console.log("Form is invalid!");
     }
@@ -78,6 +133,7 @@ handleFiles(e){
   }
 
   render() {
+    const { isError } = this.state;
     return (
       <>
         <div className="container register">
@@ -106,25 +162,31 @@ handleFiles(e){
               <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <h3 className="register-heading mt-2"> You have an account!! <b className="text-danger"> Sign in</b></h3>
+
                   <form onSubmit={this.onSubmitSignIn} className="row register-form">
                     <div className="col-md-12">
-
                       <div className="form-group">
                         <input type="email"
-                          className="form-control"
+                          className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
                           placeholder="Enter your email *"
                           name="email"
                           initialvalue={this.state.email}
-                          onChange={e => { this.setState({ email: e.target.value }) }} />
+                          onChange={this.formValChange} />
+                        {isError.email.length > 0 && (
+                          <span className="invalid-feedback">{isError.email}</span>
+                        )}
                       </div>
                       <div className="form-group">
                         <input type="password"
-                          className="form-control"
+                          className={isError.password.length > 0 ? "is-invalid form-control" : "form-control"}
                           placeholder="Password *"
                           name="password"
                           initialvalue={this.state.password}
-                          onChange={e => { this.setState({ password: e.target.value }) }}
+                          onChange={this.formValChange}
                         />
+                        {isError.password.length > 0 && (
+                          <span className="invalid-feedback">{isError.password}</span>
+                        )}
                       </div>
                     </div>
                     <input type="submit" className="btnRegister" value="Register" />
@@ -137,48 +199,62 @@ handleFiles(e){
                       <div className="col-md-12">
                         <div className="form-group">
                           <input
-                            onChange={e => { this.setState({ firstName: e.target.value }) }}
                             type="text"
-                            className="form-control"
+                            className={isError.firstName.length > 0 ? "is-invalid form-control" : "form-control"}
                             placeholder="First Name *"
                             name="firstName"
-                            initialvalue={this.state.firstName} />
+                            initialvalue={this.state.firstName}
+                            onChange={this.formValChange} />
+                          {isError.firstName.length > 0 && (
+                            <span className="invalid-feedback">{isError.firstName}</span>
+                          )}
                         </div>
                         <div className="form-group">
                           <input
-                            onChange={e => { this.setState({ lastName: e.target.value }) }}
+                            onChange={this.formValChange}
                             type="text"
-                            className="form-control"
+                            className={isError.lastName.length > 0 ? "is-invalid form-control" : "form-control"}
                             placeholder="Last Name *"
                             name="lastName"
                             initialvalue={this.state.lastName} />
+                          {isError.lastName.length > 0 && (
+                            <span className="invalid-feedback">{isError.lastName}</span>
+                          )}
                         </div>
                         <div className="form-group">
                           <input
-                            onChange={e => { this.setState({ password: e.target.value }) }}
                             type="password"
-                            className="form-control"
+                            onChange={this.formValChange}
+                            className={isError.password.length > 0 ? "is-invalid form-control" : "form-control"}
                             placeholder="Password *"
                             name="password"
                             initialvalue={this.state.password} />
+                          {isError.password.length > 0 && (
+                            <span className="invalid-feedback">{isError.password}</span>
+                          )}
                         </div>
                         <div className="form-group">
                           <input
-                            onChange={e => { this.setState({ email: e.target.value }) }}
+                            onChange={this.formValChange}
                             type="email"
-                            className="form-control"
+                            className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
                             placeholder="Enter your email *"
                             name="email"
                             initialvalue={this.state.email} />
+                          {isError.email.length > 0 && (
+                            <span className="invalid-feedback">{isError.email}</span>
+                          )}
                         </div>
                         <div className="form-group ">
                           <input
-                            onChange= {this.handleImage}
+                            onChange={this.handleFiles}
                             type="file"
                             className="form-control"
                             placeholder="Chosse a picture *"
                             name="profileImage"
-                            initialvalue={this.state.profileImage} />
+                            initialvalue={this.state.profileImg}
+                            accept="image/*"
+                          />
                         </div>
 
                         <input
