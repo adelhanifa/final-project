@@ -28,6 +28,7 @@ var upload = multer({
 
 router.get('/', controller.findAllUsers);
 router.post('/create',  upload.single('profileImg'), controller.createNewUser);
-router.post('/log-in', controller.loginUser)
+router.post('/log-in', controller.loginUser);
+router.post('/google-log-in', controller.googleLogIn);
 
 module.exports = router;

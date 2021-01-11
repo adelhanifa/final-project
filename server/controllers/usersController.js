@@ -85,3 +85,27 @@ exports.loginUser = (req, res) => {
     })
     .catch(err => res.status(400).json('Error: ' + err));
 }
+
+//google log in
+exports.googleLogIn = (req, res) => {
+    User.findOne({ googleID: req.body.googleID }, function (err, user) {
+        if (err) {
+            console.log(err);
+        }
+        if (user) {
+            //If User already exists login / return UserDB._id
+            res.send(user) 
+        } else { 
+            //create a new User and login / return UserDB._id
+            user = new User(req.body);
+            user.save(function (err, data) { 
+                if (err) {
+                    console.log(err);  
+                } else {
+                    console.log("saving user ...", data);
+                    res.send(user);
+                }
+            });
+        }
+    });
+}
