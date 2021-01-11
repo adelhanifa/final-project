@@ -15,26 +15,30 @@ class GoogleBtn extends Component {
   }
 
   login = (response) => {
+    console.log({response})
     if (response.accessToken) {
-      this.setState(state => ({
+      this.setState({
         isLogined: true,
         accessToken: response.accessToken
-      }));
+      });
     }
   }
 
   logout = (response) => {
-    this.setState(state => ({
+    console.log({response})
+    this.setState({
       isLogined: false,
       accessToken: ''
-    }));
+    });
   }
 
   handleLoginFailure = (response) => {
+    console.log({response})
     // alert('Failed to log in')
   }
 
   handleLogoutFailure = (response) => {
+    console.log({response})
     // alert('Failed to log out')
   }
 
@@ -57,7 +61,7 @@ class GoogleBtn extends Component {
             responseType='code,token'
           />
         }
-        { this.state.accessToken ? <h5>Your Access Token: <br /><br /> {this.state.accessToken}</h5> : null}
+        
 
       </div>
     )

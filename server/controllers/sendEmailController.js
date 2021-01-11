@@ -8,7 +8,7 @@ exports.contactForm = (req, res) => {
 
     console.log('******************************************');
     console.log('contactSendEmail', req.body);
-    // req.body ={ req.body.name, req.body.email, req.body.subject, req.body.message, req.body.dateFormat }
+   //  req.body ={ req.body.name, req.body.email, req.body.subject, req.body.message, req.body.dateFormat }
 
     const msg = {
         to: 'adelhanifh@gmail.com',

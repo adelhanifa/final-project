@@ -27,7 +27,7 @@ class FormUser extends React.Component {
   formValChange = e => {
     e.preventDefault();
     const { name, value } = e.target;
-    let regExp = RegExp(/^[a-zA-Z0-9][.-_/]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
+    let regExp = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
     let isError = { ...this.state.isError };
 
     switch (name) {
