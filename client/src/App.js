@@ -12,21 +12,24 @@ import IntroPage from "./components/IntroPage";
 //  import FormTest from "./components/FormTest";
 // import FormUser2 from "./components/FormUser2";
 import FormUser from "./components/FormUser";
+import ProfilePage from "./components/ProfilePage";
+import history from "./history";
+
 // import FormTest2 from "./components/FormTest2";
 
 
 function App() {
 
   return (
-    <div className="App">
-      <Router>
+    <div>
+      <Router history={history}>
         <Route path='/' exact component={IntroPage} />
         <Route path='/aboutus' exact component={AboutUs} />
         <Route path='/login/register' exact component={FormUser} />
+        <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/create/goal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CreateGoals} />
       </Router>
-
     </div>
   );
 }

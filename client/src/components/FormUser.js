@@ -3,11 +3,12 @@ import '../cssComponents/form-user.css';
 import axios from 'axios';
 import formValid from "../formValid";
 import GoogleBtn from './GoogleBtn';
-// import history from "../history";
+import {connect} from 'react-redux';
+import {signInUser} from "../actions"
+ import history from "../history";
 class FormUser extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       firstName: '',
       lastName: '',
@@ -67,14 +68,22 @@ class FormUser extends React.Component {
       email: event.target.email.value,
       password: event.target.password.value
     }
-
     if (this.state.isError.email && this.state.isError.password) return " "
     else {
       this.setState(user);
       console.log({ state: this.state })
+      this.props.signInUser(user) 
       axios.post('/user/log-in', user)
-    }
+      .then(res => {
+        console.log({data:res.data})
+        // this.props.signInUser(res.data) 
+        history.push('/user/profile');
 
+      })
+
+        
+    }
+   
   }
 
   handleFiles = (e) => {
@@ -270,4 +279,4 @@ class FormUser extends React.Component {
     )
   }
 }
-export default FormUser;
+export default connect(null, {signInUser})(FormUser);
