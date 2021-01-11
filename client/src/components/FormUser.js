@@ -2,10 +2,11 @@ import React from 'react'
 import '../form-user.css';
 import axios from 'axios';
 import formValid from "../formValid";
+import GoogleBtn from './GoogleBtn';
+// import history from "../history";
 class FormUser extends React.Component {
   constructor(props) {
     super(props);
-
 
     this.state = {
       firstName: '',
@@ -27,7 +28,7 @@ class FormUser extends React.Component {
   formValChange = e => {
     e.preventDefault();
     const { name, value } = e.target;
-    let regExp = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
+    let regExp = RegExp(/^[a-zA-Z0-9][.-_/]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
     let isError = { ...this.state.isError };
 
     switch (name) {
@@ -76,31 +77,11 @@ class FormUser extends React.Component {
 
   }
 
-
   handleFiles = (e) => {
     console.log({ fileImg: e.target.files[0] })
     let fileImg = e.target.files[0];
     // this.verifyImage(fileImg)
     this.setState({ profileImg: fileImg })
-  }
-  verifyImage = (img) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.addEventListener('load', event => {
-        let picFile = event.target
-        let imgNew = new Image()
-        imgNew.addEventListener('load', () => {
-          resolve(reader.result)
-        })
-        imgNew.addEventListener('error', () => {
-          reject()
-        })
-        imgNew.src = picFile.result
-        console.log({ picFile: picFile.result })
-      })
-      reader.readAsDataURL(img)
-      console.log(reader.readAsDataURL(img))
-    })
   }
 
   onSubmitFormUser = (event) => {
@@ -138,7 +119,6 @@ class FormUser extends React.Component {
       console.log("Form is invalid!");
     }
     console.log({ state: this.state })
-
   }
 
   render() {
@@ -152,10 +132,11 @@ class FormUser extends React.Component {
               <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
               <h3>Welcome</h3>
               <p>Be one of the on Target members!</p>
-              <button className="ui red google button">
+              {/* <button className="ui red google button" >
                 <i className="google icon" />
                 Sign in using google
-             </button>
+             </button> */}
+              <GoogleBtn/>
               <br />
             </div>
 
@@ -168,7 +149,6 @@ class FormUser extends React.Component {
                   <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sign Up</a>
                 </li>
               </ul>
-
               <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <h3 className="register-heading mt-2"> You have an account!! <b className="text-danger"> Sign in</b></h3>
@@ -271,7 +251,6 @@ class FormUser extends React.Component {
                             accept="image/*"
                           />
                         </div>
-
                         <input
                           type="submit"
                           className="btnRegister"
