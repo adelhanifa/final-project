@@ -1,5 +1,5 @@
 import React from 'react'
-import '../form-user.css';
+import '../cssComponents/form-user.css';
 import axios from 'axios';
 import formValid from "../formValid";
 import GoogleBtn from './GoogleBtn';
