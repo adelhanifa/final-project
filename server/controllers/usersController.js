@@ -61,7 +61,7 @@ exports.createNewUser = (req, res) => {
                 }
             })
         })
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => {res.json('Error: ' + err);       console.log(err)    });
     }); 
 }
 
