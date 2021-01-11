@@ -20,7 +20,8 @@ class FormUser extends React.Component {
         email: '',
         password: '',
         profileImg: ''
-      }
+      },
+      emailUsed: false
     }
   }
 
@@ -98,7 +99,19 @@ class FormUser extends React.Component {
 
     axios.post("/user/create", formData, {})
     .then(res => {
-      console.log(res.data)
+      console.log(res)
+      console.log(typeof res.data)
+      if (typeof res.data === 'string'){
+        this.setState({emailUsed: true})
+        console.log(this.state.emailUsed)
+      }
+      else {
+        window.location ='/'
+      }
+      
+    })
+    .catch(err => {
+      console.log(err.data) 
     })
 
 
@@ -112,7 +125,8 @@ class FormUser extends React.Component {
   }
 
   render() {
-    const { isError } = this.state;
+    const { isError, emailUsed } = this.state;
+    console.log(emailUsed)
     return (
       <>
         <div className="container register">
@@ -141,7 +155,11 @@ class FormUser extends React.Component {
               <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <h3 className="register-heading mt-2"> You have an account!! <b className="text-danger"> Sign in</b></h3>
-
+                  {emailUsed ? 
+                    <h2>This email is already exist, try to log in.</h2>
+                    :
+                    ''
+                  }
                   <form onSubmit={this.onSubmitSignIn} className="row register-form">
                     <div className="col-md-12">
                       <div className="form-group">
@@ -168,6 +186,7 @@ class FormUser extends React.Component {
                         )}
                       </div>
                     </div>
+                    
                     <input type="submit" className="btnRegister" value="Register" />
                   </form>
                 </div>
