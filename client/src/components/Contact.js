@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React ,{ useState } from "react";
 
 const Contact = () => {
-  // const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' })
+  const [msg, setMsg] = useState('')
   const onSubmitContact = (e) => {
     e.preventDefault();
     const  newContact= {
@@ -14,7 +14,11 @@ const Contact = () => {
     // setContactForm(contactForm)
     // console.log({ contactForm })
     axios.post('/send-email/contact-form', newContact)
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response.data)
+        if (response.data.status) setMsg(response.data.msg)
+        else setMsg(response.data.msg)
+      })
       .catch(err => console.log(err))
   }
   return (
@@ -64,7 +68,9 @@ const Contact = () => {
                   id="name"
                   placeholder="Your Name"
                   data-rule="minlen:4"
-                  data-msg="Please enter at least 4 chars" />
+                  data-msg="Please enter at least 4 chars" 
+                  required
+                />
                 <div className="validate"></div>
               </div>
               <div className="form-group col-md-6">
@@ -91,6 +97,7 @@ const Contact = () => {
                 placeholder="Subject"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 8 chars of subject"
+                required
               />
               <div className="validate"></div>
             </div>
@@ -102,14 +109,17 @@ const Contact = () => {
                 rows="5"
                 data-rule="required"
                 data-msg="Please write something for us"
-                placeholder="Message">
+                placeholder="Message"
+                required
+              >
               </textarea>
               <div className="validate"></div>
             </div>
             <div className="mb-3">
-              <div className="loading">Loading</div>
-              <div className="error-message"></div>
-              <div className="sent-message">Your message has been sent. Thank you!</div>
+              {
+                msg &&
+                <div className="sent-message" >{msg}</div>
+              }
             </div>
             <div className="text-center">
               <button type="submit">Send Message</button></div>
