@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom'
 
 const NavBar = () => {
     return (
-        <header className="header float-right" id="header">
-           
+        <header className="header float-right" id="header">          
             <nav className="navbar navbar-expand-lg ">
                 <a href="/" className="scrollto float-left ">
                     <img className=" mylogo" src="assets/img/logo/right-red_white.png" alt="logo" title="" />

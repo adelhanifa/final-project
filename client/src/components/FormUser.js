@@ -29,7 +29,7 @@ class FormUser extends React.Component {
   formValChange = e => {
     e.preventDefault();
     const { name, value } = e.target;
-    let regExp = RegExp(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
+    let regExp = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
     let isError = { ...this.state.isError };
 
     switch (name) {
@@ -72,12 +72,12 @@ class FormUser extends React.Component {
     else {
       this.setState(user);
       console.log({ state: this.state })
-      this.props.signInUser(user)
+      // this.props.signInUser(user)
       axios.post('/user/log-in', user)
         .then(res => {
           console.log({ data: res.data })
-          // this.props.signInUser(res.data) 
-          this.props.history.push('/')
+           this.props.signInUser(res.data) 
+          this.props.history.push('/user/profile')
         })
 
 
@@ -143,7 +143,7 @@ class FormUser extends React.Component {
               <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
               <h3>Welcome</h3>
               <p>Be one of the on Target members!</p>
-              
+
               <GoogleBtn />
               <br />
             </div>
