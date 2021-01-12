@@ -13,13 +13,12 @@ import IntroPage from "./components/IntroPage";
 // import FormUser2 from "./components/FormUser2";
 import FormUser from "./components/FormUser";
 import ProfilePage from "./components/ProfilePage";
-import history from "./history";
-
+import { useHistory } from "react-router-dom";
 // import FormTest2 from "./components/FormTest2";
 
 
 function App() {
-
+let history = useHistory();
   return (
     <div>
       <Router history={history}>

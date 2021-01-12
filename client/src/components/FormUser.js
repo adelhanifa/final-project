@@ -3,9 +3,9 @@ import '../cssComponents/form-user.css';
 import axios from 'axios';
 import formValid from "../formValid";
 import GoogleBtn from './GoogleBtn';
-import {connect} from 'react-redux';
-import {signInUser} from "../actions"
- import history from "../history";
+import { connect } from 'react-redux';
+import { signInUser } from "../actions"
+
 class FormUser extends React.Component {
   constructor(props) {
     super(props);
@@ -35,11 +35,11 @@ class FormUser extends React.Component {
     switch (name) {
       case "firstName":
         isError.firstName =
-          value.length < 4 ? "Atleast 4 characaters required" : "";
+          value.length < 2 ? "Atleast 2 characaters required" : "";
         break;
       case "lastName":
         isError.lastName =
-          value.length < 4 ? "Atleast 4 characaters required" : "";
+          value.length < 2 ? "Atleast 2 characaters required" : "";
         break;
       case "email":
         isError.email = regExp.test(value)
@@ -72,18 +72,17 @@ class FormUser extends React.Component {
     else {
       this.setState(user);
       console.log({ state: this.state })
-      this.props.signInUser(user) 
+      this.props.signInUser(user)
       axios.post('/user/log-in', user)
-      .then(res => {
-        console.log({data:res.data})
-        // this.props.signInUser(res.data) 
-        history.push('/user/profile');
+        .then(res => {
+          console.log({ data: res.data })
+          // this.props.signInUser(res.data) 
+          this.props.history.push('/')
+        })
 
-      })
 
-        
     }
-   
+
   }
 
   handleFiles = (e) => {
@@ -107,21 +106,21 @@ class FormUser extends React.Component {
     console.log({ formData })
 
     axios.post("/user/create", formData, {})
-    .then(res => {
-      console.log(res)
-      console.log(typeof res.data)
-      if (typeof res.data === 'string'){
-        this.setState({emailUsed: true})
-        console.log(this.state.emailUsed)
-      }
-      else {
-        window.location ='/'
-      }
-      
-    })
-    .catch(err => {
-      console.log(err.data) 
-    })
+      .then(res => {
+        console.log(res)
+        console.log(typeof res.data)
+        if (typeof res.data === 'string') {
+          this.setState({ emailUsed: true })
+          console.log(this.state.emailUsed)
+        }
+        else {
+          this.props.history.push('/login/register')
+        }
+
+      })
+      .catch(err => {
+        console.log(err.data)
+      })
 
 
     if (formValid(this.state)) {
@@ -144,11 +143,8 @@ class FormUser extends React.Component {
               <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
               <h3>Welcome</h3>
               <p>Be one of the on Target members!</p>
-              {/* <button className="ui red google button" >
-                <i className="google icon" />
-                Sign in using google
-             </button> */}
-              <GoogleBtn/>
+              
+              <GoogleBtn />
               <br />
             </div>
 
@@ -164,7 +160,7 @@ class FormUser extends React.Component {
               <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <h3 className="register-heading mt-2"> You have an account!! <b className="text-danger"> Sign in</b></h3>
-                  {emailUsed ? 
+                  {emailUsed ?
                     <h2>This email is already exist, try to log in.</h2>
                     :
                     ''
@@ -195,7 +191,7 @@ class FormUser extends React.Component {
                         )}
                       </div>
                     </div>
-                    
+
                     <input type="submit" className="btnRegister" value="Register" />
                   </form>
                 </div>
@@ -279,4 +275,4 @@ class FormUser extends React.Component {
     )
   }
 }
-export default connect(null, {signInUser})(FormUser);
+export default connect(null, { signInUser })(FormUser);
