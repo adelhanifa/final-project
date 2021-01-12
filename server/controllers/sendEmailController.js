@@ -30,10 +30,10 @@ exports.contactForm = (req, res) => {
     sgMail.send(msg, (err, info) => {
         if (err) {
             console.log('Email not Sent', err)
-            res.send('Email not Sent', err)
+            res.send({status: false , msg :'Email not Sent, check the inputs again!', err: err})
         } else {
             console.log('Your message has been sent. Thank you!')
-            res.send('Your message has been sent. Thank you!')
+            res.send({status: true , msg :'Your message has been sent. Thank you!', err: err})
         }
     })
 }
@@ -47,7 +47,7 @@ exports.resetPassword = (req, res) => {
 
     User.findOne({ email: req.body.email }, (err, data) => {
         if (data == null) {
-            res.send('No account matches this email: ' + req.body.email);
+            res.send({status: false , msg :'No account matches this email: '+ req.body.email, err: err});
         }
         else {
             const msg = {
@@ -67,14 +67,13 @@ exports.resetPassword = (req, res) => {
                     <p>This email was sent at ${req.body.dateFormat}</p>
                 </div>`
             }
-            console.log('msg', msg);
             sgMail.send(msg, (err, info) => {
                 if (err) {
                     console.log('Email not Sent', err)
-                    res.send('Email not Sent', err)
+                    res.send({status: false , msg :'Email not Sent, check the inputs again!', err: err})
                 } else {
                     console.log('Your message has been sent. Thank you!')
-                    res.send('Reset Password email has been sent to you. Thank you!')
+                    res.send({status: true , msg :'Reset Password email has been sent to you. Thank you!', err: err})
                 }
             })
         }

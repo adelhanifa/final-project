@@ -6,8 +6,18 @@ const bcrypt = require('bcrypt');
 // get all users
 exports.findAllUsers = (req, res) => {
     User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then(users => res.send({status: 'all users found' , user: users , err: null}))
+    .catch(err => {console.log(err); res.send({status: 'all users  not found' , user: null , err: err})})
+}
+
+// checkEmailUsed
+exports.checkEmailUsed = (req, res) => {
+    User.findOne({email : req.params.email})
+    .then(user => {
+        if (user) res.send(true)
+        else res.send(false)
+    })
+    .catch(err => {console.log(err); res.send({err: err})})
 }
 
 //create a new user with send email
@@ -50,18 +60,17 @@ exports.createNewUser = (req, res) => {
                     <p>This email was sent at ${date}</p>
                 </div>`
             }
-            console.log('msg', msg);
             sgMail.send(msg, (err, info) => {
                 if (err) {
                     console.log('Email not Sent', err)
-                    res.send({status: 'new user created but Email not Sent', userinfo: user, errMSG: err})
+                    res.send({status: 'new user created but Email not Sent', user: user, err: err})
                 } else {
                     console.log('Your message has been sent. Thank you!')
-                    res.send({status: 'new user created and confirm email has been sent to you', userinfo: user, errMSG: err})
+                    res.send({status: 'new user created and confirm email has been sent to you', user: user, err: err})
                 }
             })
         })
-        .catch(err => {res.json('Error: ' + err);       console.log(err)    });
+        .catch(err => { res.send({status: 'err' , user: null , err: err}); console.log(err) });
     }); 
 }
 
@@ -77,13 +86,13 @@ exports.loginUser = (req, res) => {
 
             // hash Pasword check
             bcrypt.compare(req.body.password, data.password, function (err, result) {
-                if (result == true) { res.json(data) }
-                else { res.json('Password not correct try again !') }
+                if (result == true) { res.send({isLogedIN: true , user: data , err: err}) }
+                else { res.send({isLogedIN: false , user: null , err: 'Password not correct try again !'}) }
             })
         }
-        else { res.json('User not found, check the email again !') }
+        else { res.send({isLogedIN: false , user: null , err: 'User not found, check the email again !'}) }
     })
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => res.send({isLogedIN: false , user: null , err: err}));
 }
 
 //google log in
@@ -91,19 +100,20 @@ exports.googleLogIn = (req, res) => {
     User.findOne({ googleID: req.body.googleID }, function (err, user) {
         if (err) {
             console.log(err);
+            res.send({isLogedIN: false , user: user , err: err});
         }
         if (user) {
-            //If User already exists login / return UserDB._id
-            res.send(user) 
+            //If User already exists login / return User Data
+            res.send({isLogedIN: true , user: user , err: err});
         } else { 
             //create a new User and login / return UserDB._id
             user = new User(req.body);
             user.save(function (err, data) { 
                 if (err) {
-                    console.log(err);  
+                    res.send({isLogedIN: false , user: user , err: err});
                 } else {
                     console.log("saving user ...", data);
-                    res.send(user);
+                    res.send({isLogedIN: true , user: user , err: err});
                 }
             });
         }
