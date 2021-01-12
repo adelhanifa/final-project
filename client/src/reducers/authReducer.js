@@ -1,22 +1,15 @@
 import { SIGN_IN, SIGN_OUT } from '../actions/types';
 
-const initialState = {
-    profile: {
-      firstName: '',
-      lastName: '',
-      password:'',
-      email: '',
-      profileImage: '',
-      interests: [],
-    },
-    formSubmitted: false
-  }
- function authReducer(state = initialState, action) {
+let myState = { isSignedIn: false, user: null }
+function authReducer(state = myState, action) {
   switch (action.type) {
     case SIGN_IN:
-      return { ...state, isSignedIn: true, userId: action.payload };
+      myState = { user: action.payload, isSignedIn: true }
+      console.log({ myState })
+      return myState;
     case SIGN_OUT:
-      return { ...state, isSignedIn: false, userId: null };
+      myState = { isSignedIn: false, user: null };
+      return myState;
     default:
       return state;
   }
