@@ -27,6 +27,7 @@ var upload = multer({
 });
 
 router.get('/', controller.findAllUsers);
+router.get('/checkEmailUsed/:email', controller.checkEmailUsed);
 router.post('/create',  upload.single('profileImg'), controller.createNewUser);
 router.post('/log-in', controller.loginUser);
 router.post('/google-log-in', controller.googleLogIn);

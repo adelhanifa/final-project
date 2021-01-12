@@ -6,8 +6,18 @@ const bcrypt = require('bcrypt');
 // get all users
 exports.findAllUsers = (req, res) => {
     User.find()
-    .then(users => res.send({status: 'all users found' , user: users , err: err}))
-    .catch(err => res.send({status: 'all users  not found' , user: null , err: err}))
+    .then(users => res.send({status: 'all users found' , user: users , err: null}))
+    .catch(err => {console.log(err); res.send({status: 'all users  not found' , user: null , err: err})})
+}
+
+// checkEmailUsed
+exports.checkEmailUsed = (req, res) => {
+    User.findOne({email : req.params.email})
+    .then(user => {
+        if (user) res.send(true)
+        else res.send(false)
+    })
+    .catch(err => {console.log(err); res.send({err: err})})
 }
 
 //create a new user with send email
