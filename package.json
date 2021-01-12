@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/adelhanifa/final-project#readme",
   "dependencies": {
-    "concurrently": "*"
+    "concurrently": "^5.3.0"
   }
 }
