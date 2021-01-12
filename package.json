@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "backend": "npm start --prefix backend",
-    "frontend":"npm start --prefix frontend",
-    "start": "concurrently \"npm run backend\" \"npm run frontend\""
+    "install": "concurrently \"npm install --prefix server\" \"npm install --prefix client\"",
+    "start": "concurrently \"npm start --prefix server\"  \"npm start --prefix client\""
   },
   "repository": {
     "type": "git",
@@ -23,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/adelhanifa/final-project/issues"
   },
-  "homepage": "https://github.com/adelhanifa/final-project#readme"
+  "homepage": "https://github.com/adelhanifa/final-project#readme",
+  "dependencies": {
+    "concurrently": "*"
+  }
 }
