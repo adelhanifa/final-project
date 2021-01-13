@@ -2,21 +2,27 @@ import React from 'react';
 import '../cssComponents/profile.css';
 import { connect } from 'react-redux';
 import HeaderProfile from './HeaderProfile';
-
+import axios from 'axios'
 class ProfilePage extends React.Component {
-    state = { isLogedIn, user }
+    constructor() {
+        super()
+        let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+        this.state = { user: loggedInUser }
+    }
+
 
     componentDidMount() {
-        axios.get("/user/checkLogInUser/")
-            .then(res => {
-                console.log(res.data)
-                this.setState(res.data)
-            })
-            .catch(err => console.log(err))
+    
+        let profileImgSplit=this.state.user.profileImg.split('/public')
+        console.log({profileImgSplit})
+        let user=this.state.user
+        user.profileImg= profileImgSplit[1]
+        this.setState(user)
+     
     }
 
     render() {
-        if (this.state.isLogedIn) {
+        if (this.state.user) {
             let { firstName, lastName, email, profileImg } = this.state.user
             return (
                 <>

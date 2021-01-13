@@ -77,7 +77,6 @@ exports.loginUser = (req, res) => {
         .then(data => {
             console.log(data)
             if (data) {
-
                 // hash Pasword check
                 bcrypt.compare(req.body.password, data.password, function (err, result) {
                     if (result == true) {

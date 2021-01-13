@@ -26,19 +26,19 @@ class FormUser extends React.Component {
     }
   }
 
-  componentDidMount() {
-    axios.get("/user/checkLogInUser/")
-      .then(res => {
-        console.log(res.data)
-        if (res.data.isLogedIN === true) {
-          
-        }
-        else {
-          
-        }
-      })
-      .catch(err => console.log(err))
-  }
+  // componentDidMount() {
+  //   axios.get("/user/checkLogInUser/")
+  //     .then(res => {
+  //       console.log(res.data)
+  //       if (res.data.isLogedIN === true) {
+
+  //       }
+  //       else {
+
+  //       }
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
   formValChange = e => {
     e.preventDefault();
@@ -90,7 +90,7 @@ class FormUser extends React.Component {
       axios.post('/user/log-in', user)
         .then(res => {
           console.log({ data: res.data })
-          this.props.signInUser(res.data)
+          // this.props.signInUser(res.data)
           localStorage.setItem('loggedInUser', JSON.stringify(res.data.user));
           this.props.history.push('/user/profile')
         })
@@ -157,18 +157,11 @@ class FormUser extends React.Component {
         .catch(err => console.log(err))
     }
 
-    // if (formValid(this.state)) {
-    //   console.log(this.state)
-    //   // axios.post('/user/signup', newUser)
-    // } else {
-    //   console.log("Form is invalid!");
-    // }
-    // console.log({ state: this.state })
   }
 
   render() {
     const { isError } = this.state;
-    // console.log(emailUsed)
+
     return (
       <>
         <div className="container register">
@@ -307,7 +300,7 @@ class FormUser extends React.Component {
             </div>
           </div>
         </div>
-        <img src="/img/profileImg-1610398450931.jpg" width="100" height="100"/>
+        {/* <img src="/img/profileImg-1610398450931.jpg" width="100" height="100" alt='pic' /> */}
       </>
     )
   }
