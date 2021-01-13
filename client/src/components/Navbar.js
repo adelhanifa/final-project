@@ -11,7 +11,7 @@ const NavBar = () => {
                     <img className=" mylogo" src="assets/img/logo/right-red_white.png" alt="logo" title="" />
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon navbar-light"  >
+                    <span className="navbar-toggler-icon navbar-light">
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
@@ -26,7 +26,7 @@ const NavBar = () => {
                         <li><SLink to="contact" offset={-70} smooth={true}>Contact</SLink></li>
                         <li><Link to="/user/profile">profile</Link></li>
                         <li><Link to="/login/register">login/register</Link></li>
-                        <li><Link to="/sign out" >sign out</Link></li>
+                        <li><Link to="/sign out">sign out</Link></li>
                         <li className="buy-tickets"><a href="/">Create Goal</a></li>
                     </ul>
                 </div>

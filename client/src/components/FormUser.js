@@ -5,7 +5,7 @@ import axios from 'axios';
 import GoogleBtn from './GoogleBtn';
 import { connect } from 'react-redux';
 import { signInUser } from "../actions"
-
+import HeaderProfile from './HeaderProfile'
 
 class FormUser extends React.Component {
   constructor(props) {
@@ -163,7 +163,8 @@ class FormUser extends React.Component {
     const { isError } = this.state;
 
     return (
-      <>
+      <div className="body-page">
+        <HeaderProfile />
         <div className="container register">
           <div className="row">
             <div className="col-md-3 register-left">
@@ -233,7 +234,7 @@ class FormUser extends React.Component {
                             initialvalue={this.state.firstName}
                             onChange={this.formValChange}
                             required />
-                          {isError.firstName.length > 0 && (
+                            {isError.firstName.length > 0 && (
                             <span className="invalid-feedback">{isError.firstName}</span>
                           )}
                         </div>
@@ -300,8 +301,8 @@ class FormUser extends React.Component {
             </div>
           </div>
         </div>
-        {/* <img src="/img/profileImg-1610398450931.jpg" width="100" height="100" alt='pic' /> */}
-      </>
+
+      </div>
     )
   }
 }
