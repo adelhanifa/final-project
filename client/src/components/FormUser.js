@@ -26,6 +26,20 @@ class FormUser extends React.Component {
     }
   }
 
+  componentDidMount() {
+    axios.get("/user/checkLogInUser/")
+      .then(res => {
+        console.log(res.data)
+        if (res.data.isLogedIN === true) {
+          
+        }
+        else {
+          
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
   formValChange = e => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -293,6 +307,7 @@ class FormUser extends React.Component {
             </div>
           </div>
         </div>
+        <img src="/img/profileImg-1610398450931.jpg" width="100" height="100"/>
       </>
     )
   }

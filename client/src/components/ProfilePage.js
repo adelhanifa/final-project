@@ -4,18 +4,20 @@ import { connect } from 'react-redux';
 import HeaderProfile from './HeaderProfile';
 
 class ProfilePage extends React.Component {
-    state = { loggedInUser: [] }
+    state = { isLogedIn, user }
+
     componentDidMount() {
-        console.log({ propsUser: this.props })
-        let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
-        this.setState({ loggedInUser: loggedInUser })
-        console.log({ loggedInUser: JSON.parse(localStorage.getItem('loggedInUser')) })
-        console.log({ state: this.state.loggedInUser })
+        axios.get("/user/checkLogInUser/")
+            .then(res => {
+                console.log(res.data)
+                this.setState(res.data)
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
-        if (this.state.loggedInUser) {
-            let { firstName, lastName, email, profileImg } = this.state.loggedInUser
+        if (this.state.isLogedIn) {
+            let { firstName, lastName, email, profileImg } = this.state.user
             return (
                 <>
                     <div className="body-page">
@@ -59,13 +61,13 @@ class ProfilePage extends React.Component {
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label for="phone">Last Name</label>
-                                                        <input type="text"  initialvalue={lastName}  className="form-control myform-control" id="phone" placeholder="Update your last name" />
+                                                        <input type="text" initialvalue={lastName} className="form-control myform-control" id="phone" placeholder="Update your last name" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label for="eMail">Email</label>
-                                                        <input type="email"  initialvalue={email}  className="form-control myform-control" id="eMail" placeholder="Update your email " />
+                                                        <input type="email" initialvalue={email} className="form-control myform-control" id="eMail" placeholder="Update your email " />
                                                     </div>
                                                 </div>
 

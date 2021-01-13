@@ -4,6 +4,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 //DATABASE
 const dbLink = process.env.DBLink;
@@ -13,6 +14,10 @@ mongoose.connect(dbLink, { useNewUrlParser: true, useCreateIndex: true, useUnifi
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
+
+//setup a session
+app.use(session({ secret: process.env.SESSION_SECRET }));
 
 
 //Routers

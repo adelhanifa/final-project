@@ -3,21 +3,15 @@ sgMail.setApiKey(process.env.EmailAPI);
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
+const jwt = require('jsonwebtoken');
+const accessTokenSecret = process.env.TOKEN_SECRET;
+
+
 // get all users
 exports.findAllUsers = (req, res) => {
     User.find()
-    .then(users => res.send({status: 'all users found' , user: users , err: null}))
-    .catch(err => {console.log(err); res.send({status: 'all users  not found' , user: null , err: err})})
-}
-
-// checkEmailUsed
-exports.checkEmailUsed = (req, res) => {
-    User.findOne({email : req.params.email})
-    .then(user => {
-        if (user) res.send(true)
-        else res.send(false)
-    })
-    .catch(err => {console.log(err); res.send({err: err})})
+        .then(users => res.send({ status: 'all users found', user: users, err: null }))
+        .catch(err => { console.log(err); res.send({ status: 'all users  not found', user: null, err: err }) })
 }
 
 //create a new user with send email
@@ -26,7 +20,7 @@ exports.createNewUser = (req, res) => {
     console.log('req.file', req.file)
 
     const url = req.protocol + '://' + req.get('host');
-    req.body.profileImg =  url + '/public/img/' + req.file.filename
+    req.body.profileImg = url + '/public/img/' + req.file.filename
 
     console.log('******************************************');
 
@@ -35,18 +29,18 @@ exports.createNewUser = (req, res) => {
         if (err) throw err
         console.log('hash Pass:', hash)
         req.body.password = hash;
-        console.log('create user: ',req.body);
+        console.log('create user: ', req.body);
 
         const newUser = new User(req.body);
         newUser.save()
-        .then(user => {
-            let date = new Date()
+            .then(user => {
+                let date = new Date()
 
-            const msg = {
-                to: 'adelhanifh@gmail.com',
-                from: 'adelhanifh@gmail.com',
-                subject: user.firstName + ' ' + user.lastName + ' | confirm email address',
-                html: `
+                const msg = {
+                    to: 'adelhanifh@gmail.com',
+                    from: 'adelhanifh@gmail.com',
+                    subject: user.firstName + ' ' + user.lastName + ' | confirm email address',
+                    html: `
                 <div>                
                     <h1>Welcome to On Target</h1>
                     <h2>Hello ${user.firstName} ${user.lastName}</h2>
@@ -59,40 +53,52 @@ exports.createNewUser = (req, res) => {
                     <h4>Thank you</h4>
                     <p>This email was sent at ${date}</p>
                 </div>`
-            }
-            sgMail.send(msg, (err, info) => {
-                if (err) {
-                    console.log('Email not Sent', err)
-                    res.send({status: 'new user created but Email not Sent', user: user, err: err})
-                } else {
-                    console.log('Your message has been sent. Thank you!')
-                    res.send({status: 'new user created and confirm email has been sent to you', user: user, err: err})
                 }
+                sgMail.send(msg, (err, info) => {
+                    if (err) {
+                        console.log('Email not Sent', err)
+                        res.send({ status: 'new user created but Email not Sent', user: user, err: err })
+                    } else {
+                        console.log('Your message has been sent. Thank you!')
+                        res.send({ status: 'new user created and confirm email has been sent to you', user: user, err: err })
+                    }
+                })
             })
-        })
-        .catch(err => { res.send({status: 'err' , user: null , err: err}); console.log(err) });
-    }); 
+            .catch(err => { res.send({ status: 'err', user: null, err: err }); console.log(err) });
+    });
 }
 
 //user loged in 
 exports.loginUser = (req, res) => {
     console.log('******************************************');
-    console.log('log in user: ',req.body);
+    console.log('log in user: ', req.body);
 
     User.findOne({ email: req.body.email })
-    .then(data => {
-        console.log(data)
-        if (data) {
+        .then(data => {
+            console.log(data)
+            if (data) {
 
-            // hash Pasword check
-            bcrypt.compare(req.body.password, data.password, function (err, result) {
-                if (result == true) { res.send({isLogedIN: true , user: data , err: err}) }
-                else { res.send({isLogedIN: false , user: null , err: 'Password not correct try again !'}) }
-            })
-        }
-        else { res.send({isLogedIN: false , user: null , err: 'User not found, check the email again !'}) }
-    })
-    .catch(err => res.send({isLogedIN: false , user: null , err: err}));
+                // hash Pasword check
+                bcrypt.compare(req.body.password, data.password, function (err, result) {
+                    if (result == true) {
+
+                        //create token part 
+                        const payload = {
+                            id: data._id
+                        };
+                        const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
+                        req.session.token = token;
+                        req.session.user = data;
+                        req.session.isLogedIN = true;
+
+                        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                    }
+                    else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'Password not correct try again !' }) }
+                })
+            }
+            else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'User not found, check the email again !' }) }
+        })
+        .catch(err => res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err }));
 }
 
 //google log in
@@ -100,22 +106,67 @@ exports.googleLogIn = (req, res) => {
     User.findOne({ googleID: req.body.googleID }, function (err, user) {
         if (err) {
             console.log(err);
-            res.send({isLogedIN: false , user: user , err: err});
+            res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
         }
         if (user) {
             //If User already exists login / return User Data
-            res.send({isLogedIN: true , user: user , err: err});
-        } else { 
+
+            //create token part 
+            const payload = {
+                id: user._id
+            };
+            const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
+            req.session.token = token;
+            req.session.user = user;
+            req.session.isLogedIN = true;
+
+            res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+        } else {
             //create a new User and login / return UserDB._id
             user = new User(req.body);
-            user.save(function (err, data) { 
+            user.save(function (err, data) {
                 if (err) {
-                    res.send({isLogedIN: false , user: user , err: err});
+                    res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
                 } else {
                     console.log("saving user ...", data);
-                    res.send({isLogedIN: true , user: user , err: err});
+                    //create token part 
+                    const payload = {
+                        id: user._id
+                    };
+                    const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
+                    req.session.token = token;
+                    req.session.user = user;
+                    req.session.isLogedIN = true;
+
+                    res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
                 }
             });
         }
     });
+}
+
+// user log out
+exports.logoutUser = (req, res) => {
+    req.session.token = null;
+    req.session.user = null;
+    req.session.isLogedIN = false;
+    res.send({ isLogedIN: req.session.isLogedIN})
+}
+
+//check user logIn
+exports.checkLogInUser = (req, res) => {
+    if (req.session.isLogedIN || req.session.user )
+        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user }) 
+    else  
+        res.send({ isLogedIN: false, user: null }) 
+}
+
+// checkEmailUsed
+exports.checkEmailUsed = (req, res) => {
+    User.findOne({ email: req.params.email })
+        .then(user => {
+            if (user) res.send(true)
+            else res.send(false)
+        })
+        .catch(err => { console.log(err); res.send({ err: err }) })
 }
