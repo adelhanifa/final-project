@@ -11,15 +11,15 @@ class ProfilePage extends React.Component {
     }
 
 
-    componentDidMount() {
+    // componentDidMount() {
     
-        let profileImgSplit=this.state.user.profileImg.split('/public')
-        console.log({profileImgSplit})
-        let user=this.state.user
-        user.profileImg= profileImgSplit[1]
-        this.setState(user)
+    //     // let profileImgSplit=this.state.user.profileImg.split('/public')
+    //     // console.log({profileImgSplit})
+    //     let user=this.state.user
+    //     user.profileImg= profileImgSplit[1]
+    //     this.setState(user)
      
-    }
+    // }
 
     render() {
         if (this.state.user) {
