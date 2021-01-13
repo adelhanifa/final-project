@@ -19,8 +19,8 @@ exports.createNewUser = (req, res) => {
     console.log('req.body', req.body)
     console.log('req.file', req.file)
 
-    const url = req.protocol + '://' + req.get('host');
-    req.body.profileImg = url + '/public/img/' + req.file.filename
+    
+    req.body.profileImg = '/img/' + req.file.filename
 
     console.log('******************************************');
 
