@@ -1,11 +1,10 @@
 import React from 'react'
 import '../cssComponents/form-user.css';
 import axios from 'axios';
-// import formValid from "../formValid";
 import GoogleBtn from './GoogleBtn';
 import { connect } from 'react-redux';
 import { signInUser } from "../actions"
-import HeaderProfile from './HeaderNavbar'
+
 
 class FormUser extends React.Component {
   constructor(props) {
@@ -27,20 +26,6 @@ class FormUser extends React.Component {
       }
     }
   }
-
-  // componentDidMount() {
-  //   axios.get("/user/checkLogInUser/")
-  //     .then(res => {
-  //       console.log(res.data)
-  //       if (res.data.isLogedIN === true) {
-
-  //       }
-  //       else {
-
-  //       }
-  //     })
-  //     .catch(err => console.log(err))
-  // }
 
   formValChange = e => {
     e.preventDefault();
@@ -169,7 +154,15 @@ class FormUser extends React.Component {
 
     return (
       <div className="body-page">
-       <div className="bg-dark b-3 text-danger text-center"><h3>Sign In Page</h3></div>
+        <div className="bg-dark  p-2">
+          <div className="container d-flex justify-content-between">
+            <a href="/">
+              <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
+            </a>
+            <h3 className="text-light">Sign In Page</h3>
+          </div>
+        </div>
+        
         <div className="container register">
           <div className="row">
             <div className="col-md-3 register-left">
@@ -239,7 +232,7 @@ class FormUser extends React.Component {
                             initialvalue={this.state.firstName}
                             onChange={this.formValChange}
                             required />
-                            {isError.firstName.length > 0 && (
+                          {isError.firstName.length > 0 && (
                             <span className="invalid-feedback">{isError.firstName}</span>
                           )}
                         </div>

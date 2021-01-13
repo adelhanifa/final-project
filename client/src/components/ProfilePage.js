@@ -16,8 +16,14 @@ class ProfilePage extends React.Component {
             return (
                 <>
                     <div className="body-page">
-                        <HeaderNavbar />
-                        <h1 className="m-3 text-center text-danger">User Profile Page</h1>
+                        <div className="bg-dark  p-2">
+                            <div className="container d-flex justify-content-between">
+                                <a href="/">
+                                    <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
+                                </a>
+                                <h3 className="text-light">User Profile Page</h3>
+                            </div>
+                        </div>
                         <div className="container profile" >
                             <div className="row gutters">
                                 <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -28,8 +34,8 @@ class ProfilePage extends React.Component {
                                                     <div className="user-avatar">
                                                         <img src={profileImg} alt={firstName} />
                                                     </div>
-                                                    <h5 className="user-name">{firstName} {lastName}</h5>
-                                                    <h6 className="user-email">{email}</h6>
+                                                    <h5 className="user-name text-light font-weight-bolder">{firstName} {lastName}</h5>
+                                                    <h6 className="user-email text-light font-weight">{email}</h6>
                                                 </div>
                                                 <div className="about">
                                                     <h5 className="mb-2 text-primary">About</h5>
@@ -44,7 +50,7 @@ class ProfilePage extends React.Component {
                                         <div className="card-body">
                                             <div className="row gutters">
                                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <h6 className="mb-3 text-danger">Personal Details</h6>
+                                                    <h6 className="mb-3 text-danger font-weight-bolder">Personal Details</h6>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
@@ -69,7 +75,7 @@ class ProfilePage extends React.Component {
                                             </div>
                                             <div className="row gutters">
                                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <h6 className="mb-3 text-danger">Interessted Goals</h6>
+                                                    <h6 className="mb-3 text-danger font-weight-bolder">Interessted Goals</h6>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
