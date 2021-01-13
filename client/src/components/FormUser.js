@@ -10,7 +10,9 @@ import HeaderProfile from './HeaderProfile'
 class FormUser extends React.Component {
   constructor(props) {
     super(props);
+    let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
     this.state = {
+      user: loggedInUser,
       firstName: '',
       lastName: '',
       password: '',
@@ -160,6 +162,9 @@ class FormUser extends React.Component {
   }
 
   render() {
+    if (this.state.user) {
+      this.props.history.push('/user/profile')
+    }
     const { isError } = this.state;
 
     return (
