@@ -1,4 +1,4 @@
-# Final Project: A social goal sharing app where
+# Final Project: A social goal sharing app
 
 This project was developed by: [Asreen Ilyas](https://asreen.github.io/cv_portfolios/myPortfolioAsreen/) & [Adel Hanifa](https://adelhanifa.github.io/portfolio/).
 
@@ -9,7 +9,7 @@ This project was developed by: [Asreen Ilyas](https://asreen.github.io/cv_portfo
 ### To run the project just follow:
   - clone the code
   - open the root folder in VC
-  - write in the teminal 'npm i' than 'npm start'
+  - write in the teminal `npm install` than `npm start`
   - enjoy!
 
   ### Front end libraries and framewarks and packages
