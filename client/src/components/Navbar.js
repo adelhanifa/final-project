@@ -27,7 +27,7 @@ const NavBar = () => {
                         <li><Link to="/user/profile">profile</Link></li>
                         <li><Link to="/login/register">login/register</Link></li>
                         <li><Link to="/sign out" >sign out</Link></li>
-                        <li className="buy-tickets"><a href="#buy-tickets">Create Goal</a></li>
+                        <li className="buy-tickets"><a href="/">Create Goal</a></li>
                     </ul>
                 </div>
             </nav>

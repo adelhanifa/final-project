@@ -1,7 +1,7 @@
 import React from 'react'
 import '../cssComponents/form-user.css';
 import axios from 'axios';
-import formValid from "../formValid";
+// import formValid from "../formValid";
 import GoogleBtn from './GoogleBtn';
 import { connect } from 'react-redux';
 import { signInUser } from "../actions"
@@ -77,12 +77,11 @@ class FormUser extends React.Component {
         .then(res => {
           console.log({ data: res.data })
           this.props.signInUser(res.data)
+          localStorage.setItem('loggedInUser', JSON.stringify(res.data.user));
           this.props.history.push('/user/profile')
         })
-
-
     }
-
+    console.log({ loggedInUser: JSON.parse(localStorage.getItem('loggedInUser')) })
   }
 
   handleFiles = (e) => {
@@ -120,7 +119,7 @@ class FormUser extends React.Component {
             console.log('This email is already exist, try to log in.')
             let isError = this.state.isError
             isError.email = 'This email is already exist, try to log in.'
-            this.setState({ isError  })
+            this.setState({ isError })
           }
           else {
             axios.post("/user/create", formData, {})
@@ -130,8 +129,8 @@ class FormUser extends React.Component {
                   console.log(res.data.err)
                 }
                 else {
-                  console.log('isLoged in :'+ res.data.status)
-                  console.log('userInfo :'+ res.data.user)
+                  console.log('isLoged in :' + res.data.status)
+                  console.log('userInfo :' + res.data.user)
                   this.props.history.push('/login/register')
                 }
 
@@ -190,7 +189,7 @@ class FormUser extends React.Component {
                           placeholder="Enter your email *"
                           name="email"
                           initialvalue={this.state.email}
-                          onChange={this.formValChange} 
+                          onChange={this.formValChange}
                           required />
                         {isError.email.length > 0 && (
                           <span className="invalid-feedback">{isError.email}</span>
@@ -225,7 +224,7 @@ class FormUser extends React.Component {
                             placeholder="First Name *"
                             name="firstName"
                             initialvalue={this.state.firstName}
-                            onChange={this.formValChange} 
+                            onChange={this.formValChange}
                             required />
                           {isError.firstName.length > 0 && (
                             <span className="invalid-feedback">{isError.firstName}</span>
@@ -238,7 +237,7 @@ class FormUser extends React.Component {
                             className={isError.lastName.length > 0 ? "is-invalid form-control" : "form-control"}
                             placeholder="Last Name *"
                             name="lastName"
-                            initialvalue={this.state.lastName} 
+                            initialvalue={this.state.lastName}
                             required />
                           {isError.lastName.length > 0 && (
                             <span className="invalid-feedback">{isError.lastName}</span>
@@ -251,7 +250,7 @@ class FormUser extends React.Component {
                             className={isError.password.length > 0 ? "is-invalid form-control" : "form-control"}
                             placeholder="Password *"
                             name="password"
-                            initialvalue={this.state.password} 
+                            initialvalue={this.state.password}
                             required />
                           {isError.password.length > 0 && (
                             <span className="invalid-feedback">{isError.password}</span>
@@ -264,8 +263,8 @@ class FormUser extends React.Component {
                             className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
                             placeholder="Enter your email *"
                             name="email"
-                            initialvalue={this.state.email} 
-                            required/>
+                            initialvalue={this.state.email}
+                            required />
                           {isError.email.length > 0 && (
                             <span className="invalid-feedback">{isError.email}</span>
                           )}
@@ -278,7 +277,7 @@ class FormUser extends React.Component {
                             placeholder="Chosse a picture *"
                             name="profileImg"
                             initialvalue={this.state.profileImg}
-                            accept="image/*" 
+                            accept="image/*"
                             required />
                         </div>
                         <input
