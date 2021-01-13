@@ -21,23 +21,19 @@ class GoogleBtn extends Component {
         googleID: response.profileObj.googleId,
         firstName: response.profileObj.name.split(' ')[0],
         lastName: response.profileObj.name.split(' ')[1],
-        email: response.profileObj.email
+        email: response.profileObj.email,
+        profileImg: response.profileObj.imageUrl
       }
       console.log('gUser', gUser)
       axios.post("/user/google-log-in", gUser, {})
         .then(res => {
           console.log('axios res', res)
-          // console.log(typeof res.data)
-          // if (typeof res.data === 'string'){
-          //   this.setState({emailUsed: true})
-          //   console.log(this.state.emailUsed)
-          // }
-          // else {
-          //   window.location ='/'
-          // }
+          localStorage.setItem('loggedInUser', JSON.stringify(res.data.user));
+          window.location = '/user/profile'
+
         })
         .catch(err => {
-          console.log(err.data)
+          console.log({ dataGoogle: err })
         })
     }
     // window.location ='/'
@@ -74,7 +70,7 @@ class GoogleBtn extends Component {
             responseType='code,token'
           />
         }
-        { this.state.accessToken ? <h5>Your Access Token: <br /><br /> {this.state.accessToken}</h5> : null}
+       
       </div>
     )
   }
