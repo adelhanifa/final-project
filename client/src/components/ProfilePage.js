@@ -6,10 +6,21 @@ import axios from 'axios';
 
 class ProfilePage extends React.Component {
     state = { isLogedIn: false }
+
     componentDidMount() {
-        console.log({propsUser:this.props})
-        // axios.get('')
-    }
+        axios.get("/user/checkLogInUser/")
+          .then(res => {
+            console.log(res.data)
+            if (res.data.isLogedIN === true) {
+              
+            }
+            else {
+              
+            }
+          })
+          .catch(err => console.log(err))
+      }
+      
     render() {
         if (this.props.isSignedIn) {
             console.log(this.props)
