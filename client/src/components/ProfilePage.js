@@ -97,7 +97,7 @@ class ProfilePage extends React.Component {
                 </>
             )
         } else {
-            this.props.history.push('/')
+            this.props.history.push('/login/register')
             return 'error'
         }
     }
