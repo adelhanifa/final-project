@@ -25,7 +25,7 @@ class NavBar extends React.Component {
             <header className="header float-right" id="header">
                 <nav className="navbar navbar-expand-lg ">
                     <a href="/" className="scrollto float-left ">
-                        <img className=" mylogo" src="assets/img/logo/right-red_white.png" alt="logo" title="" />
+                        <img className="mylogo" src="assets/img/logo/right-red_white.png" alt="logo" title="" />
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon navbar-light"  >

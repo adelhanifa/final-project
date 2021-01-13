@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from './NavBar';
+import HeaderNavbar from './HeaderNavbar'
 import { Link } from "react-router-dom";
 import AboutUs from "./AboutUs";
 import TeamWorker from './TeamWorker';
@@ -9,7 +10,7 @@ const IntroPage = () => {
     let d = new Date();
     return (
         <>
-            <NavBar />
+           <HeaderNavbar/>
             <section id="intro">
                 <div className="intro-container" data-aos="zoom-in" data-aos-delay="100">
                     <h3 className="mb-4 pb-0">Your Platform <br /><span>The Power of Sharing <br /> Your Goals </span><br />  with others </h3>

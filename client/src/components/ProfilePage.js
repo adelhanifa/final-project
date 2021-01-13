@@ -1,7 +1,7 @@
 import React from 'react';
 import '../cssComponents/profile.css';
 import { connect } from 'react-redux';
-import HeaderProfile from './HeaderProfile';
+import HeaderNavbar from './HeaderNavbar';
 
 class ProfilePage extends React.Component {
     constructor() {
@@ -16,7 +16,7 @@ class ProfilePage extends React.Component {
             return (
                 <>
                     <div className="body-page">
-                        <HeaderProfile />
+                        <HeaderNavbar />
                         <h1 className="m-3 text-center text-danger">User Profile Page</h1>
                         <div className="container profile" >
                             <div className="row gutters">

@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 .header {
   height: 90px;
-  padding: 25px 0;
+  /* padding: 25px 0; */
   position: fixed;
   left: 0;
   top: 0;
@@ -219,7 +219,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-menu ul {
   position: absolute;
-  display: none;
+  display: none; 
   top: 100%;
   left: 0;
   z-index: 99;
@@ -277,7 +277,7 @@ h1, h2, h3, h4, h5, h6 {
   #nav-menu-container {
     display: none;
   }
-  .navbar-nav{
+  #navbarNav{
     background: rgba(6, 12, 34, 0.98);
   }
   
@@ -489,7 +489,6 @@ body.mobile-nav-active #mobile-nav {
 body.mobile-nav-active #navbar-toggler {
   color: #fff;
 }
-
 /*--------------------------------------------------------------
 # Intro Section
 --------------------------------------------------------------*/

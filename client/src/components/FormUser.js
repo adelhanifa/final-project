@@ -5,7 +5,7 @@ import axios from 'axios';
 import GoogleBtn from './GoogleBtn';
 import { connect } from 'react-redux';
 import { signInUser } from "../actions"
-import HeaderProfile from './HeaderProfile'
+import HeaderProfile from './HeaderNavbar'
 
 class FormUser extends React.Component {
   constructor(props) {
@@ -169,7 +169,7 @@ class FormUser extends React.Component {
 
     return (
       <div className="body-page">
-        <HeaderProfile />
+       <div className="bg-dark b-3 text-danger text-center"><h3>Sign In Page</h3></div>
         <div className="container register">
           <div className="row">
             <div className="col-md-3 register-left">
