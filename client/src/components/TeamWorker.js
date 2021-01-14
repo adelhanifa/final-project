@@ -11,7 +11,7 @@ const TeamWorker = () => {
           <div className="row justify-content-lg-center">
             <div className="col-lg-4 col-md-6">
               <div className="speaker" data-aos="fade-up" data-aos-delay="100">
-                <img src="assets/img/intro-bg2.png" alt="Speaker 1" className="img-fluid"/>
+                <img src="assets/img/team1.jpg" alt="Speaker 1" className="img-fluid"/>
                 <div className="details">
                   <h3><a href="https://asreen.github.io/cv_portfolios/myPortfolioAsreen/index.html">Asreen Ilyas</a></h3>
                   <p>Web-developer</p>
@@ -26,7 +26,7 @@ const TeamWorker = () => {
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="speaker" data-aos="fade-up" data-aos-delay="200">
-                <img src="assets/img/intro-bg2.png" alt="Speaker 2" className="img-fluid" />
+                <img src="assets/img/team2.jpg" alt="Speaker 2" className="img-fluid" />
                 <div className="details">
                   <h3><a href="https://adelhanifa.github.io/portfolio/">Adel Hanifa</a></h3>
                   <p>Web-developer</p>

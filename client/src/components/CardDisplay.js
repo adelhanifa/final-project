@@ -3,9 +3,7 @@ import '../cssComponents/group-page.css';
 
 const CardDisplay = () => {
     return (
-
-        <div class="container">
-            
+        <div class="container">    
             <div class="row">
 
                 {/* <!-- Single Advisor--> */}

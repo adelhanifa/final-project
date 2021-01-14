@@ -155,14 +155,14 @@ class FormUser extends React.Component {
     return (
       <div className="body-page">
         <div className="bg-dark  p-2">
-          <div className="container d-flex justify-content-between">
+          <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
             <a href="/">
               <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
             </a>
             <h3 className="text-light">Sign In Page</h3>
           </div>
         </div>
-        
+
         <div className="container register">
           <div className="row">
             <div className="col-md-3 register-left">

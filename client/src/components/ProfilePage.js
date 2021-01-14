@@ -17,7 +17,7 @@ class ProfilePage extends React.Component {
                 <>
                     <div className="body-page">
                         <div className="bg-dark  p-2">
-                            <div className="container d-flex justify-content-between align-items-center">
+                            <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
                             <Navbar.Brand href="/">
                             <img                  
                                 alt="logo"

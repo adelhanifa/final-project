@@ -32,7 +32,7 @@ class HeaderProfile extends React.Component {
                             alt="logo"
                             src="/assets/img/logo/right-red_white.png"
                             className="d-inline-block align-top mylogo"
-                        />{' '}
+                        />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
@@ -50,7 +50,7 @@ class HeaderProfile extends React.Component {
                                     </NavDropdown>
                                 </li>
                                 <li> <Nav.Link as={Link} to="/">Home</Nav.Link></li>
-                                <li> <Nav.Link as={Link} to={{ pathname: '/', search: '?#about' }} offset={-70} smooth={true}>About us</Nav.Link></li>
+                                <li> <Nav.Link as={SLink} to="about" offset={-70} smooth={true}>About us</Nav.Link></li>
                                 <li> <Nav.Link as={SLink} to="speakers" offset={-70} smooth={true}>Our Team</Nav.Link></li>
                                 <li> <Nav.Link as={SLink} to="contact" offset={-70} smooth={true}>Contact</Nav.Link></li>
                                 <li> <Nav.Link as={Link} to="/user/profile">profile</Nav.Link></li>
