@@ -15,7 +15,7 @@ class ProfilePage extends React.Component {
             let { firstName, lastName, email, profileImg } = this.state.user
             return (
                 <>
-                    <div className="body-page">
+                    <div className="body-page min-vh-100">
                         <div className="bg-dark  p-2">
                             <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
                             <Navbar.Brand href="/">

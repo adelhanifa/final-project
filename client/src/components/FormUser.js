@@ -150,12 +150,12 @@ class FormUser extends React.Component {
     const { isError } = this.state;
 
     return (
-      <div className="body-page">
+      <div className="body-page min-vh-100">
         <div className="bg-dark  p-2">
           <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
             <a href="/">
               <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
-            </a>
+            </a> 
             <h3 className="text-light">Sign In Page</h3>
           </div>
         </div>
