@@ -1,7 +1,7 @@
 import React from 'react';
 import '../cssComponents/profile.css';
 import { connect } from 'react-redux';
-import HeaderNavbar from './HeaderNavbar';
+import {Navbar} from 'react-bootstrap'
 
 class ProfilePage extends React.Component {
     constructor() {
@@ -17,10 +17,14 @@ class ProfilePage extends React.Component {
                 <>
                     <div className="body-page">
                         <div className="bg-dark  p-2">
-                            <div className="container d-flex justify-content-between">
-                                <a href="/">
-                                    <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
-                                </a>
+                            <div className="container d-flex justify-content-between align-items-center">
+                            <Navbar.Brand href="/">
+                            <img                  
+                                alt="logo"
+                                src="/assets/img/logo/right-red_white.png"
+                                className="d-inline-block align-top mylogo"
+                            />{' '}
+                           </Navbar.Brand>
                                 <h3 className="text-light">User Profile Page</h3>
                             </div>
                         </div>
@@ -39,7 +43,7 @@ class ProfilePage extends React.Component {
                                                 </div>
                                                 <div className="about">
                                                     <h5 className="mb-2 text-primary">About</h5>
-                                                    <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                                                    <p>I'm {firstName} {lastName}. I have many Life goals, that I want to share with others </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -88,7 +92,7 @@ class ProfilePage extends React.Component {
                                             <div className="row gutters">
                                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                     <div className="text-right">
-                                                        <button type="button" id="submit" name="submit" className="btn btn-secondary">Cancel</button>
+                                                        <button type="button" id="submit" name="submit" className="btn btn-secondary m-3">Cancel</button>
                                                         <button type="button" id="submit" name="submit" className="btn btn-primary">Update</button>
                                                     </div>
                                                 </div>
