@@ -20,9 +20,7 @@ const CardDisplay = () => {
                             <p class="designation">Founder &amp; CEO</p>
                         </div>
                     </div>
-                </div>
-
-                
+                </div>             
             </div>
         </div>
     )

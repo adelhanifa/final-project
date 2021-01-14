@@ -2,9 +2,6 @@ import React from 'react'
 import '../cssComponents/form-user.css';
 import axios from 'axios';
 import GoogleBtn from './GoogleBtn';
-import { connect } from 'react-redux';
-import { signInUser } from "../actions"
-
 
 class FormUser extends React.Component {
   constructor(props) {
@@ -167,7 +164,7 @@ class FormUser extends React.Component {
           <div className="row">
             <div className="col-md-3 register-left">
               <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
-              <h3>Welcome</h3>
+              <h3 className="text-danger"> Welcome </h3>
               <p>Be one of the on Target members!</p>
 
               <GoogleBtn />
@@ -304,4 +301,4 @@ class FormUser extends React.Component {
     )
   }
 }
-export default connect(null, { signInUser })(FormUser);
+export default FormUser;
