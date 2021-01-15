@@ -11,8 +11,8 @@ exports.contactForm = (req, res) => {
    //  req.body ={ req.body.name, req.body.email, req.body.subject, req.body.message, req.body.dateFormat }
 
     const msg = {
-        to: 'adelhanifh@gmail.com',
-        from: 'adelhanifh@gmail.com',
+        to: 'ontarget.yourplatform@gmail.com',
+        from: 'ontarget.yourplatform@gmail.com',
         subject: req.body.subject + ' | ' + req.body.name,
         html: `
             <div>
@@ -51,8 +51,8 @@ exports.resetPassword = (req, res) => {
         }
         else {
             const msg = {
-                to: 'adelhanifh@gmail.com',
-                from: 'adelhanifh@gmail.com',
+                to: 'ontarget.yourplatform@gmail.com',
+                from: 'ontarget.yourplatform@gmail.com',
                 subject: 'Reset your Password | ' + data.firstName + ' ' + data.lastName,
                 html: `
                 <div>                

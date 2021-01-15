@@ -37,8 +37,8 @@ exports.createNewUser = (req, res) => {
                 let date = new Date()
 
                 const msg = {
-                    to: 'adelhanifh@gmail.com',
-                    from: 'adelhanifh@gmail.com',
+                    to: 'ontarget.yourplatform@gmail.com',
+                    from: 'ontarget.yourplatform@gmail.com',
                     subject: user.firstName + ' ' + user.lastName + ' | confirm email address',
                     html: `
                 <div>                
