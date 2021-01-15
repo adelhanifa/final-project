@@ -9,17 +9,13 @@ import IntroPage from "./components/IntroPage";
 import AboutUs from './components/AboutUs'
 import FormUser from "./components/FormUser";
 import ProfilePage from "./components/ProfilePage";
-<<<<<<< HEAD
-import { useHistory } from "react-router-dom";
 import FormGoals from "./components/FormGoals";
-=======
 import CreateGoals from "./components/CreateGoals";
 import GroupPage from "./components/GroupPage";
 
 // import CreateUser from './components/CreateUser';
 // import FormTest from "./components/FormTest";
 // import FormUser2 from "./components/FormUser2";
->>>>>>> 35313e29a13b62861816c84846ef7ebd98d70888
 // import FormTest2 from "./components/FormTest2";
 
 
