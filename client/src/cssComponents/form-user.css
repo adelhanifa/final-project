@@ -1,6 +1,6 @@
 .body-page{
   width:100%;
-  height: 100vh;
+  height: auto;
   top:0;
   margin:0;
   padding: 0;
@@ -68,6 +68,22 @@
   font-weight: 600;
   width: 50%;
   cursor: pointer;
+}
+.btnRegister2{
+  display: center;
+  margin-top: 10%;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 2%;
+  background: #464342c4;
+  color: #fff;
+  font-weight: 600;
+  width: 50%;
+  cursor: pointer;
+}
+.btnRegister2:hover{
+  background: #550b0fe3;
+  color:black;
 }
 .register .nav-tabs{
   margin-top: 3%;

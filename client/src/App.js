@@ -14,6 +14,7 @@ import IntroPage from "./components/IntroPage";
 import FormUser from "./components/FormUser";
 import ProfilePage from "./components/ProfilePage";
 import { useHistory } from "react-router-dom";
+import FormGoals from "./components/FormGoals";
 // import FormTest2 from "./components/FormTest2";
 
 
@@ -25,6 +26,7 @@ let history = useHistory();
         <Route path='/' exact component={IntroPage} />
         <Route path='/aboutus' exact component={AboutUs} />
         <Route path='/login/register' exact component={FormUser} />
+        <Route path='/user/goals' exact component={FormGoals} />
         <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/create/goal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CreateGoals} />
