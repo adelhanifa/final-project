@@ -2,15 +2,25 @@ import React from 'react'
 import '../cssComponents/form-user.css';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+
 class FormGoals extends React.Component {
     constructor(props) {
         super(props);
         let { _id } = JSON.parse(localStorage.getItem('loggedInUser'))
+        let displayGoals = []
         this.state = {
             userId: _id,
+            displayGoals: displayGoals,
             goals: []
         }
-
+        axios.get('/goal/')
+        .then(res => {
+            console.log(res.data)
+            displayGoals = res.data
+        })
+        .then(()=> {
+            this.setState({displayGoals: displayGoals})
+        })
     }
     handleChange = (evt) => {
         if( evt.target.checked){
@@ -51,11 +61,13 @@ class FormGoals extends React.Component {
     }
 
     render() {
-
+        console.log(this.state)
         if (!this.state.userId) {
             this.props.history.push('/login/register')
         }
-
+        if (this.state.displayGoals.length === 0){
+            return ''
+        } 
         return (
             <div className="body-page mb-3">
                 <div className="bg-dark  p-2">
@@ -66,7 +78,6 @@ class FormGoals extends React.Component {
                         <h3 className="text-light">Set your life goals ! </h3>
                     </div>
                 </div>
-
                 <div className="container register">
                     <div className="row">
                         <div className="col-md-3 register-left">
@@ -90,6 +101,27 @@ class FormGoals extends React.Component {
                                                 className="dark-grey-text mt-5 mb-4"
                                                 style={{ color: 'white', textShadow: '2px 2px 4px #000000' }}> I want to revolutionize ... </h1>
                                             <section className="border p-3">
+                                            
+                                            
+                                            {this.state.displayGoals.map((item, index)=>{
+                                                let inputName = 'goalNR'+index;
+                                                let classes = "btn btn-outline-secondary btn-rounded form-check-label d-flex align-items-center mt-2 px-1 px-sm-4"
+                                                return (
+                                                    <div className="btn-group w-100" data-toggle="buttons" key={index}>
+                                                        <label className={index === 0 ? classes+' active' : classes}>
+                                                            <i className={item.icon}></i> <b className="ml-4">{item.name}</b>
+                                                            <input type="checkbox"
+                                                                value={item._id} 
+                                                                name={inputName} 
+                                                                onChange={this.handleChange} 
+                                                                className="form-check-input d-none" 
+                                                                autoComplete="off" 
+                                                            />
+                                                        </label>
+                                                    </div>
+                                                )
+                                            })}
+
 
                                                 <div className="btn-group w-100" data-toggle="buttons">
                                                     <label className="btn btn-outline-secondary btn-rounded active form-check-label d-flex align-items-center  mt-2">
