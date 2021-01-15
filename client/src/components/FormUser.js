@@ -76,7 +76,7 @@ class FormUser extends React.Component {
           console.log({ data: res.data })
           // this.props.signInUser(res.data)
           localStorage.setItem('loggedInUser', JSON.stringify(res.data.user));
-          this.props.history.push('/user/profile')
+          this.props.history.push('/user/goals')
         })
     }
     console.log({ loggedInUser: JSON.parse(localStorage.getItem('loggedInUser')) })
@@ -211,8 +211,7 @@ class FormUser extends React.Component {
                         )}
                       </div>
                     </div>
-
-                    <input type="submit" className="btnRegister" value="Log IN" />
+                    <input type="submit" className="btnRegister" value="Continue" />
                   </form>
                 </div>
                 <div className="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">

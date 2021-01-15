@@ -1,72 +1,65 @@
 import React from 'react'
 import '../cssComponents/form-user.css';
 import axios from 'axios';
-import GoogleBtn from './GoogleBtn';
-
-
+import { Link } from "react-router-dom";
 class FormGoals extends React.Component {
     constructor(props) {
         super(props);
-        let {_id} = JSON.parse(localStorage.getItem('loggedInUser'))
+        let { _id } = JSON.parse(localStorage.getItem('loggedInUser'))
         this.state = {
             userId: _id,
-            goals: [],
-            goal: '',
-            isError: {
-                goal: '',
-            }
+            goals: []
         }
+
+    }
+    handleChange = (evt) => {
+        if( evt.target.checked){
+            let   goalValue=evt.target.value
+            this.setState({goals: [...this.state.goals, goalValue ]});
+        }
+        console.log(evt.target.checked)
+        console.log(evt.target)
+        console.log({state:this.state.goals})
+        
+    }
+    
+
+    handleIsItChecked = () => {
+        console.log(this.state.checkboxChecked ? 'Yes' : 'No');
     }
 
-    formValChange = e => {
-        e.preventDefault();
-        const { name, value } = e.target;
+    handleToggle = () => {
+        this.setState({ checkboxChecked: !this.state.checkboxChecked });
+    }
 
-        let isError = { ...this.state.isError };
-        switch (name) {
-            case "goal":
-                isError.goal =
-                    value.length < 6 ? "Atleast 6 characaters required" : "";
-                break;
-            default:
-                break;
-        }
-        this.setState({
-            isError,
-            [name]: value
-        })
-    };
 
+    formValChange = (e) => {
+        let goal = e.target.value;
+        this.setState([...this.state.goals, goal])
+    }
 
     onSubmitFormUser = (event) => {
         event.preventDefault();
 
-        if (this.state.isError.goal) {
-            console.log('form is not valid')
-        }
-
-        else {
-            console.log('form is valid')
-           
-            axios.patch(`/user/addGoalsForm/${this.state.userId}`)
-                .then(res => {
-                    console.log(res.data)
-                })
-                .catch(err => console.log(err))
-        }
+        console.log('form is valid')
+        axios.patch(`/user/addGoalsForm/${this.state.userId}`)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
 
     }
 
     render() {
+
         if (!this.state.userId) {
             this.props.history.push('/login/register')
         }
-        const { isError } = this.state;
 
         return (
-            <div className="body-page">
+            <div className="body-page mb-3">
                 <div className="bg-dark  p-2">
-                    <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
+                    <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-d-flex align-items-center justify-content-center flex-md-row">
                         <a href="/">
                             <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
                         </a>
@@ -80,136 +73,82 @@ class FormGoals extends React.Component {
                             <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
                             <h3 className="text-danger"> Welcome </h3>
                             <p>Achieve your goals by sharing them !</p>
-                            <GoogleBtn />
+
                             <br />
                         </div>
 
                         <div className="col-md-9 register-right">
-                            <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                                <li className="nav-item">
-                                    <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sign in</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sign Up</a>
-                                </li>
-                            </ul>
-                            <div className="tab-content" id="myTabContent">
-                                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <h3 className="register-heading mt-2"> You have an account!! <b className="text-danger"> Sign in</b></h3>
 
-                                    <form onSubmit={this.onSubmitSignIn} className="row register-form">
+                            <div >
+                                <div >
+                                    <h3 className="register-heading mt-2">Choose any catogeray or <br/> create your own target<a to="/"><b className="text-danger"> Create goal</b></a></h3>
+
+                                    <form onSubmit={this.onSubmitFormUser} className="row register-form form-check">
                                         <div className="col-md-12">
-                                            <div className="form-group">
-                                                <input type="email"
-                                                    className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
-                                                    placeholder="Enter your email *"
-                                                    name="email"
-                                                    initialvalue={this.state.email}
-                                                    onChange={this.formValChange}
-                                                    required />
-                                                {isError.email.length > 0 && (
-                                                    <span className="invalid-feedback">{isError.email}</span>
-                                                )}
-                                            </div>
-                                            <div className="form-group">
-                                                <input type="password"
-                                                    className={isError.password.length > 0 ? "is-invalid form-control" : "form-control"}
-                                                    placeholder="Password *"
-                                                    name="password"
-                                                    initialvalue={this.state.password}
-                                                    onChange={this.formValChange}
-                                                    required />
-                                                {isError.password.length > 0 && (
-                                                    <span className="invalid-feedback">{isError.password}</span>
-                                                )}
-                                            </div>
+
+                                            <h1
+                                                className="dark-grey-text mt-5 mb-4"
+                                                style={{ color: 'white', textShadow: '2px 2px 4px #000000' }}> I want to revolutionize ... </h1>
+                                            <section className="border p-3">
+
+                                                <div className="btn-group w-100" data-toggle="buttons">
+                                                    <label className="btn btn-outline-secondary btn-rounded active form-check-label d-flex align-items-center  mt-2">
+                                                        <i className="fas fa-briefcase col col-md-1"></i> <b>My Career</b>
+                                                        <input type="checkbox" value="My Career" name="goal1" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none d-none col col-md-8" autoComplete="off" />
+
+                                                    </label>
+                                                </div>
+                                                <div className="btn-group  w-100" data-toggle="buttons">
+                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
+                                                        <i className="fas fa-user-shield col col-md-1"></i> My body and soul
+                                                        <input type="checkbox" value="My body and soul" name="goal2" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none " autoComplete="off" />
+
+                                                    </label>
+                                                </div>
+                                                <div className="btn-group  w-100" data-toggle="buttons">
+                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
+                                                        <i className="fas fa-coins col col-md-1"></i>My finances
+                                                        <input type="checkbox" value="My finances" name="goal3" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
+
+                                                    </label>
+                                                </div>
+                                                <div className="btn-group  w-100" data-toggle="buttons">
+                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
+                                                        <i className="fas fa-heart col col-md-1"></i> My relationships
+                                                        <input type="checkbox" value="My relationships" name="goal4" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
+                                                    </label>
+                                                </div>
+                                                <div className="btn-group  w-100" data-toggle="buttons">
+                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
+                                                        <i className="fab fa-angellist col col-md-1"></i> My general culture
+                                                        <input type="checkbox" value="My general culture" name="goal5" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
+                                                    </label>
+                                                </div>
+                                                <div className="btn-group  w-100" data-toggle="buttons">
+                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
+                                                        <i className="fab fa-envira col col-md-1"></i> Protect the enviroment
+                                                        <input type="checkbox" value="Protect the enviroment" name="goal6" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
+                                                    </label>
+                                                </div>
+                                                <div className="btn-group  w-100" data-toggle="buttons">
+                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
+                                                        <i className="fas fa-lightbulb col col-md-1"></i> I'm just here out of my curiosity
+                                                        <input type="checkbox" value="I'm just here out of my curiosity" name="goal7" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
+                                                    </label>
+                                                </div>
+
+                                            </section>
+                                            <input type="submit" className="btnRegister2 " value="Continue" />
                                         </div>
 
-                                        <input type="submit" className="btnRegister" value="Log IN" />
                                     </form>
                                 </div>
-                                <div className="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <h3 className="register-heading">You don't have account yet!!<b className="text-danger">Sign up</b></h3>
-                                    <form onSubmit={this.onSubmitFormUser}>
-                                        <div className="row register-form">
-                                            <div className="col-md-12">
-                                                <div className="form-group">
-                                                    <input
-                                                        type="text"
-                                                        className={isError.firstName.length > 0 ? "is-invalid form-control" : "form-control"}
-                                                        placeholder="First Name *"
-                                                        name="firstName"
-                                                        initialvalue={this.state.firstName}
-                                                        onChange={this.formValChange}
-                                                        required />
-                                                    {isError.firstName.length > 0 && (
-                                                        <span className="invalid-feedback">{isError.firstName}</span>
-                                                    )}
-                                                </div>
-                                                <div className="form-group">
-                                                    <input
-                                                        onChange={this.formValChange}
-                                                        type="text"
-                                                        className={isError.lastName.length > 0 ? "is-invalid form-control" : "form-control"}
-                                                        placeholder="Last Name *"
-                                                        name="lastName"
-                                                        initialvalue={this.state.lastName}
-                                                        required />
-                                                    {isError.lastName.length > 0 && (
-                                                        <span className="invalid-feedback">{isError.lastName}</span>
-                                                    )}
-                                                </div>
-                                                <div className="form-group">
-                                                    <input
-                                                        type="password"
-                                                        onChange={this.formValChange}
-                                                        className={isError.password.length > 0 ? "is-invalid form-control" : "form-control"}
-                                                        placeholder="Password *"
-                                                        name="password"
-                                                        initialvalue={this.state.password}
-                                                        required />
-                                                    {isError.password.length > 0 && (
-                                                        <span className="invalid-feedback">{isError.password}</span>
-                                                    )}
-                                                </div>
-                                                <div className="form-group">
-                                                    <input
-                                                        onChange={this.formValChange}
-                                                        type="email"
-                                                        className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
-                                                        placeholder="Enter your email *"
-                                                        name="email"
-                                                        initialvalue={this.state.email}
-                                                        required />
-                                                    {isError.email.length > 0 && (
-                                                        <span className="invalid-feedback">{isError.email}</span>
-                                                    )}
-                                                </div>
-                                                <div className="form-group ">
-                                                    <input
-                                                        onChange={this.handleFiles}
-                                                        type="file"
-                                                        className="form-control"
-                                                        placeholder="Chosse a picture *"
-                                                        name="profileImg"
-                                                        initialvalue={this.state.profileImg}
-                                                        accept="image/*"
-                                                        required />
-                                                </div>
-                                                <input
-                                                    type="submit"
-                                                    className="btnRegister"
-                                                    initialvalue="Register"
-                                                    value="Register Now" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
-
             </div>
         )
     }
