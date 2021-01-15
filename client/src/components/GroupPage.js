@@ -1,243 +1,191 @@
 import React from 'react';
 import '../cssComponents/group-page.css';
+import GroupPageMember from './GroupPage-member';
+import GroupPagePost from './GroupPage-post';
 
-const GroupPage = () => {
-    return (
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="content" class="content content-full-width">
-                        {/* <!-- begin profile --> */}
-                        <div class="profile">
-                            <div class="profile-header">
-                                {/* <!-- BEGIN profile-header-cover --> */}
-                                <div class="profile-header-cover"></div>
-                                {/* <!-- END profile-header-cover --> */}
-                                {/* <!-- BEGIN profile-header-content --> */}
-                                <div class="profile-header-content">
-                                    {/* <!-- BEGIN profile-header-img --> */}
-                                    <div class="profile-header-img">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
+class GroupPage extends React.Component {
+    render() {
+        let test = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        return (
+            <div className="body-page min-vh-100">
+
+                <div className="bg-dark  p-2">
+                    <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
+                        <a href="/">
+                            <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
+                        </a>
+                        <h3 className="text-light">Sign In Page</h3>
+                    </div>
+                </div>
+
+                <div className="container">
+                    <div className="row">
+
+                        <div className="col-md-12">
+
+                            <div id="content" className="content content-full-width">
+
+                                {/* <!-- begin profile --> */}
+                                <div className="profile p-0">
+                                    <div className="profile-header">
+
+                                        <div className="profile-header-cover"></div>
+
+                                        <div className="profile-header-content">
+
+                                            <div className="profile-header-img">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
+                                            </div>
+
+                                            <div className="profile-header-info">
+                                                <h4 className="m-t-10 m-b-5">Sean Ngu</h4>
+                                                <p className="m-b-10">UXUI + Frontend Developer</p>
+                                                <a href="#" className="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                            </div>
+
+                                        </div>
+
+                                        <ul className="profile-header-tab nav nav-tabs">
+                                            <li className="nav-item"><a href="#profile-post" className="nav-link active show" data-toggle="tab">POSTS</a></li>
+                                            <li className="nav-item"><a href="#profile-about" className="nav-link" data-toggle="tab">ABOUT</a></li>
+                                            <li className="nav-item"><a href="#profile-friends" className="nav-link" data-toggle="tab">MEMBERS</a></li>
+                                        </ul>
                                     </div>
-                                    {/* <!-- END profile-header-img --> */}
-                                    {/* <!-- BEGIN profile-header-info --> */}
-                                    <div class="profile-header-info">
-                                        <h4 class="m-t-10 m-b-5">Sean Ngu</h4>
-                                        <p class="m-b-10">UXUI + Frontend Developer</p>
-                                        <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
-                                    </div>
-                                    {/* <!-- END profile-header-info --> */}
                                 </div>
-                                {/* <!-- END profile-header-content --> */}
-                                {/* <!-- BEGIN profile-header-tab --> */}
-                                <ul class="profile-header-tab nav nav-tabs">
-                                    <li class="nav-item"><a href="#profile-post" class="nav-link active show" data-toggle="tab">POSTS</a></li>
-                                    <li class="nav-item"><a href="#profile-about" class="nav-link" data-toggle="tab">ABOUT</a></li>
-                                    <li class="nav-item"><a href="#profile-photos" class="nav-link" data-toggle="tab">PHOTOS</a></li>
-                                    <li class="nav-item"><a href="#profile-videos" class="nav-link" data-toggle="tab">VIDEOS</a></li>
-                                    <li class="nav-item"><a href="#profile-friends" class="nav-link" data-toggle="tab">FRIENDS</a></li>
-                                </ul>
-                                {/* <!-- END profile-header-tab --> */}
+                                {/* <!-- end profile --> */}
+
+                                {/* <!-- begin profile-content --> */}
+                                <div className="profile-content">
+
+                                    <div className="tab-content p-0">
+                                        {/* Posts  */}
+                                        <div className="tab-pane fade active show" id="profile-post">
+
+                                            <ul className="timeline">
+                                                {
+                                                    test.map((index) => { return <GroupPagePost /> })
+                                                }
+                                                <li>
+                                                    <div className="timeline-icon">
+                                                        <   span>&nbsp;</span>
+                                                    </div>
+                                                    <div className="timeline-body">
+                                                        Loading...
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                        {/* Members  */}
+                                        <div className="tab-pane fade" id="profile-friends">
+                                            <h4 className="m-t-0 m-b-20 text-light">Memners List (14)</h4>
+
+                                            <div className="row row-space-2">
+                                                {
+                                                    test.map((index) => { return <GroupPageMember /> })
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                        {/* About  */}
+                                        <div className="tab-pane fade" id="profile-about">
+                                            <div className="table-responsive">
+                                                <table className="table table-profile">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>
+                                                                <h4>Micheal    Meyer <small>Lorraine Stokes</small></h4>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr className="highlight">
+                                                            <td className="field">Mood</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Mood Message" disabled/></td>
+                                                        </tr>
+                                                        <tr className="divider">
+                                                            <td colspan="2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Mobile</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="+1-(847)- 367-8924" disabled/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Home</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Number" disabled/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Office</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Number" disabled/></td>
+                                                        </tr>
+                                                        <tr className="divider">
+                                                            <td colspan="2"></td>
+                                                        </tr>
+                                                        <tr className="highlight">
+                                                            <td className="field">About Me</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Description" disabled/></td>
+                                                        </tr>
+                                                        <tr className="divider">
+                                                            <td colspan="2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Country/Region</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="United State" disabled/></td>    
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">City</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Los Angeles" disabled/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">State</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add State" disabled/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Website</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Webpage" disabled/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Gender</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Male" disabled/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Birthdate</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="04/11/1989" disabled/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="field">Language</td>
+                                                            <td>
+                                                            <input className=" bg-transparent border-0 text-light" type="text" value="English" disabled/></td>
+                                                        </tr>
+                                                        <tr className="divider">
+                                                            <td colspan="2"></td>
+                                                        </tr>
+                                                        <tr className="highlight">
+                                                            <td className="field">&nbsp;</td>
+                                                            <td className="p-t-10 p-b-10">
+                                                                <button type="submit" className="btn btn-primary width-150">Update</button>
+                                                                <button type="submit" className="btn btn-white btn-white-without-border width-150 m-l-5">Cancel</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                {/* <!-- end profile-content --> */}
                             </div>
                         </div>
-                        {/* <!-- end profile --> */}
-                        {/* <!-- begin profile-content --> */}
-                        <div class="profile-content">
-                            {/* <!-- begin tab-content --> */}
-                            <div class="tab-content p-0">
-                                {/* <!-- begin #profile-post tab --> */}
-                                <div class="tab-pane fade active show" id="profile-post">
-                                    {/* <!-- begin timeline --> */}
-                                    <ul class="timeline">
-                                        <li>
-                                            {/* <!-- begin timeline-time --> */}
-                                            <div class="timeline-time">
-                                                <span class="date">today</span>
-                                                <span class="time">04:20</span>
-                                            </div>
-                                            {/* <!-- end timeline-time --> */}
-                                            {/* <!-- begin timeline-icon --> */}
-                                            <div class="timeline-icon">
-                                                <a href="javascript:;">&nbsp;</a>
-                                            </div>
-                                            {/* <!-- end timeline-icon --> */}
-                                            {/* <!-- begin timeline-body --> */}
-                                            <div class="timeline-body">
-                                                <div class="timeline-header">
-                                                    <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" /></span>
-                                                    <span class="username"><a href="javascript:;">Sean Ngu</a> <small></small></span>
-                                                    <span class="pull-right text-muted">18 Views</span>
-                                                </div>
-                                                <div class="timeline-content">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt luctus.
-                                                        Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                                                    </p>
-                                                </div>
-                                                <div class="timeline-likes">
-                                                    <div class="stats-right">
-                                                        <span class="stats-text">259 Shares</span>
-                                                        <span class="stats-text">21 Comments</span>
-                                                    </div>
-                                                    <div class="stats">
-                                                        <span class="fa-stack fa-fw stats-icon">
-                                                            <i class="fa fa-circle fa-stack-2x text-danger"></i>
-                                                            <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
-                                                        </span>
-                                                        <span class="fa-stack fa-fw stats-icon">
-                                                            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                                            <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
-                                                        </span>
-                                                        <span class="stats-total">4.3k</span>
-                                                    </div>
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
-                                                </div>
-                                                <div class="timeline-comment-box">
-                                                    <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" /></div>
-                                                    <div class="input">
-                                                        <form action="">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control rounded-corner" placeholder="Write a comment..." />
-                                                                <span class="input-group-btn p-l-10">
-                                                                    <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
-                                                                </span>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* <!-- end timeline-body --> */}
-                                        </li>
-                                        <li>
-                                            {/* <!-- begin timeline-time --> */}
-                                            <div class="timeline-time">
-                                                <span class="date">yesterday</span>
-                                                <span class="time">20:17</span>
-                                            </div>
-                                            {/* <!-- end timeline-time --> */}
-                                            {/* <!-- begin timeline-icon --> */}
-                                            <div class="timeline-icon">
-                                                <a href="javascript:;">&nbsp;</a>
-                                            </div>
-                                            {/* <!-- end timeline-icon --> */}
-                                            {/* <!-- begin timeline-body --> */}
-                                            <div class="timeline-body">
-                                                <div class="timeline-header">
-                                                    <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" /></span>
-                                                    <span class="username">Sean Ngu</span>
-                                                    <span class="pull-right text-muted">82 Views</span>
-                                                </div>
-                                                <div class="timeline-content">
-                                                    <p>Location: United States</p>
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
-                                                </div>
-                                            </div>
-                                            {/* <!-- end timeline-body --> */}
-                                        </li>
-                                        <li>
-                                            {/* <!-- begin timeline-time --> */}
-                                            <div class="timeline-time">
-                                                <span class="date">24 February 2014</span>
-                                                <span class="time">08:17</span>
-                                            </div>
-                                            {/* <!-- end timeline-time --> */}
-                                            {/* <!-- begin timeline-icon --> */}
-                                            <div class="timeline-icon">
-                                                <a href="javascript:;">&nbsp;</a>
-                                            </div>
-                                            {/* <!-- end timeline-icon --> */}
-                                            {/* <!-- begin timeline-body --> */}
-                                            <div class="timeline-body">
-                                                <div class="timeline-header">
-                                                    <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" /></span>
-                                                    <span class="username">Sean Ngu</span>
-                                                    <span class="pull-right text-muted">1,282 Views</span>
-                                                </div>
-                                                <div class="timeline-content">
-                                                    <p class="lead">
-                                                        <i class="fa fa-quote-left fa-fw pull-left"></i>
-                                                        Quisque sed varius nisl. Nulla facilisi. Phasellus consequat sapien sit amet nibh molestie placerat. Donec nulla quam, ullamcorper ut velit vitae, lobortis condimentum magna. Suspendisse mollis in sem vel mollis.
-                                                        <i class="fa fa-quote-right fa-fw pull-right"></i>
-                                                    </p>
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
-                                                </div>
-                                            </div>
-                                            {/* <!-- end timeline-body --> */}
-                                        </li>
-                                        <li>
-                                            {/* <!-- begin timeline-time --> */}
-                                            <div class="timeline-time">
-                                                <span class="date">10 January 2014</span>
-                                                <span class="time">20:43</span>
-                                            </div>
-                                            {/* <!-- end timeline-time --> */}
-                                            {/* <!-- begin timeline-icon --> */}
-                                            <div class="timeline-icon">
-                                                <a href="javascript:;">&nbsp;</a>
-                                            </div>
-                                            {/* <!-- end timeline-icon --> */}
-                                            {/* <!-- begin timeline-body --> */}
-                                            <div class="timeline-body">
-                                                <div class="timeline-header">
-                                                    <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" /></span>
-                                                    <span class="username">Sean Ngu</span>
-                                                    <span class="pull-right text-muted">1,021,282 Views</span>
-                                                </div>
-                                                <div class="timeline-content">
-                                                    <h4 class="template-title">
-                                                        <i class="fa fa-map-marker text-danger fa-fw"></i>
-                                                        795 Folsom Ave, Suite 600 San Francisco, CA 94107
-                                                    </h4>
-                                                    <p>In hac habitasse platea dictumst. Pellentesque bibendum id sem nec faucibus. Maecenas molestie, augue vel accumsan rutrum, massa mi rutrum odio, id luctus mauris nibh ut leo.</p>
-                                                    <p class="m-t-20">
-                                                        <img src="../assets/img/gallery/gallery-5.jpg" alt="" />
-                                                    </p>
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
-                                                </div>
-                                            </div>
-                                            {/* <!-- end timeline-body --> */}
-                                        </li>
-                                        <li>
-                                            {/* <!-- begin timeline-icon --> */}
-                                            <div class="timeline-icon">
-                                                <a href="javascript:;">&nbsp;</a>
-                                            </div>
-                                            {/* <!-- end timeline-icon --> */}
-                                            {/* <!-- begin timeline-body --> */}
-                                            <div class="timeline-body">
-                                                Loading...
-                                            </div>
-                                            {/* <!-- begin timeline-body --> */}
-                                        </li>
-                                    </ul>
-                                    {/* <!-- end timeline --> */}
-                                </div>
-                                {/* <!-- end #profile-post tab --> */}
-                            </div>
-                            {/* <!-- end tab-content --> */}
-                        </div>
-                        {/* <!-- end profile-content --> */}
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+
 }
 
 export default GroupPage;

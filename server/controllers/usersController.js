@@ -47,7 +47,7 @@ exports.createNewUser = (req, res) => {
                     <h2>Thank you for registering on our website</h2>
                     <h2>Please confirm your account by clicking on the button below</h2>
                     <div>
-                        <a href="http://localhost:3000/user/confirm/${user.id}" type="button">reset your password now</a>
+                        <a href="http://localhost:3000/user/confirm/${user.id}" type="button">confirm your email now</a>
                     </div>
                     <h3>If you still have problem <a href="http://localhost:3000">contact us</a> </h3>
                     <h4>Thank you</h4>
