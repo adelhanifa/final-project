@@ -10,10 +10,7 @@ class FormGoals extends React.Component {
         this.state = {
             userId: _id,
             displayGoals: displayGoals,
-            goals: [{
-                goal: '',
-                checkboxChecked: false
-            }]
+            goals: ["60021099041de14af00c02ec"]
         }
         axios.get('/goal/')
             .then(res => {
@@ -25,14 +22,26 @@ class FormGoals extends React.Component {
             })
     }
     handleChange = (evt) => {
-        if (evt.target.checked) {
-            let goalValue = evt.target.value
-            this.setState({ goals: [...this.state.goals, goalValue] });
-        }
-        console.log(evt.target.checked)
-        console.log(evt.target)
-        console.log({ state: this.state.goals })
+        let goalValue = evt.target.value
+        let allreadyAdded = this.state.goals.findIndex(x => x === goalValue)
 
+        if( evt.target.checked){
+            console.log(allreadyAdded)
+            if(allreadyAdded == -1){
+                this.setState({goals: [...this.state.goals, goalValue ]});
+                
+            }  
+        }
+        else {
+            console.log(allreadyAdded)
+            let newState = this.state.goals;
+            newState.splice(allreadyAdded, 1)
+            this.setState({goals: newState});
+        }
+        // console.log(evt.target.checked)
+        // console.log(evt.target)
+        // console.log({state:this.state.goals})
+        
     }
 
     handleIsItChecked = () => {
@@ -73,7 +82,7 @@ class FormGoals extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.state.goals)
         if (!this.state.userId) {
             this.props.history.push('/login/register')
         }
