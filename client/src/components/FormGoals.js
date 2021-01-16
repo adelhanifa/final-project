@@ -10,6 +10,7 @@ class FormGoals extends React.Component {
         this.state = {
             userId: _id,
             displayGoals: displayGoals,
+            userGoal: '',
             goals: ["60021099041de14af00c02ec"]
         }
         axios.get('/goal/')
@@ -25,64 +26,61 @@ class FormGoals extends React.Component {
         let goalValue = evt.target.value
         let allreadyAdded = this.state.goals.findIndex(x => x === goalValue)
 
-        if( evt.target.checked){
+        if (evt.target.checked) {
             console.log(allreadyAdded)
-            if(allreadyAdded == -1){
-                this.setState({goals: [...this.state.goals, goalValue ]});
-                
-            }  
+            if (allreadyAdded == -1) {
+                this.setState({ goals: [...this.state.goals, goalValue] });
+
+            }
         }
         else {
             console.log(allreadyAdded)
             let newState = this.state.goals;
             newState.splice(allreadyAdded, 1)
-            this.setState({goals: newState});
+            this.setState({ goals: newState });
         }
-        // console.log(evt.target.checked)
-        // console.log(evt.target)
-        // console.log({state:this.state.goals})
-        
+
     }
 
-    handleIsItChecked = () => {
-        console.log(this.state.checkboxChecked ? 'Yes' : 'No');
-    }
-
-    handleToggle = () => {
-        this.setState({ checkboxChecked: !this.state.checkboxChecked });
-    }
-
-
-    formValChange = (e) => {
-        let goal = e.target.value;
-        this.setState([...this.state.goals, goal])
+    handleChangeUser = (e) => {
+        let userGoal = e.target.value;
+        this.setState({ userGoal })
     }
 
     onSubmitFormUser = (event) => {
         event.preventDefault();
-        console.log(event.target.goalNR0.checked)
-        console.log(event.target.goalNR1.checked)
-        let goals = []
-        console.log(event.target)
-        for (let i = 0; i < 7; i++) {
-            let nameGoal = 'goalNR' + i
-            let checkedInputs = event.target.nameGoal.checked
-            console.log(checkedInputs)
-            console.log({ nameGoal })
-            // if(checkedInputs){
-            //   console.log(checkedInputs)  
-            // }
+        if (this.state.userGoal) {
+            let newUserGoal = {
+                name: this.state.userGoal,
+                icon: "fas fa-bullseye"
+            }
+            axios.post('/goal/create', newUserGoal)
+                .then((res) => {
+                    // console.log({data:res.data})
+                    this.setState({ goals: [...this.state.goals, res.data._id] })
+                    // console.log({ state: this.state.displayGoals })
+                })
+                .then(()=>{
+                    axios.patch(`/user/addGoalsForm/${this.state.userId}`,this.state.goals)
+                    .then(res => {
+                        console.log({userGoal:res.data})
+                    })
+                    .catch(err => console.log(err))
+                })
+                .catch(err => console.log({ err }))
         }
-        // axios.patch(`/user/addGoalsForm/${this.state.userId}`)
-        //     .then(res => {
-        //         console.log(res.data)
-        //     })
-        //     .catch(err => console.log(err))
+        else {    
+        axios.patch(`/user/addGoalsForm/${this.state.userId}`,this.state.goals)
+        .then(res => {
+            console.log({else:res.data})
+        })
+        .catch(err => console.log(err))
+         }
 
     }
 
     render() {
-        console.log(this.state.goals)
+
         if (!this.state.userId) {
             this.props.history.push('/login/register')
         }
@@ -124,37 +122,37 @@ class FormGoals extends React.Component {
                                             <section className="border p-3">
 
                                                 {this.state.displayGoals.map((item, index) => {
-                                                    let inputName = 'goalNR' + index;
-                                                    let classes = "btn btn-outline-secondary btn-rounded form-check-label d-flex align-items-center mt-2 px-1 px-sm-4"
-                                                    return (
-                                                        <div className="btn-group w-100" data-toggle="buttons" key={index}>
-                                                            <label className={index === 0 ? classes + ' active' : classes}>
-                                                                <i className={item.icon}></i> <b className="ml-4">{item.name}</b>
-                                                                <input type="checkbox"
-                                                                    value={item._id}
-                                                                    name={inputName}
-                                                                    onChange={this.handleChange}
-                                                                    className="form-check-input d-none"
-                                                                    autoComplete="off"
-                                                                />
-                                                            </label>
-                                                        </div>
-                                                    )
+                                                    if (index < 7) {
+                                                        let inputName = 'goalNR' + index;
+                                                        let classes = "btn btn-outline-secondary btn-rounded form-check-label d-flex align-items-center mt-2 px-1 px-sm-4"
+                                                        return (
+                                                            <div className="btn-group w-100" data-toggle="buttons" key={index}>
+                                                                <label className={index === 0 ? classes + ' active' : classes}>
+                                                                    <i className={item.icon}></i> <b className="ml-4">{item.name}</b>
+                                                                    <input type="checkbox"
+                                                                        value={item._id}
+                                                                        name={inputName}
+                                                                        onChange={this.handleChange}
+                                                                        className="form-check-input d-none"
+                                                                        autoComplete="off"
+                                                                    />
+                                                                </label>
+                                                            </div>
+                                                        )
+                                                    }
                                                 }
 
                                                 )}
                                                 <div className="btn-group w-100" data-toggle="buttons">
-                                                    <select name="icon">
-                                                        <option className="fas fa-bullseye" ><span>DDDDDD</span></option>
-                                                    </select>
-                                                    <label className="btn btn-outline-secondary btn-rounded form-check-label d-flex align-items-center mt-2 px-1 px-sm-4">
 
+                                                    <label className="btn btn-outline-secondary btn-rounded  d-flex align-items-center mt-2 px-1 px-sm-4">
                                                         <i class="fas fa-bullseye"></i>
+
                                                         <input
                                                             type="text"
                                                             name="userGoal"
-                                                            onChange={this.handleChange}
-                                                            className="form-check-input col col-md-10"
+                                                            onKeyUp={this.handleChangeUser}
+                                                            className="ml-5  border-0 w-75"
                                                             autoComplete="off"
                                                             placeholder="Choose your own life target"
                                                         />
