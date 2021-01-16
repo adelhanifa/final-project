@@ -30,6 +30,7 @@ router.get('/', controller.findAllUsers);
 router.post('/create',  upload.single('profileImg'), controller.createNewUser);
 router.post('/log-in', controller.loginUser);
 router.post('/google-log-in', controller.googleLogIn);
+router.patch('/addGoalsForm/:id',  controller.addGoalsForm);
 router.get('/log-out', controller.logoutUser);
 
 router.get('/checkEmailUsed/:email', controller.checkEmailUsed);

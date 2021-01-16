@@ -12,6 +12,7 @@ import ProfilePage from "./components/ProfilePage";
 import FormGoals from "./components/FormGoals";
 import CreateGoals from "./components/CreateGoals";
 import GroupPage from "./components/GroupPage";
+import CardDisplay from "./components/CardDisplay";
 
 // import CreateUser from './components/CreateUser';
 // import FormTest from "./components/FormTest";
@@ -30,7 +31,7 @@ let history = useHistory();
         <Route path='/user/goals' exact component={FormGoals} />
         <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/user/createGoal' exact component={CreateGoals} />
-        <Route path='/interestedgoals' exact component={CreateGoals} />
+        <Route path='/interestedgoals' exact component={CardDisplay} />
         <Route path='/group-page' exact component={GroupPage} />
       </Router>
     </div>

@@ -152,6 +152,14 @@ exports.logoutUser = (req, res) => {
     res.send({ isLogedIN: req.session.isLogedIN})
 }
 
+// add user goals
+exports.addGoalsForm = (req, res) => {
+    console.log({goals: req.body})
+    User.findByIdAndUpdate( req.params.id , {goals: req.body})
+        .then(user => res.send({ status: 'all goals added', user: user, err: null }))
+        .catch(err => { console.log(err); res.send({ err: err }) })
+}
+
 //check user logIn
 exports.checkLogInUser = (req, res) => {
     if (req.session.isLogedIN || req.session.user )
