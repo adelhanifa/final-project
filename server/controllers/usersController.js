@@ -154,8 +154,9 @@ exports.logoutUser = (req, res) => {
 
 // add user goals
 exports.addGoalsForm = (req, res) => {
-    console.log({goals: req.body})
-    User.findByIdAndUpdate( req.params.id , {goals: req.body})
+    console.log({goals: req.body,type:typeof req.body})
+    
+    User.findByIdAndUpdate( req.params.id , req.body)
         .then(user => res.send({ status: 'all goals added', user: user, err: null }))
         .catch(err => { console.log(err); res.send({ err: err }) })
 }

@@ -61,7 +61,7 @@ class FormGoals extends React.Component {
                     // console.log({ state: this.state.displayGoals })
                 })
                 .then(()=>{
-                    axios.patch(`/user/addGoalsForm/${this.state.userId}`,this.state.goals)
+                    axios.patch(`/user/addGoalsForm/${this.state.userId}`,{goals:this.state.goals})
                     .then(res => {
                         console.log({userGoal:res.data})
                     })
@@ -70,7 +70,7 @@ class FormGoals extends React.Component {
                 .catch(err => console.log({ err }))
         }
         else {    
-        axios.patch(`/user/addGoalsForm/${this.state.userId}`,this.state.goals)
+        axios.patch(`/user/addGoalsForm/${this.state.userId}`,{goals:this.state.goals})
         .then(res => {
             console.log({else:res.data})
         })
@@ -127,7 +127,7 @@ class FormGoals extends React.Component {
                                                         let classes = "btn btn-outline-secondary btn-rounded form-check-label d-flex align-items-center mt-2 px-1 px-sm-4"
                                                         return (
                                                             <div className="btn-group w-100" data-toggle="buttons" key={index}>
-                                                                <label className={index === 0 ? classes + ' active' : classes}>
+                                                                <label className={classes}>
                                                                     <i className={item.icon}></i> <b className="ml-4">{item.name}</b>
                                                                     <input type="checkbox"
                                                                         value={item._id}

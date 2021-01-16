@@ -8,7 +8,7 @@ const userSchema = new Schema({
   email: { type: String , unique: true },
   password: { type: String},
   profileImg: String,
-  goals: [{type: Array, defoalt:['']}],
+  goals:[{ type: Schema.Types.ObjectId, ref: 'Goal'}],
   joinedGroup: [{ type: Schema.Types.ObjectId, ref: 'Group'}],
   googleID: String
 }, 
