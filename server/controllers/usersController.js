@@ -73,7 +73,7 @@ exports.loginUser = (req, res) => {
     console.log('******************************************');
     console.log('log in user: ', req.body);
 
-    User.findOne({ email: req.body.email })
+    User.findOne({ email: req.body.email }).populate('goals')
         .then(data => {
             console.log(data)
             if (data) {
