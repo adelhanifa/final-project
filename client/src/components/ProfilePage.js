@@ -1,30 +1,31 @@
 import React from 'react';
 import '../cssComponents/profile.css';
 import { connect } from 'react-redux';
-import {Navbar} from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap'
 
 class ProfilePage extends React.Component {
     constructor() {
         super()
-        let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+        let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))    
         this.state = { user: loggedInUser }
     }
 
     render() {
         if (this.state.user) {
-            let { firstName, lastName, email, profileImg } = this.state.user
+            let { firstName, lastName, email, profileImg, goals } = this.state.user
+            console.log({goals})
             return (
                 <>
                     <div className="body-page min-vh-100">
                         <div className="bg-dark  p-2">
                             <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
-                            <Navbar.Brand href="/">
-                            <img                  
-                                alt="logo"
-                                src="/assets/img/logo/right-red_white.png"
-                                className="d-inline-block align-top mylogo"
-                            />{' '}
-                           </Navbar.Brand>
+                                <Navbar.Brand href="/">
+                                    <img
+                                        alt="logo"
+                                        src="/assets/img/logo/right-red_white.png"
+                                        className="d-inline-block align-top mylogo"
+                                    />{' '}
+                                </Navbar.Brand>
                                 <h3 className="text-light">User Profile Page</h3>
                             </div>
                         </div>
@@ -73,6 +74,17 @@ class ProfilePage extends React.Component {
                                                     <div className="form-group">
                                                         <label for="eMail">Email</label>
                                                         <input type="email" initialvalue={email} className="form-control myform-control" id="eMail" placeholder="Update your email " />
+                                                    </div>
+                                                </div>
+                                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div className="form-group">
+                                                        <h5 className="text-danger">Your Life Targets:</h5>
+                                                        {goals &&
+                                                            <ul>
+                                                                {goals.map((goal, index) => {
+                                                                    return <li key={index} className="p-2 m-2"><i className={goal.icon}></i><i className="ml-2">{goal.name}</i></li>
+                                                                })}
+                                                            </ul>}
                                                     </div>
                                                 </div>
 

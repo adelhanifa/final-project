@@ -20,7 +20,8 @@ class FormUser extends React.Component {
         email: '',
         password: '',
         profileImg: ''
-      }
+      },
+      userErrMsg: ''
     }
   }
 
@@ -74,9 +75,12 @@ class FormUser extends React.Component {
       axios.post('/user/log-in', user)
         .then(res => {
           console.log({ data: res.data })
-          // this.props.signInUser(res.data)
-          localStorage.setItem('loggedInUser', JSON.stringify(res.data.user));
-          this.props.history.push('/user/goals')
+          if (res.data.user) {
+            localStorage.setItem('loggedInUser', JSON.stringify(res.data.user));
+            this.props.history.push('/user/goals')
+          }
+          else { this.setState({ userErrMsg: res.data.err }) }
+
         })
     }
     console.log({ loggedInUser: JSON.parse(localStorage.getItem('loggedInUser')) })
@@ -147,15 +151,15 @@ class FormUser extends React.Component {
     if (this.state.user) {
       this.props.history.push('/user/profile')
     }
-    const { isError } = this.state;
-
+    const { isError, userErrMsg } = this.state;
+    console.log({ err: userErrMsg })
     return (
       <div className="body-page min-vh-100">
         <div className="bg-dark  p-2">
           <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-row flex-md-row">
             <a href="/">
               <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
-            </a> 
+            </a>
             <h3 className="text-light">Sign In Page</h3>
           </div>
         </div>
@@ -186,6 +190,15 @@ class FormUser extends React.Component {
 
                   <form onSubmit={this.onSubmitSignIn} className="row register-form">
                     <div className="col-md-12">
+                      {userErrMsg && (
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <span> {userErrMsg}</span>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+
+                      )}
                       <div className="form-group">
                         <input type="email"
                           className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
@@ -210,7 +223,16 @@ class FormUser extends React.Component {
                           <span className="invalid-feedback">{isError.password}</span>
                         )}
                       </div>
+
+
+
+                      {/* { this.state.userErrMsg && (
+                        <div className="form-group ">
+                            <span className="invalid-feedback">{this.state.userErrMsg}</span>
+                          </div>
+                        )}  */}
                     </div>
+
                     <input type="submit" className="btnRegister" value="Continue" />
                   </form>
                 </div>
@@ -282,6 +304,7 @@ class FormUser extends React.Component {
                             accept="image/*"
                             required />
                         </div>
+
                         <input
                           type="submit"
                           className="btnRegister"

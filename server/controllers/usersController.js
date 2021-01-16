@@ -95,7 +95,7 @@ exports.loginUser = (req, res) => {
                     else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'Password not correct try again !' }) }
                 })
             }
-            else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'User not found, check the email again !' }) }
+            else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'User not found, check the email again, or try to sign up !' }) }
         })
         .catch(err => res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err }));
 }
