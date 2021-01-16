@@ -1,7 +1,6 @@
 import React from 'react'
 import '../cssComponents/form-user.css';
 import axios from 'axios';
-import { Link } from "react-router-dom";
 
 class FormGoals extends React.Component {
     constructor(props) {
@@ -11,7 +10,10 @@ class FormGoals extends React.Component {
         this.state = {
             userId: _id,
             displayGoals: displayGoals,
-            goals: []
+            goals: [{
+                goal:'',
+                checkboxChecked:false
+            }]
         }
         axios.get('/goal/')
         .then(res => {
@@ -33,7 +35,6 @@ class FormGoals extends React.Component {
         
     }
     
-
     handleIsItChecked = () => {
         console.log(this.state.checkboxChecked ? 'Yes' : 'No');
     }
@@ -50,13 +51,24 @@ class FormGoals extends React.Component {
 
     onSubmitFormUser = (event) => {
         event.preventDefault();
-
-        console.log('form is valid')
-        axios.patch(`/user/addGoalsForm/${this.state.userId}`)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => console.log(err))
+        console.log(event.target.goalNR0.checked)
+        console.log(event.target.goalNR1.checked)
+        let goals = []
+        console.log(event.target) 
+        for( let i = 0; i<7;i++){
+            let nameGoal='goalNR'+i
+            let checkedInputs =event.target.nameGoal.checked
+            console.log(checkedInputs)  
+            console.log({nameGoal})
+            // if(checkedInputs){
+            //   console.log(checkedInputs)  
+            // }
+        }
+        // axios.patch(`/user/addGoalsForm/${this.state.userId}`)
+        //     .then(res => {
+        //         console.log(res.data)
+        //     })
+        //     .catch(err => console.log(err))
 
     }
 
@@ -66,10 +78,10 @@ class FormGoals extends React.Component {
             this.props.history.push('/login/register')
         }
         if (this.state.displayGoals.length === 0){
-            return ''
+            return 'Loading ...'
         } 
         return (
-            <div className="body-page mb-3">
+            <div className="body-page mb-3 min-vh-100">
                 <div className="bg-dark  p-2">
                     <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-d-flex align-items-center justify-content-center flex-md-row">
                         <a href="/">
@@ -92,7 +104,7 @@ class FormGoals extends React.Component {
 
                             <div >
                                 <div >
-                                    <h3 className="register-heading mt-2">Choose any catogeray or <br/> create your own target<a to="/"><b className="text-danger"> Create goal</b></a></h3>
+                                    <h3 className="register-heading mt-2">Choose any catogeray or <br/> create your own target<a href="/user/createGoal" className="text-danger"> Create goal</a></h3>
 
                                     <form onSubmit={this.onSubmitFormUser} className="row register-form form-check">
                                         <div className="col-md-12">
@@ -101,8 +113,7 @@ class FormGoals extends React.Component {
                                                 className="dark-grey-text mt-5 mb-4"
                                                 style={{ color: 'white', textShadow: '2px 2px 4px #000000' }}> I want to revolutionize ... </h1>
                                             <section className="border p-3">
-                                            
-                                            
+                
                                             {this.state.displayGoals.map((item, index)=>{
                                                 let inputName = 'goalNR'+index;
                                                 let classes = "btn btn-outline-secondary btn-rounded form-check-label d-flex align-items-center mt-2 px-1 px-sm-4"
@@ -121,54 +132,7 @@ class FormGoals extends React.Component {
                                                     </div>
                                                 )
                                             })}
-
-
-                                                <div className="btn-group w-100" data-toggle="buttons">
-                                                    <label className="btn btn-outline-secondary btn-rounded active form-check-label d-flex align-items-center  mt-2">
-                                                        <i className="fas fa-briefcase col col-md-1"></i> <b>My Career</b>
-                                                        <input type="checkbox" value="My Career" name="goal1" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none d-none col col-md-8" autoComplete="off" />
-
-                                                    </label>
-                                                </div>
-                                                <div className="btn-group  w-100" data-toggle="buttons">
-                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
-                                                        <i className="fas fa-user-shield col col-md-1"></i> My body and soul
-                                                        <input type="checkbox" value="My body and soul" name="goal2" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none " autoComplete="off" />
-
-                                                    </label>
-                                                </div>
-                                                <div className="btn-group  w-100" data-toggle="buttons">
-                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
-                                                        <i className="fas fa-coins col col-md-1"></i>My finances
-                                                        <input type="checkbox" value="My finances" name="goal3" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
-
-                                                    </label>
-                                                </div>
-                                                <div className="btn-group  w-100" data-toggle="buttons">
-                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
-                                                        <i className="fas fa-heart col col-md-1"></i> My relationships
-                                                        <input type="checkbox" value="My relationships" name="goal4" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
-                                                    </label>
-                                                </div>
-                                                <div className="btn-group  w-100" data-toggle="buttons">
-                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
-                                                        <i className="fab fa-angellist col col-md-1"></i> My general culture
-                                                        <input type="checkbox" value="My general culture" name="goal5" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
-                                                    </label>
-                                                </div>
-                                                <div className="btn-group  w-100" data-toggle="buttons">
-                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
-                                                        <i className="fab fa-envira col col-md-1"></i> Protect the enviroment
-                                                        <input type="checkbox" value="Protect the enviroment" name="goal6" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
-                                                    </label>
-                                                </div>
-                                                <div className="btn-group  w-100" data-toggle="buttons">
-                                                    <label className="btn btn-outline-secondary btn-rounded  form-check-label d-flex align-items-center  mt-2">
-                                                        <i className="fas fa-lightbulb col col-md-1"></i> I'm just here out of my curiosity
-                                                        <input type="checkbox" value="I'm just here out of my curiosity" name="goal7" onChange={this.handleChange} className=" col col-md-10 form-check-input d-none" autoComplete="off" />
-                                                    </label>
-                                                </div>
-
+                           
                                             </section>
                                             <input type="submit" className="btnRegister2 " value="Continue" />
                                         </div>

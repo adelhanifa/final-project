@@ -29,7 +29,7 @@ let history = useHistory();
         <Route path='/login/register' exact component={FormUser} />
         <Route path='/user/goals' exact component={FormGoals} />
         <Route path='/user/profile' exact component={ProfilePage} />
-        <Route path='/create/goal' exact component={CreateGoals} />
+        <Route path='/user/createGoal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CreateGoals} />
         <Route path='/group-page' exact component={GroupPage} />
       </Router>
