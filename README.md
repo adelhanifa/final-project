@@ -5,7 +5,7 @@
  [Adel Hanifa](https://adelhanifa.github.io/portfolio/).
 
 ### Main Idea :
- - A goal management and sharing app that allows you to set life goals, track them, share them with others, and find people who share the same goals so that users can support each other in achieving these goals.
+ - A goal management and sharing app that allows you to set life goals, track them, share them with others, and  find people who share the same goals so that users can support each other in achieving these goals.
  - A social goal sharing app where users who have similar short term challenges and goals like quitting smoking, regular training, dieting etc., meet to support each other with appropriate motives and words.
 
 ### To run the project just follow:
