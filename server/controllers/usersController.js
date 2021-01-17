@@ -2,7 +2,7 @@ const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.EmailAPI);
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-
+const Goal = require('../models/Goal')
 const jwt = require('jsonwebtoken');
 const accessTokenSecret = process.env.TOKEN_SECRET;
 
@@ -156,10 +156,19 @@ exports.logoutUser = (req, res) => {
 // add user goals
 exports.addGoalsForm = (req, res) => {
     console.log({ goals: req.body, type: typeof req.body })
-    User.findOne({ name: req.body.name })
+    let goals= req.body;
+    let goalsFind=goals.find(goal => {
+        Goal.findById(goal)
+        .then(res=> console.log({res}))
+        .catch(err => console.log({err}))
+    })
+    Goal.findOne({ name: req.body.name })
         .then((res) => console.log(res))
     User.findByIdAndUpdate(req.params.id, req.body)
-        .then(user => res.send({ status: 'all goals added', user: user, err: null }))
+        .then(user => {
+            
+            res.send({ status: 'all goals added', user: user, err: null })
+        })
         .catch(err => { console.log(err); res.send({ err: err }) })
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import '../cssComponents/profile.css';
-import { connect } from 'react-redux';
 import { Navbar } from 'react-bootstrap'
 
 class ProfilePage extends React.Component {
@@ -153,11 +152,6 @@ class ProfilePage extends React.Component {
         }
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        user: state.user.user,
-        isSignedIn: state.user.isSignedIn
-    }
-}
 
-export default connect(mapStateToProps, {})(ProfilePage);
+
+export default ProfilePage;

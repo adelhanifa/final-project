@@ -11,7 +11,6 @@ exports.findAllGoals = (req, res) => {
 exports.createNewGoal = (req, res) => {
     console.log('******************************************');
     console.log('create goal: ',req.body);
-
     const newGoal = new Goal(req.body);
     newGoal.save()
     .then(goal => res.json(goal))
