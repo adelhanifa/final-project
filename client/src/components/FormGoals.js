@@ -31,7 +31,7 @@ class FormGoals extends React.Component {
 
         if (evt.target.checked) {
             console.log(allreadyAdded)
-            if (allreadyAdded == -1) {
+            if (allreadyAdded === -1) {
                 this.setState({ goals: [...this.state.goals, goalValue] });
 
             }
@@ -116,7 +116,6 @@ class FormGoals extends React.Component {
                             <div >
                                 <div >
                                     <h3 className="register-heading mt-2">Choose any category of goals or <br /><b className="text-danger"> Create your own target </b></h3>
-
                                     <form onSubmit={this.onSubmitFormUser} className="row register-form form-check">
                                         <div className="col-md-12">
 
