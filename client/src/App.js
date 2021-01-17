@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import IntroPage from "./components/IntroPage";
 import AboutUs from './components/AboutUs'
 import FormUser from "./components/FormUser";
+import ConfirmUserEmail from "./components/ConfirmUserEmail";
 import ProfilePage from "./components/ProfilePage";
 import FormGoals from "./components/FormGoals";
 import CreateGoals from "./components/CreateGoals";
@@ -30,6 +31,7 @@ let history = useHistory();
         <Route path='/aboutus' exact component={AboutUs} />
         <Route path='/login/register' exact component={FormUser} />
         <Route path='/user/goals' exact component={FormGoals} />
+        <Route path='/user/confirm/:id' exact component={ConfirmUserEmail} />
         <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/user/createGoal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CardDisplay} />

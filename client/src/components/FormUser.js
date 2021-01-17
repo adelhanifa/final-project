@@ -21,8 +21,9 @@ class FormUser extends React.Component {
         password: '',
         profileImg: ''
       },
-      userErrMsg: ''
+      userErrMsg: this.props.location.state
     }
+    window.history.replaceState(null, '')
   }
 
   formValChange = e => {
@@ -223,14 +224,7 @@ class FormUser extends React.Component {
                           <span className="invalid-feedback">{isError.password}</span>
                         )}
                       </div>
-
-
-
-                      {/* { this.state.userErrMsg && (
-                        <div className="form-group ">
-                            <span className="invalid-feedback">{this.state.userErrMsg}</span>
-                          </div>
-                        )}  */}
+                        
                     </div>
 
                     <input type="submit" className="btnRegister" value="Continue" />

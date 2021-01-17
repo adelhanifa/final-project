@@ -10,6 +10,7 @@ const userSchema = new Schema({
   profileImg: String,
   goals:[{ type: Schema.Types.ObjectId, ref: 'Goal'}],
   joinedGroup: [{ type: Schema.Types.ObjectId, ref: 'Group'}],
+  activated: { type: Boolean , default: false},
   googleID: String
 }, 
 {

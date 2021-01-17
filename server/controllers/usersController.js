@@ -78,17 +78,18 @@ exports.loginUser = (req, res) => {
                 // hash Pasword check
                 bcrypt.compare(req.body.password, data.password, function (err, result) {
                     if (result == true) {
-
-                        //create token part 
-                        const payload = {
-                            id: data._id
-                        };
-                        const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
-                        req.session.token = token;
-                        req.session.user = data;
-                        req.session.isLogedIN = true;
-
-                        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                        if(data.activated){
+                            //create token part 
+                            const payload = {
+                                id: data._id
+                            };
+                            const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
+                            req.session.token = token;
+                            req.session.user = data;
+                            req.session.isLogedIN = true;
+                            res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                        }
+                        else{ res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'Please verify your email address before login !' })}
                     }
                     else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'Password not correct try again !' }) }
                 })
@@ -114,9 +115,10 @@ exports.googleLogIn = (req, res) => {
                 req.session.user = user;
                 req.session.isLogedIN = true;
 
-                res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: null })
             } else {
                 //create a new User and login / return UserDB._id
+                req.body.activated = true;
                 user = new User(req.body);
                 user.save(function (err, data) {
                     if (err) {
@@ -140,8 +142,7 @@ exports.googleLogIn = (req, res) => {
         .catch((err) => {
             console.log(err);
             res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
-        }
-        )
+        })
 
 }
 
@@ -188,4 +189,13 @@ exports.checkEmailUsed = (req, res) => {
             else res.send(false)
         })
         .catch(err => { console.log(err); res.send({ err: err }) })
+}
+
+// confirm Email address
+exports.confirmUserEmail = (req, res) => {
+    User.findByIdAndUpdate(req.params.id, {activated: true})
+    .then(user => {
+        res.send({ status: 'Your email address is successfully activated, log in now', user: user, err: null })
+    })
+    .catch(err => { console.log(err); res.send({ status: 'Something wrong try again or cuntact us !', err: err }) })
 }
