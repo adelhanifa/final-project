@@ -186,7 +186,7 @@ class FormUser extends React.Component {
               </ul>
               <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <h3 className="register-heading mt-2"> You have an account!! <b className="text-danger"> Sign in</b></h3>
+                  <h3 className="register-heading mt-5"> You have an account!! <b className="text-danger"> Sign in</b></h3>
 
                   <form onSubmit={this.onSubmitSignIn} className="row register-form">
                     <div className="col-md-12">
@@ -237,7 +237,7 @@ class FormUser extends React.Component {
                   </form>
                 </div>
                 <div className="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                  <h3 className="register-heading">You don't have account yet!!<b className="text-danger">Sign up</b></h3>
+                  <h3 className="register-heading mt-5">You don't have account yet!!<b className="text-danger">Sign up</b></h3>
                   <form onSubmit={this.onSubmitFormUser}>
                     <div className="row register-form">
                       <div className="col-md-12">

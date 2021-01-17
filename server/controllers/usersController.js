@@ -18,8 +18,6 @@ exports.findAllUsers = (req, res) => {
 exports.createNewUser = (req, res) => {
     console.log('req.body', req.body)
     console.log('req.file', req.file)
-
-    
     req.body.profileImg = '/img/' + req.file.filename
 
     console.log('******************************************');
@@ -102,46 +100,49 @@ exports.loginUser = (req, res) => {
 
 //google log in
 exports.googleLogIn = (req, res) => {
-    User.findOne({ googleID: req.body.googleID }, function (err, user) {
-        if (err) {
+    User.findOne({ googleID: req.body.googleID }).populate('goals')
+        .then(user => {
+            if (user) {
+                //If User already exists login / return User Data
+
+                //create token part 
+                const payload = {
+                    id: user._id
+                };
+                const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
+                req.session.token = token;
+                req.session.user = user;
+                req.session.isLogedIN = true;
+
+                res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+            } else {
+                //create a new User and login / return UserDB._id
+                user = new User(req.body);
+                user.save(function (err, data) {
+                    if (err) {
+                        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                    } else {
+                        console.log("saving user ...", data);
+                        //create token part 
+                        const payload = {
+                            id: user._id
+                        };
+                        const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
+                        req.session.token = token;
+                        req.session.user = user;
+                        req.session.isLogedIN = true;
+
+                        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                    }
+                })
+            }
+        })
+        .catch((err) => {
             console.log(err);
             res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
         }
-        if (user) {
-            //If User already exists login / return User Data
+        )
 
-            //create token part 
-            const payload = {
-                id: user._id
-            };
-            const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
-            req.session.token = token;
-            req.session.user = user;
-            req.session.isLogedIN = true;
-
-            res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
-        } else {
-            //create a new User and login / return UserDB._id
-            user = new User(req.body);
-            user.save(function (err, data) {
-                if (err) {
-                    res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
-                } else {
-                    console.log("saving user ...", data);
-                    //create token part 
-                    const payload = {
-                        id: user._id
-                    };
-                    const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
-                    req.session.token = token;
-                    req.session.user = user;
-                    req.session.isLogedIN = true;
-
-                    res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
-                }
-            });
-        }
-    });
 }
 
 // user log out
@@ -149,24 +150,25 @@ exports.logoutUser = (req, res) => {
     req.session.token = null;
     req.session.user = null;
     req.session.isLogedIN = false;
-    res.send({ isLogedIN: req.session.isLogedIN})
+    res.send({ isLogedIN: req.session.isLogedIN })
 }
 
 // add user goals
 exports.addGoalsForm = (req, res) => {
-    console.log({goals: req.body,type:typeof req.body})
-    
-    User.findByIdAndUpdate( req.params.id , req.body)
+    console.log({ goals: req.body, type: typeof req.body })
+    User.findOne({ name: req.body.name })
+        .then((res) => console.log(res))
+    User.findByIdAndUpdate(req.params.id, req.body)
         .then(user => res.send({ status: 'all goals added', user: user, err: null }))
         .catch(err => { console.log(err); res.send({ err: err }) })
 }
 
 //check user logIn
 exports.checkLogInUser = (req, res) => {
-    if (req.session.isLogedIN || req.session.user )
-        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user }) 
-    else  
-        res.send({ isLogedIN: false, user: null }) 
+    if (req.session.isLogedIN || req.session.user)
+        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user })
+    else
+        res.send({ isLogedIN: false, user: null })
 }
 
 // checkEmailUsed

@@ -52,6 +52,7 @@ class FormGoals extends React.Component {
 
     onSubmitFormUser = (event) => {
         event.preventDefault();
+       
         if (this.state.userGoal) {
             let newUserGoal = {
                 name: this.state.userGoal,
@@ -59,9 +60,9 @@ class FormGoals extends React.Component {
             }
             axios.post('/goal/create', newUserGoal)
                 .then((res) => {
-                    // console.log({data:res.data})
+                     console.log({data:res.data})
                     this.setState({ goals: [...this.state.goals, res.data._id] })
-                    // console.log({ state: this.state.displayGoals })
+                     console.log({ state: this.state.displayGoals })
                 })
                 .then(()=>{
                     axios.patch(`/user/addGoalsForm/${this.state.userId}`,{goals:this.state.goals})
@@ -85,7 +86,7 @@ class FormGoals extends React.Component {
         this.setState({checked:!this.state.checked})
     }
     render() {
-
+        
         if (!this.state.userId) {
             this.props.history.push('/login/register')
         }

@@ -29,7 +29,7 @@ class GoogleBtn extends Component {
         .then(res => {
           console.log('axios res', res)
           localStorage.setItem('loggedInUser', JSON.stringify(res.data.user));
-          window.location = '/user/profile'
+          window.location = '/user/goals'
 
         })
         .catch(err => {

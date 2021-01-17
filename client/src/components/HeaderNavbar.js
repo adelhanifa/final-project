@@ -25,18 +25,17 @@ class HeaderProfile extends React.Component {
         return (
 
             <header className="header" id="header">
-                <Navbar collapseOnSelect expand="lg"
+                <Navbar collapseOnSelect expand="lg" style={{marginLeft:'50px'}}
                     className="navbar navbar-expand-lg" variant="dark">
-                    <Navbar.Brand href="/">
+                    <Navbar.Brand href="/" className="mx-5">
                         <img
                             alt="logo"
                             src="/assets/img/logo/right-red_white.png"
                             className="d-inline-block align-top mylogo"
                         />
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="mr-auto" id="navbarNav">
+                    <Navbar.Collapse id="responsive-navbar-nav" className="mx-5">
+                        <Nav className="mr-auto " id="navbarNav">
                             {/* <Link href="#features">Features</Nav.Link>
                             <Nav.Link href="#pricing">Pricing</Nav.Link> */}
                             <ul className="nav-menu navbar-nav">
@@ -59,7 +58,7 @@ class HeaderProfile extends React.Component {
                                     :
                                     <li> <Nav.Link as={Link} to="" onClick={this.userSignOut} >sign out</Nav.Link></li>
                                 }
-                                <li className="buy-tickets"> <a href="/" >Create Goal</a></li>
+                                <li className="buy-tickets"> <a href="/" >Main page</a></li>
 
                             </ul>
                         </Nav>
