@@ -9,10 +9,12 @@ class FormGoals extends React.Component {
         let displayGoals = []
         this.state = {
             userId: _id,
+            checked:false,
             displayGoals: displayGoals,
             userGoal: '',
             goals: ["60021099041de14af00c02ec"]
         }
+      
         axios.get('/goal/')
             .then(res => {
                 console.log(res.data)
@@ -22,13 +24,14 @@ class FormGoals extends React.Component {
                 this.setState({ displayGoals: displayGoals })
             })
     }
+   
     handleChange = (evt) => {
         let goalValue = evt.target.value
         let allreadyAdded = this.state.goals.findIndex(x => x === goalValue)
 
         if (evt.target.checked) {
             console.log(allreadyAdded)
-            if (allreadyAdded == -1) {
+            if (allreadyAdded === -1) {
                 this.setState({ goals: [...this.state.goals, goalValue] });
 
             }
@@ -78,7 +81,9 @@ class FormGoals extends React.Component {
          }
 
     }
-
+    onClickAction = (e) => {
+        this.setState({checked:!this.state.checked})
+    }
     render() {
 
         if (!this.state.userId) {
@@ -88,7 +93,7 @@ class FormGoals extends React.Component {
             return 'Loading ...'
         }
         return (
-            <div className="body-page mb-3 min-vh-100">
+            <div className="body-page min-vh-100">
                 <div className="bg-dark  p-2">
                     <div className="container d-flex flex-column justify-content-between align-items-center flex-lg-d-flex align-items-center justify-content-center flex-md-row">
                         <a href="/">
@@ -108,16 +113,14 @@ class FormGoals extends React.Component {
                         </div>
 
                         <div className="col-md-9 register-right">
-
                             <div >
                                 <div >
-                                    <h3 className="register-heading mt-2">Choose any catogeray or <br /> create your own target<a href="/user/createGoal" className="text-danger"> Create goal</a></h3>
-
+                                    <h3 className="register-heading mt-2">Choose any category of goals or <br /><b className="text-danger"> Create your own target </b></h3>
                                     <form onSubmit={this.onSubmitFormUser} className="row register-form form-check">
                                         <div className="col-md-12">
 
                                             <h1
-                                                className="dark-grey-text mt-5 mb-4"
+                                                className="dark-grey-text  mb-4"
                                                 style={{ color: 'white', textShadow: '2px 2px 4px #000000' }}> I want to revolutionize ... </h1>
                                             <section className="border p-3">
 
@@ -133,6 +136,7 @@ class FormGoals extends React.Component {
                                                                         value={item._id}
                                                                         name={inputName}
                                                                         onChange={this.handleChange}
+                                                                        onClick={this.onClickAction}
                                                                         className="form-check-input d-none"
                                                                         autoComplete="off"
                                                                     />
@@ -146,7 +150,7 @@ class FormGoals extends React.Component {
                                                 <div className="btn-group w-100" data-toggle="buttons">
 
                                                     <label className="btn btn-outline-secondary btn-rounded  d-flex align-items-center mt-2 px-1 px-sm-4">
-                                                        <i class="fas fa-bullseye"></i>
+                                                        <i className="fas fa-bullseye"></i>
 
                                                         <input
                                                             type="text"

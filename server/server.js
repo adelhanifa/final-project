@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const session = require('express-session');
 
@@ -31,6 +31,11 @@ app.use('/goal', goalsRouter);
 app.use('/group', groupsRouter);
 app.use('/send-email', sendEmailRouter);
 
-app.listen(port, () => {
-    console.log(`Server is running on port: http://localhost:${port}`);
-});
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
+mongoose.connect(dbLink, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+ .then(()=> app.listen(PORT, () => console.log(`server running on port : http://localhost:${PORT} and connected to database`)))
+ .catch((error) => console.log(`${error} did not connect`))
+
+

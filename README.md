@@ -31,6 +31,7 @@
  - SendGrid (mail sender)
  - jsonwebtoken(JWT)
  - express-session
+ - crypto package to encrypt and hash the password
  
  ### Deployment 
  - Heroku for Back end .
