@@ -1,6 +1,6 @@
 import React from 'react';
 import '../cssComponents/profile.css';
-import { Navbar } from 'react-bootstrap'
+import { Navbar, Button } from 'react-bootstrap'
 
 class ProfilePage extends React.Component {
     constructor() {
@@ -47,8 +47,15 @@ class ProfilePage extends React.Component {
                                                     <h5 className="mb-2 text-primary">About</h5>
                                                     <p>I'm {firstName} {lastName}. I have many Life goals, that I want to share with others </p>
                                                 </div>
+                                                <div>
+
+                                                </div>
                                             </div>
+
                                         </div>
+                                        <Button variant="danger" size="lg" active className="mb-2 ">
+                                            Sign out
+                                            </Button>{' '}
                                     </div>
                                 </div>
                                 <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
@@ -139,11 +146,11 @@ class ProfilePage extends React.Component {
                                 </div>
                             </div>
                         </div >
-                        <br/>
-                    <br/><br/>
-                    <br/>
+                        <br />
+                        <br /><br />
+                        <br />
                     </div>
-                    
+
                 </>
             )
         } else {

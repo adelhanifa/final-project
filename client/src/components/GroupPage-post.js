@@ -43,9 +43,9 @@ class GroupPagePost extends React.Component {
                         </div>
                     </div>
                     <div className="timeline-footer">
-                        <a href="javascript:;" className="m-r-15 text-inverse-lighter"><i className="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                        <a href="javascript:;" className="m-r-15 text-inverse-lighter"><i className="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                        <a href="javascript:;" className="m-r-15 text-inverse-lighter"><i className="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
+                        <a href="/" className="m-r-15 text-inverse-lighter"><i className="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
+                        <a href="/" className="m-r-15 text-inverse-lighter"><i className="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
+                        <a href="/" className="m-r-15 text-inverse-lighter"><i className="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                     </div>
                     <div className="timeline-comment-box">
                         <div className="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" /></div>

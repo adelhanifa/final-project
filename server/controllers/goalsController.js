@@ -11,8 +11,15 @@ exports.findAllGoals = (req, res) => {
 exports.createNewGoal = (req, res) => {
     console.log('******************************************');
     console.log('create goal: ',req.body);
-    const newGoal = new Goal(req.body);
-    newGoal.save()
-    .then(goal => res.json(goal))
-    .catch(err => res.status(400).json('Error: ' + err));
+    Goal.findOne({name:req.body.name})
+    .then(goal=>{
+        if(!goal){
+            const newGoal = new Goal(req.body);
+            newGoal.save()
+            .then(goal => res.json(goal))
+            .catch(err => res.status(400).json('Error: ' + err));
+        }
+        else console.log('goal found already created', goal)
+    })
+   
 }

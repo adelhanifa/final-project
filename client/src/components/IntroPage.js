@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-
+import React from 'react'
 import HeaderNavbar from './HeaderNavbar'
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import AboutUs from "./AboutUs";
 import TeamWorker from './TeamWorker';
 import Footer from "./Footer";

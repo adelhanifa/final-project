@@ -167,7 +167,7 @@ class FormUser extends React.Component {
         <div className="container register">
           <div className="row">
             <div className="col-md-3 register-left">
-              <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+              <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="img" />
               <h3 className="text-danger"> Welcome </h3>
               <p>Be one of the on Target members!</p>
 
@@ -223,16 +223,7 @@ class FormUser extends React.Component {
                           <span className="invalid-feedback">{isError.password}</span>
                         )}
                       </div>
-
-
-
-                      {/* { this.state.userErrMsg && (
-                        <div className="form-group ">
-                            <span className="invalid-feedback">{this.state.userErrMsg}</span>
-                          </div>
-                        )}  */}
                     </div>
-
                     <input type="submit" className="btnRegister" value="Continue" />
                   </form>
                 </div>
@@ -318,7 +309,7 @@ class FormUser extends React.Component {
             </div>
           </div>
         </div>
-
+          <br/><br/>
       </div>
     )
   }

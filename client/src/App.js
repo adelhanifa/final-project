@@ -11,14 +11,8 @@ import FormUser from "./components/FormUser";
 import ProfilePage from "./components/ProfilePage";
 import FormGoals from "./components/FormGoals";
 import CreateGoals from "./components/CreateGoals";
-import GroupPage from "./components/GroupPage";
+// import GroupPage from "./components/GroupPage";
 import CardDisplay from "./components/CardDisplay";
-import TestProfilePage from "./components/TestProfilePage";
-
-// import CreateUser from './components/CreateUser';
-// import FormTest from "./components/FormTest";
-// import FormUser2 from "./components/FormUser2";
-// import FormTest2 from "./components/FormTest2";
 
 
 function App() {
@@ -33,9 +27,8 @@ let history = useHistory();
         <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/user/createGoal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CardDisplay} />
-        <Route path='/group-page' exact component={GroupPage} />
-        <Route path='/test' exact component={TestProfilePage} />
-
+        {/* <Route path='/group-page' exact component={GroupPage} /> */}
+         
       </Router>
     </div>
   );
