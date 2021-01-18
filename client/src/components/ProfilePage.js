@@ -10,8 +10,8 @@ class ProfilePage extends React.Component {
     }
 
     render() {
-        console.log({ id: this.state.user._id })
         if (this.state.user) {
+            console.log({ id: this.state.user._id })
             let { firstName, lastName, email, profileImg, goals } = this.state.user
             console.log({ goals })
             return (
