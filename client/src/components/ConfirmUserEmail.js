@@ -7,7 +7,7 @@ class ConfirmUserEmail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
-    axios.get(`/user/confirmEmail/1${this.props.match.params.id}`)
+    axios.get(`/user/confirmEmail/${this.props.match.params.id}`)
     .then(res => {
       console.log(res.data)
       props.history.push({ 

@@ -34,6 +34,7 @@ class HeaderProfile extends React.Component {
                             className="d-inline-block align-top mylogo"
                         />
                     </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav" className="mx-5">
                         <Nav className="mr-auto " id="navbarNav">
                             {/* <Link href="#features">Features</Nav.Link>

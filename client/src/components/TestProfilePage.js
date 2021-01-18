@@ -12,7 +12,7 @@ class TestProfilePage extends React.Component {
 
     render() {
         if (this.state.user) {
-            let { firstName, lastName, email, profileImg } = this.state.user
+            // let { firstName, lastName, email, profileImg } = this.state.user
             return (
                 <>
                     <div className="body-page min-vh-100">

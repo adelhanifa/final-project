@@ -14,7 +14,8 @@ import FormGoals from "./components/FormGoals";
 import CreateGoals from "./components/CreateGoals";
 import GroupPage from "./components/GroupPage";
 import CardDisplay from "./components/CardDisplay";
-import TestProfilePage from "./components/TestProfilePage";
+import FormForgetPassword from "./components/FormForgetPassword";
+import FormResetPassword from "./components/FormResetPassword";
 
 // import CreateUser from './components/CreateUser';
 // import FormTest from "./components/FormTest";
@@ -36,7 +37,8 @@ let history = useHistory();
         <Route path='/user/createGoal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CardDisplay} />
         <Route path='/group-page' exact component={GroupPage} />
-        <Route path='/test' exact component={TestProfilePage} />
+        <Route path='/user/forget-password' exact component={FormForgetPassword} />
+        <Route path='/user/reset/:id' exact component={FormResetPassword} />
 
       </Router>
     </div>

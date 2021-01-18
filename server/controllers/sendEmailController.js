@@ -60,7 +60,7 @@ exports.resetPassword = (req, res) => {
                     <h2>Hello ${data.firstName} ${data.lastName}</h2>
                     <h2>Please click below to rest the Password</h2>
                     <div>
-                        <a href="http://localhost:3000/user/reset/${user.id}" type="button">reset your password now</a>
+                        <a href="http://localhost:3000/user/reset/${data._id}" type="button">reset your password now</a>
                     </div>
                     <h3>If you still have problem <a href="http://localhost:3000">contact us</a> </h3>
                     <h4>Thank you</h4>
