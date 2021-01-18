@@ -21,8 +21,9 @@ class FormUser extends React.Component {
         password: '',
         profileImg: ''
       },
-      userErrMsg: ''
+      userErrMsg: this.props.location.state
     }
+    window.history.replaceState(null, '')
   }
 
   formValChange = e => {
@@ -133,7 +134,7 @@ class FormUser extends React.Component {
                 else {
                   console.log('isLoged in :' + res.data.status)
                   console.log('userInfo :' + res.data.user)
-                  this.props.history.push('/login/register')
+                  this.setState({userErrMsg: 'You have sucsessfuly created your account, please verify your email before login'})
                 }
 
               })
@@ -223,6 +224,7 @@ class FormUser extends React.Component {
                           <span className="invalid-feedback">{isError.password}</span>
                         )}
                       </div>
+                      <a href="/user/forget-password">forget your password click here</a>   
                     </div>
                     <input type="submit" className="btnRegister" value="Continue" />
                   </form>
@@ -232,6 +234,15 @@ class FormUser extends React.Component {
                   <form onSubmit={this.onSubmitFormUser}>
                     <div className="row register-form">
                       <div className="col-md-12">
+                        {userErrMsg && (
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span> {userErrMsg}</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+
+                        )}
                         <div className="form-group">
                           <input
                             type="text"

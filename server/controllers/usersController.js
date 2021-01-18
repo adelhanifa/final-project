@@ -78,17 +78,18 @@ exports.loginUser = (req, res) => {
                 // hash Pasword check
                 bcrypt.compare(req.body.password, data.password, function (err, result) {
                     if (result == true) {
-
-                        //create token part 
-                        const payload = {
-                            id: data._id
-                        };
-                        const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
-                        req.session.token = token;
-                        req.session.user = data;
-                        req.session.isLogedIN = true;
-
-                        res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                        if (data.activated) {
+                            //create token part 
+                            const payload = {
+                                id: data._id
+                            };
+                            const token = jwt.sign(payload, accessTokenSecret, { expiresIn: '1h' });
+                            req.session.token = token;
+                            req.session.user = data;
+                            req.session.isLogedIN = true;
+                            res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                        }
+                        else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'Please verify your email address before login !' }) }
                     }
                     else { res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: 'Password not correct try again !' }) }
                 })
@@ -114,9 +115,10 @@ exports.googleLogIn = (req, res) => {
                 req.session.user = user;
                 req.session.isLogedIN = true;
 
-                res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
+                res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: null })
             } else {
                 //create a new User and login / return UserDB._id
+                req.body.activated = true;
                 user = new User(req.body);
                 user.save(function (err, data) {
                     if (err) {
@@ -140,8 +142,7 @@ exports.googleLogIn = (req, res) => {
         .catch((err) => {
             console.log(err);
             res.send({ isLogedIN: req.session.isLogedIN, user: req.session.user, err: err })
-        }
-        )
+        })
 
 }
 
@@ -155,6 +156,7 @@ exports.logoutUser = (req, res) => {
 
 // add user goals
 exports.addGoalsForm = (req, res) => {
+<<<<<<< HEAD
     console.log({ goals: req.body.goals, type: typeof req.body })
     let goals = req.body.goals;
     goals.map(el1 => {
@@ -177,6 +179,23 @@ exports.addGoalsForm = (req, res) => {
             .catch(err => console.log({ err }))
     })
 
+=======
+    console.log({ goals: req.body, type: typeof req.body })
+    let goals = req.body;
+    let goalsFind = goals.find(goal => {
+        Goal.findById(goal)
+            .then(res => console.log({ res }))
+            .catch(err => console.log({ err }))
+    })
+    Goal.findOne({ name: req.body.name })
+        .then((res) => console.log(res))
+    User.findByIdAndUpdate(req.params.id, req.body)
+        .then(user => {
+
+            res.send({ status: 'all goals added', user: user, err: null })
+        })
+        .catch(err => { console.log(err); res.send({ err: err }) })
+>>>>>>> 980c1a0c4dec0d6bb42fde2ed05a759cfa5f1bdc
 }
 
 //check user logIn
@@ -195,4 +214,31 @@ exports.checkEmailUsed = (req, res) => {
             else res.send(false)
         })
         .catch(err => { console.log(err); res.send({ err: err }) })
+}
+
+// confirm Email address
+exports.confirmUserEmail = (req, res) => {
+    User.findByIdAndUpdate(req.params.id, { activated: true })
+        .then(user => {
+            res.send({ status: 'Your email address is successfully activated, log in now', user: user, err: null })
+        })
+        .catch(err => { console.log(err); res.send({ status: 'Something wrong try again or cuntact us !', err: err }) })
+}
+
+// reset Password 
+exports.resetUserPassword = (req, res) => {
+    console.log('******************************************');
+    // hash Pasword
+    bcrypt.hash(req.body.password, 10, function (err, hash) {
+        if (err) throw err
+        console.log('hash Pass:', hash)
+        req.body.password = hash;
+        console.log('reset user password: ', req.body);
+
+        User.findByIdAndUpdate(req.params.id, req.body)
+            .then(user => {
+                res.send({ status: 'You have successfully changed the password, log in now.', err: null })
+            })
+            .catch(err => { console.log(err); res.send({ status: 'Something wrong try again or cuntact us !', err: err }) })
+    });
 }

@@ -32,6 +32,8 @@ router.post('/log-in', controller.loginUser);
 router.post('/google-log-in', controller.googleLogIn);
 router.patch('/addGoalsForm/:id',  controller.addGoalsForm);
 router.get('/log-out', controller.logoutUser);
+router.get('/confirmEmail/:id',  controller.confirmUserEmail);
+router.post('/reserPasword/:id',  controller.resetUserPassword);
 
 router.get('/checkEmailUsed/:email', controller.checkEmailUsed);
 router.get('/checkLogInUser/', controller.checkLogInUser);
