@@ -5,6 +5,7 @@ import { Navbar, Button } from 'react-bootstrap'
 class ProfilePage extends React.Component {
     constructor() {
         super()
+       
         let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
         this.state = { user: loggedInUser }
     }
