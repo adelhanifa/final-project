@@ -156,7 +156,7 @@ exports.logoutUser = (req, res) => {
 
 // add user goals
 exports.addGoalsForm = (req, res) => {
-<<<<<<< HEAD
+
     console.log({ goals: req.body.goals, type: typeof req.body })
     let goals = req.body.goals;
     goals.map(el1 => {
@@ -178,24 +178,6 @@ exports.addGoalsForm = (req, res) => {
             })
             .catch(err => console.log({ err }))
     })
-
-=======
-    console.log({ goals: req.body, type: typeof req.body })
-    let goals = req.body;
-    let goalsFind = goals.find(goal => {
-        Goal.findById(goal)
-            .then(res => console.log({ res }))
-            .catch(err => console.log({ err }))
-    })
-    Goal.findOne({ name: req.body.name })
-        .then((res) => console.log(res))
-    User.findByIdAndUpdate(req.params.id, req.body)
-        .then(user => {
-
-            res.send({ status: 'all goals added', user: user, err: null })
-        })
-        .catch(err => { console.log(err); res.send({ err: err }) })
->>>>>>> 980c1a0c4dec0d6bb42fde2ed05a759cfa5f1bdc
 }
 
 //check user logIn
