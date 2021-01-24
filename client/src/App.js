@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './mainCss.css'
+// import './mainCss.css' 
 // import './App.css'
 
 import IntroPage from "./components/IntroPage";

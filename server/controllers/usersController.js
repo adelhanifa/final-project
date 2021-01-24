@@ -223,51 +223,79 @@ exports.logoutUser = (req, res) => {
 
 // add user goals
 exports.addGoalsForm = (req, res) => {
-  console.log({ goals: req.body.goals, type: typeof req.body });
+  console.log({ fromUser: req.body.goals });
   let goals = req.body.goals;
-  let upadateUser = {};
+  let upadateUser = [];
   User.findById(req.params.id)
-    .then((user) => {
-      console.log({ user });
-      if (user.goals.length === 0) {
-        User.findByIdAndUpdate(req.params.id, req.body)
-          .populate("goals")
-          .then((user) => {
-              updateUser = user;
-            // res.send({ status: "all goals added", user: user, err: null });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.send({ err: err });
-          });
-      } else {
-        goals.map((el1) => {
-          user.goals.map((el2) => {
-            if (el2 !== el1) {
-              console.log({ el2, el1 });
-              User.findByIdAndUpdate(req.params.id, req.body)
-                .then((user) => {
-                 console.log({user})
-                  upadateUser = user;
-        
-                  //    res.send({ status: 'all goals added', user: user, err: null })
-                })
-                .catch((err) => {
-                  console.log(err);
-                  res.send({ err: err });
-                });
-            }
-          });
-        }); 
-        
-      }
+    .then((data) => {
+      console.log({ fromDB: data.goals });
+      upadateUser = goals.filter((x) => data.goals.indexOf(x) === -1);
+      upadateUser = [...data.goals, ...upadateUser];
     })
-    .then(user => {
-        console.log({user})
-        console.log({ upadateUser });
-        res.send({ status: "all goals added", user: upadateUser, err: null });
+    .then(() => {
+      console.log({ fromDBandUser: upadateUser });
+      User.findByIdAndUpdate(req.params.id, { goals: upadateUser })
+        .then(() => {
+          User.findById(req.params.id).populate("goals")
+            .then((user) => {
+              res.send({ status: "Your goals are added", user: user, err: null, });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.send({ status: "goals not added something wrong", user: null, err: err, });
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send({ status: "goals not added something wrong", user: null, err: err, });
+        });
     })
-    .catch((err) => console.log({ err }));
+    .catch((err) => {
+      console.log(err);
+      res.send({ status: "goals not added something wrong", user: null, err: err, });
+    });
+  //   User.findById(req.params.id)
+  //     .then((user) => {
+  //       console.log({ user });
+  //       if (user.goals.length === 0) {
+  //         User.findByIdAndUpdate(req.params.id, req.body)
+  //           .populate("goals")
+  //           .then((user) => {
+  //               updateUser = user;
+  //             // res.send({ status: "all goals added", user: user, err: null });
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //             res.send({ err: err });
+  //           });
+  //       } else {
+  //         goals.map((el1) => {
+  //           user.goals.map((el2) => {
+  //             if (el2 !== el1) {
+  //               console.log({ el2, el1 });
+  //               User.findByIdAndUpdate(req.params.id, req.body)
+  //                 .then((user) => {
+  //                  console.log({user})
+  //                   upadateUser = user;
+
+  //                   //    res.send({ status: 'all goals added', user: user, err: null })
+  //                 })
+  //                 .catch((err) => {
+  //                   console.log(err);
+  //                   res.send({ err: err });
+  //                 });
+  //             }
+  //           });
+  //         });
+
+  //       }
+  //     })
+  //     .then(user => {
+  //         console.log({user})
+  //         console.log({ upadateUser });
+  //         res.send({ status: "all goals added", user: upadateUser, err: null });
+  //     })
+  //     .catch((err) => console.log({ err }));
 
   //   console.log({ goals: req.body.goals, type: typeof req.body });
   //   let goals = req.body.goals;
