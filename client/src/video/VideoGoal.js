@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import goalVideo from "./goal-video.mp4";
-
-const VideoGoal = () => {
+import {Modal, Button} from "react-bootstrap"
+const VideoGoal = ({show}) => {
+  const [showV, setShowV] = useState(false);
+  setShowV(show)
+  
+  const handleClose = () => setShowV(false);
+  // const handleShow = () => setShowV(true);
   return (
+<>
+    <Modal show={showV} onHide={handleClose}>
+    <Modal.Header closeButton>
+      <Modal.Title>Modal heading</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
     <video
       autoPlay
       muted loop
@@ -18,7 +29,24 @@ const VideoGoal = () => {
         zIndex: '-3'
       }}>
       <source src={goalVideo} type="video/mp4"></source>
-    </video>)
+    </video>
+
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={handleClose}>
+        Close
+      </Button>
+      <Button variant="primary" onClick={handleClose}>
+        Save Changes
+      </Button>
+    </Modal.Footer>
+  </Modal>
+
+
+
+  
+    </>
+    )
 }
 
 export default VideoGoal;

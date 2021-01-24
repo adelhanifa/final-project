@@ -12,7 +12,7 @@ import ConfirmUserEmail from "./components/ConfirmUserEmail";
 import ProfilePage from "./components/ProfilePage";
 import FormGoals from "./components/FormGoals";
 import CreateGoals from "./components/CreateGoals";
-import GroupPage from "./components/GroupPage";
+// import GroupPage from "./components/GroupPage";
 import CardDisplay from "./components/CardDisplay";
 import FormForgetPassword from "./components/FormForgetPassword";
 import FormResetPassword from "./components/FormResetPassword";

@@ -5,7 +5,7 @@
 * License: https://bootstrapmade.com/license/
 */
 !(function($) {
-  "use strict";
+  // "use strict";
 // alert(1)
   // Back to top button
   $(window).on('scroll',function() {
@@ -35,16 +35,16 @@
     $('#header').addClass('header-scrolled');
   }
 
-  // Initialize Venobox
-  $(window).on('load', function() {
-    $('.venobox').venobox({
-      bgcolor: '',
-      overlayColor: 'rgba(6, 12, 34, 0.85)',
-      closeBackground: '',
-      closeColor: '#fff',
-      share: false
-    });
-  });
+  // // Initialize Venobox
+  // $(window).on('load', function() {
+  //   $('.venobox').venobox({
+  //     bgcolor: '',
+  //     overlayColor: 'rgba(6, 12, 34, 0.85)',
+  //     closeBackground: '',
+  //     closeColor: '#fff',
+  //     share: false
+  //   });
+  // });
 
   // Initiate superfish on nav menu
  
@@ -102,14 +102,14 @@
     scrolltoOffset += 20;
   }
   $(document).on('click', '.nav-menu a, #mobile-nav a, .scrollto', function(e) {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+    if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
       var target = $(this.hash);
       if (target.length) {
         e.preventDefault();
 
         var scrollto = target.offset().top - scrolltoOffset;
 
-        if ($(this).attr("href") == '#header') {
+        if ($(this).attr("href") === '#header') {
           scrollto = 0;
         }
 
