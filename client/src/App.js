@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './mainCss.css'
+// import './mainCss.css' 
 // import './App.css'
 
 import IntroPage from "./components/IntroPage";
@@ -12,7 +12,7 @@ import ConfirmUserEmail from "./components/ConfirmUserEmail";
 import ProfilePage from "./components/ProfilePage";
 import FormGoals from "./components/FormGoals";
 import CreateGoals from "./components/CreateGoals";
-import GroupPage from "./components/GroupPage";
+// import GroupPage from "./components/GroupPage";
 import CardDisplay from "./components/CardDisplay";
 import FormForgetPassword from "./components/FormForgetPassword";
 import FormResetPassword from "./components/FormResetPassword";

@@ -1,7 +1,6 @@
 import React from 'react'
 import '../cssComponents/form-user.css';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 
 class ConfirmUserEmail extends React.Component {
   constructor(props) {
