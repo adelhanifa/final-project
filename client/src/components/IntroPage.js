@@ -5,9 +5,8 @@ import AboutUs from "./AboutUs";
 import TeamWorker from "./TeamWorker";
 import Footer from "./Footer";
 import Contact from "./Contact";
-// import VideoGoal from "../video/VideoGoal";
+import VideoGoal from "../video/VideoGoal";
 import { Modal } from "react-bootstrap";
-import goalVideo from "../video/goal-video.mp4";
 const IntroPage = () => {
   const [showVideo, setShowVedio] = useState(false);
   let d = new Date();
@@ -30,30 +29,8 @@ const IntroPage = () => {
           centered
         >
           <Modal.Body className="bg-dark">
-            <video
-              autoPlay
-              muted
-              loop
-              style={{
-                // position: "absolute",
-                left: "5%",
-                top: "5%",
-                // height: "100vh",
-                width: "100%",
-                // marginTop: "30px",
-                objectFit: "cover",
-                // transform: "translate(-50%, -50%)",
-                zIndex: "-3",
-              }}
-            >
-              <source src={goalVideo} type="video/mp4"></source>
-            </video>
+           <VideoGoal />
           </Modal.Body>
-          {/* <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer> */}
         </Modal>
 
         {!showVideo && (
