@@ -36,7 +36,7 @@ let history = useHistory();
         <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/user/createGoal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CardDisplay} />
-        <Route path='/group-page' exact component={GroupPage} />
+        {/* <Route path='/group-page' exact component={GroupPage} /> */}
         <Route path='/user/forget-password' exact component={FormForgetPassword} />
         <Route path='/user/reset/:id' exact component={FormResetPassword} />
 

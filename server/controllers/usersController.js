@@ -156,7 +156,10 @@ exports.logoutUser = (req, res) => {
 
 // add user goals
 exports.addGoalsForm = (req, res) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2a6384ffbcf849e0d7aa1317ac3e3e4706cf7f2b
     console.log({ goals: req.body.goals, type: typeof req.body })
     let goals = req.body.goals;
     goals.map(el1 => {
