@@ -1,5 +1,5 @@
 import React from 'react'
-import '../cssComponents/form-user.css';
+import '../../cssComponents/form-user.css';
 import axios from 'axios';
 import GoogleBtn from './GoogleBtn';
 
@@ -191,15 +191,14 @@ class FormUser extends React.Component {
 
                   <form onSubmit={this.onSubmitSignIn} className="row register-form">
                     <div className="col-md-12">
-                      {userErrMsg && (
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      {userErrMsg && 
+                        <div className="alert alert-info alert-dismissible fade show" role="alert">
                           <span> {userErrMsg}</span>
                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-
-                      )}
+                      }
                       <div className="form-group">
                         <input type="email"
                           className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}

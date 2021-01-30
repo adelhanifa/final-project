@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import HeaderNavbar from "./HeaderNavbar";
+import HeaderNavbar from "../HeaderNavbar.jsx";
 import { Link } from "react-router-dom";
 import AboutUs from "./AboutUs";
 import TeamWorker from "./TeamWorker";
 import Footer from "./Footer";
 import Contact from "./Contact";
-import VideoGoal from "../video/VideoGoal";
+import VideoGoal from "../../video/VideoGoal";
 import { Modal } from "react-bootstrap";
 const IntroPage = () => {
   const [showVideo, setShowVedio] = useState(false);

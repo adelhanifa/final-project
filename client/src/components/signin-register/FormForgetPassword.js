@@ -1,16 +1,14 @@
 import React from 'react'
-import '../cssComponents/form-user.css';
+import '../../cssComponents/form-user.css';
 import axios from 'axios';
 
-class FormResetPassword extends React.Component {
+class FormForgetPassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
-      password2: '',
+      email: '',
       isError: {
-        password: '',
-        password2: ''
+        email: '',
       },
       userErrMsg: ''
     }
@@ -19,16 +17,14 @@ class FormResetPassword extends React.Component {
   formValChange = e => {
     e.preventDefault();
     const { name, value } = e.target;
+    let regExp = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)
     let isError = { ...this.state.isError };
 
     switch (name) {
-      case "password":
-        isError.password =
-          value.length < 6 ? "Atleast 6 characaters required" : "";
-        break;
-      case "password2":
-        isError.password2 =
-          value !== this.state.password  ? "Password does not match" : "";
+      case "email":
+        isError.email = regExp.test(value)
+          ? ""
+          : "Email address is invalid";
         break;
       default:
         break;
@@ -43,30 +39,34 @@ class FormResetPassword extends React.Component {
   onSubmitFormUser = (event) => {
     event.preventDefault();
 
-    if (this.state.isError.password || this.state.isError.password2) {
+    if (this.state.isError.email ) {
       console.log('form in valid')
     }
 
     else {
       console.log('form valid')
-        axios.post("/user/reserPasword/"+this.props.match.params.id, {password: this.state.password})
-          .then(res => {
-            console.log(res.data)
-            if (res.data.err){
-              this.setState({ userErrMsg: res.data.status })
-            }
-            else{
-              this.setState({ userErrMsg: res.data.status })
-              this.props.history.push({ 
-                pathname: '/login/register',
-                state:  res.data.status
-              });
-            }
-          })
-          .catch(err => {
-            console.log(err.data)
-          })
-     }
+
+
+      axios.get("/user/checkEmailUsed/" + this.state.email)
+        .then(res => {
+          console.log(res.data)
+          if (res.data === false) {
+            console.log('This email is not exist, try again.')
+            this.setState({ userErrMsg: 'This email is not exist, try again.' })
+          }
+          else {
+            axios.post("/send-email/reset-password", {email: this.state.email})
+              .then(res => {
+                console.log(res.data)
+                this.setState({ userErrMsg: res.data.msg })
+              })
+              .catch(err => {
+                console.log(err.data)
+              })
+          }
+        })
+        .catch(err => console.log(err))
+    }
 
   }
 
@@ -83,7 +83,7 @@ class FormResetPassword extends React.Component {
             <a href="/">
               <img alt="logo" src="/assets/img/logo/right-red_white.png" className="d-inline-block align-top mylogo" />
             </a>
-            <h3 className="text-light">Reset Password Page</h3>
+            <h3 className="text-light">Forget Password Page</h3>
           </div>
         </div>
 
@@ -94,18 +94,19 @@ class FormResetPassword extends React.Component {
               <h3 className="text-danger"> Welcome </h3>
               <p>Be one of the on Target members!</p>
 
+            
               <br />
             </div>
 
             <div className="col-md-9 register-right">
               
               <div className="tab-content" id="myTabContent">
-                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <h3 className="register-heading mt-5">Enter your new Password</h3>
+              
+                <div className="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <h3 className="register-heading mt-5">To rest your password enter your email address then click <br /><b className="text-danger">the button below</b></h3>
                   <form onSubmit={this.onSubmitFormUser}>
                     <div className="row register-form">
                       <div className="col-md-12">
-
                         {userErrMsg && (
                           <div className="alert alert-danger alert-dismissible fade show" role="alert">
                             <span> {userErrMsg}</span>
@@ -114,32 +115,17 @@ class FormResetPassword extends React.Component {
                             </button>
                           </div>
                         )}
-
                         <div className="form-group">
                           <input
-                            type="password"
                             onChange={this.formValChange}
-                            className={isError.password.length > 0 ? "is-invalid form-control" : "form-control"}
-                            placeholder="Enter New Password *"
-                            name="password"
-                            initialvalue={this.state.password}
+                            type="email"
+                            className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
+                            placeholder="Enter your email *"
+                            name="email"
+                            initialvalue={this.state.email}
                             required />
-                          {isError.password.length > 0 && (
-                            <span className="invalid-feedback">{isError.password}</span>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="password"
-                            onChange={this.formValChange}
-                            className={isError.password2.length > 0 ? "is-invalid form-control" : "form-control"}
-                            placeholder="Enter Password Again *"
-                            name="password2"
-                            initialvalue={this.state.password2}
-                            required />
-                          {isError.password2.length > 0 && (
-                            <span className="invalid-feedback">{isError.password2}</span>
+                          {isError.email.length > 0 && (
+                            <span className="invalid-feedback">{isError.email}</span>
                           )}
                         </div>
 
@@ -147,7 +133,7 @@ class FormResetPassword extends React.Component {
                           type="submit"
                           className="btnRegister"
                           initialvalue="Register"
-                          value="Reset Now" />
+                          value="Send Email Now" />
                       </div>
                     </div>
                   </form>
@@ -161,4 +147,4 @@ class FormResetPassword extends React.Component {
     )
   }
 }
-export default FormResetPassword;
+export default FormForgetPassword;

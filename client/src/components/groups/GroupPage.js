@@ -1,5 +1,5 @@
 import React from 'react';
-import '../cssComponents/group-page.css';
+import '../../cssComponents/group-page.css';
 import GroupPageMember from './GroupPage-member';
 import GroupPagePost from './GroupPage-post';
 
