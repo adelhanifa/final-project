@@ -5,20 +5,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import './mainCss.css' 
 // import './App.css'
 
-import IntroPage from "./components/IntroPage";
-import AboutUs from './components/AboutUs'
-import FormUser from "./components/FormUser";
-import ConfirmUserEmail from "./components/ConfirmUserEmail";
-import ProfilePage from "./components/ProfilePage";
-import FormGoals from "./components/FormGoals";
-import CreateGoals from "./components/CreateGoals";
-import GroupPage from "./components/GroupPage";
-import CardDisplay from "./components/CardDisplay";
-import FormForgetPassword from "./components/FormForgetPassword";
-import FormResetPassword from "./components/FormResetPassword";
-import GroupPageMember from "./components/GroupPage-member";
-import GroupPagePost from "./components/GroupPage-post";
-import GoalCard from "./components/GoalCard"
+import IntroPage from "./components/home-page/IntroPage";
+import AboutUs from './components/home-page/AboutUs'
+import FormUser from "./components/signin-register/FormUser";
+import ConfirmUserEmail from "./components/signin-register/ConfirmUserEmail";
+import ProfilePage from "./components/ProfilePage.jsx";
+import FormGoals from "./components/signin-register/FormGoals";
+import CreateGoals from "./components/groups/CreateGoals";
+import GroupPage from "./components/groups/GroupPage";
+import CardDisplay from "./components/groups/CardDisplay";
+import FormForgetPassword from "./components/signin-register/FormForgetPassword";
+import FormResetPassword from "./components/signin-register/FormResetPassword";
+import GroupPageMember from "./components/groups/GroupPage-member";
+import GroupPagePost from "./components/groups/GroupPage-post";
+// import GoalCard from "./components/groups/GoalCard"
 
 function App() {
 let history = useHistory();
@@ -35,7 +35,7 @@ let history = useHistory();
         <Route path='/interestedgoals' exact component={CardDisplay} />
         <Route path='/group-page' exact component={GroupPage} /> 
         <Route path='/group-page/post' exact component={GroupPagePost} />
-        <Route path='/goal-card' exact component={GoalCard} />
+        <Route path='/goal-card' exact component={CardDisplay} />
         <Route path='/group-page/member' exact component={GroupPageMember} />
         <Route path='/user/forget-password' exact component={FormForgetPassword} />
         <Route path='/user/reset/:id' exact component={FormResetPassword} />

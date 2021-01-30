@@ -1,5 +1,5 @@
 import React from "react";
-import "../cssComponents/form-user.css";
+import "../../cssComponents/form-user.css";
 import axios from "axios";
 
 class FormGoals extends React.Component {

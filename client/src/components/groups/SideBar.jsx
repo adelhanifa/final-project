@@ -1,16 +1,16 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom'
 const SideBar = () =>{
 return(
 <div class="ui inverted vertical pointing menu">
-<a class="item">
+<Link class="item">
   Home
-</a>
-<a class="item active">
+</Link>
+<Link class="item active">
   Messages
-</a>
-<a class="item">
+</Link>
+<Link class="item">
   Friends
-</a>
+</Link>
 </div>)
 }

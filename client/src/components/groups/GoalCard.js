@@ -12,10 +12,10 @@ const GoalCard = () => (
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      <a>
+      <b>
         <Icon name='user' />
         10 Friends
-      </a>
+      </b>
     </Card.Content>
   </Card>
 )
