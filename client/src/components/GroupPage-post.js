@@ -48,7 +48,7 @@ class GroupPagePost extends React.Component {
                         <a href="/" className="m-r-15 text-inverse-lighter"><i className="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                     </div>
                     <div className="timeline-comment-box">
-                        <div className="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" /></div>
+                        <div className="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="pic"/></div>
                         <div className="input">
                             <form action="">
                                 <div className="input-group">

@@ -12,16 +12,13 @@ import ConfirmUserEmail from "./components/ConfirmUserEmail";
 import ProfilePage from "./components/ProfilePage";
 import FormGoals from "./components/FormGoals";
 import CreateGoals from "./components/CreateGoals";
-// import GroupPage from "./components/GroupPage";
+import GroupPage from "./components/GroupPage";
 import CardDisplay from "./components/CardDisplay";
 import FormForgetPassword from "./components/FormForgetPassword";
 import FormResetPassword from "./components/FormResetPassword";
-
-// import CreateUser from './components/CreateUser';
-// import FormTest from "./components/FormTest";
-// import FormUser2 from "./components/FormUser2";
-// import FormTest2 from "./components/FormTest2";
-
+import GroupPageMember from "./components/GroupPage-member";
+import GroupPagePost from "./components/GroupPage-post";
+import GoalCard from "./components/GoalCard"
 
 function App() {
 let history = useHistory();
@@ -36,7 +33,10 @@ let history = useHistory();
         <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/user/createGoal' exact component={CreateGoals} />
         <Route path='/interestedgoals' exact component={CardDisplay} />
-        {/* <Route path='/group-page' exact component={GroupPage} /> */}
+        <Route path='/group-page' exact component={GroupPage} /> 
+        <Route path='/group-page/post' exact component={GroupPagePost} />
+        <Route path='/goal-card' exact component={GoalCard} />
+        <Route path='/group-page/member' exact component={GroupPageMember} />
         <Route path='/user/forget-password' exact component={FormForgetPassword} />
         <Route path='/user/reset/:id' exact component={FormResetPassword} />
 
