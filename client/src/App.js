@@ -11,7 +11,6 @@ import FormUser from "./components/signin-register/FormUser";
 import ConfirmUserEmail from "./components/signin-register/ConfirmUserEmail";
 import ProfilePage from "./components/ProfilePage.jsx";
 import FormGoals from "./components/signin-register/FormGoals";
-import CreateGoals from "./components/groups/CreateGoals";
 import GroupPage from "./components/groups/GroupPage";
 import CardDisplay from "./components/groups/CardDisplay.jsx";
 import FormForgetPassword from "./components/signin-register/FormForgetPassword";
@@ -31,14 +30,12 @@ let history = useHistory();
         <Route path='/user/goals' exact component={FormGoals} />
         <Route path='/user/confirm/:id' exact component={ConfirmUserEmail} />
         <Route path='/user/profile' exact component={ProfilePage} />
-        <Route path='/user/createGoal' exact component={CreateGoals} />
         <Route path='/group-page' exact component={GroupPage} /> 
         <Route path='/group-page/post' exact component={GroupPagePost} />
         <Route path='/groups-card' exact component={CardDisplay} />
         <Route path='/group-page/member' exact component={GroupPageMember} />
         <Route path='/user/forget-password' exact component={FormForgetPassword} />
         <Route path='/user/reset/:id' exact component={FormResetPassword} />
-
       </Router>
     </div>
   );

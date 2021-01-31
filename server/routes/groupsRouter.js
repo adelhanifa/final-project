@@ -25,6 +25,6 @@ var upload = multer({
 
 router.get('/', controller.findAllGroups);
 router.get('/:id', controller.findOneGroup);
-router.post('/create', upload.single('groupImg'), controller.createNewGroup);
+router.post('/create', upload.single('photo'), controller.createNewGroup);
 
 module.exports = router;
