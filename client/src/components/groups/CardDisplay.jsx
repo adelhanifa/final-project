@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../cssComponents/card-display.css";
 import SideBar from "./SideBar";
+import axios from 'axios';
+
 const CardDisplay = () => {
+  const [groupList, setGroupList] = useState([])
+
+  axios.get('/group/')
+  .then(res => setGroupList(res.data.group))
+
   return (
     <div className="body-page mb-3 min-vh-100">
       <div className="bg-dark  p-2">
@@ -40,7 +47,35 @@ const CardDisplay = () => {
           </div>
           <div className="col-8 col-sm-12 col-md-8 col-lg-9 col-xl-9">
             <div className="row">
-              <div className="col-4 col-sm-6 col-lg-4 col-xl-3 col-md-6">
+              { groupList && 
+                groupList.map(item => {
+                  return (
+                    <div className="col-12 col-sm-12 col-lg-4 col-xl-3 col-md-6" key={item._id}>
+                      <div
+                        className="single_advisor_profile wow fadeInUp inLineStyle"
+                        data-wow-delay="0.2s"
+                      >
+                        <div className="advisor_thumb">
+                          <img
+                            src={item.photo}
+                            alt=""
+                          />
+                          <div className="social-info">
+                            <a href="/">
+                             Join
+                            </a>
+                          </div>
+                        </div>
+                        <div className="single_advisor_details_info">
+                          <h6 className="text-truncate" title={item.titel}>{item.titel}</h6>
+                          <p className="designation">{item.members.length} members</p>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })
+              }
+              {/* <div className="col-4 col-sm-6 col-lg-4 col-xl-3 col-md-6">
                 <div
                   className="single_advisor_profile wow fadeInUp inLineStyle"
                   data-wow-delay="0.2s"
@@ -68,7 +103,7 @@ const CardDisplay = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-4 col-sm-6 col-lg-4 col-xl-3 col-md-6">
+               <div className="col-4 col-sm-6 col-lg-4 col-xl-3 col-md-6">
                 <div
                   className="single_advisor_profile wow fadeInUp inLineStyle"
                   data-wow-delay="0.3s"
@@ -180,7 +215,7 @@ const CardDisplay = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-4 col-sm-6 col-lg-4 col-xl-3 col-md-6">
+              <div className="col-4 col-sm-6 col-lg-4 col-xl-3 col-md-6"> 
                 <div
                   className="single_advisor_profile wow fadeInUp inLineStyle"
                   data-wow-delay="0.2s"
@@ -207,7 +242,7 @@ const CardDisplay = () => {
                     <p className="designation">Founder &amp; CEO</p>
                   </div>
                 </div>
-              </div>
+              </div>*/}
             </div>
           </div>
         </div>

@@ -28,6 +28,8 @@ router.post('/create', upload.single('profileImg'), controller.createNewUser);
 router.post('/log-in', controller.loginUser);
 router.post('/google-log-in', controller.googleLogIn);
 router.patch('/addGoalsForm/:id',  controller.addGoalsForm);
+router.patch('/joinNewGroup/:user/:group',  controller.joinNewGroup);
+router.patch('/leaveGroup/:user/:group',  controller.leaveGroup);
 router.get('/log-out', controller.logoutUser);
 router.get('/confirmEmail/:id',  controller.confirmUserEmail);
 router.post('/reserPasword/:id',  controller.resetUserPassword);

@@ -1,17 +1,18 @@
 const Group = require('../models/Group');
+const User = require("../models/User");
 
 // get all groups
 exports.findAllGroups = (req, res) => {
     Group.find().populate("goal").populate("admin").populate("members")
-    .then(group => res.json(group))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then(group => res.send({ status: "all Groups are founded", group: group, err: null }))
+    .catch(err => res.send({ status: "all Groups are not founded", group: null, err: err }));
 }
 
 // get all groups
 exports.findOneGroup = (req, res) => {
     Group.findById( req.props.id ).populate("goal").populate("admin").populate("members")
-    .then(group => res.json(group))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then(group => res.send({ status: "this Group is founded", group: group, err: null }))
+    .catch(err => res.send({ status: "Group is not founded", group: null, err: err }));
 }
 
 //create a new group
@@ -23,6 +24,13 @@ exports.createNewGroup = (req, res) => {
 
     const newGroup = new Group(req.body);
     newGroup.save()
-    .then(group => res.json(group))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then(group => {
+        User.findById(req.body.admin)
+        .then((data) => {
+          User.findByIdAndUpdate(req.body.admin , { joinedGroup: [...data.joinedGroup, group._id]})
+          .then(() =>res.send({ status: "Group is created", group: group, err: null }))
+        })
+        .catch((err) => res.send({ status: "Group is not created", group: null, err: err }));
+    })
+    .catch(err => res.send({ status: "Group is not created", group: null, err: err }));
 }

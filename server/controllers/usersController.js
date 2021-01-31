@@ -1,8 +1,9 @@
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.EmailAPI);
 const User = require("../models/User");
-const bcrypt = require("bcrypt");
 const Goal = require("../models/Goal");
+const Group = require("../models/Group");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const accessTokenSecret = process.env.TOKEN_SECRET;
 
@@ -89,7 +90,7 @@ exports.loginUser = (req, res) => {
   console.log("log in user: ", req.body);
 
   User.findOne({ email: req.body.email })
-    .populate("goals")
+    .populate("goals").populate("joinedGroup")
     .then((data) => {
       console.log(data);
       if (data) {
@@ -151,7 +152,7 @@ exports.loginUser = (req, res) => {
 //google log in
 exports.googleLogIn = (req, res) => {
   User.findOne({ googleID: req.body.googleID })
-    .populate("goals")
+    .populate("goals").populate("joinedGroup")
     .then((user) => {
       if (user) {
         //If User already exists login / return User Data
@@ -236,7 +237,7 @@ exports.addGoalsForm = (req, res) => {
       console.log({ fromDBandUser: upadateUser });
       User.findByIdAndUpdate(req.params.id, { goals: upadateUser })
         .then(() => {
-          User.findById(req.params.id).populate("goals")
+          User.findById(req.params.id).populate("goals").populate("joinedGroup")
             .then((user) => {
               res.send({ status: "Your goals are added", user: user, err: null, });
             })
@@ -259,7 +260,7 @@ exports.addGoalsForm = (req, res) => {
   //       console.log({ user });
   //       if (user.goals.length === 0) {
   //         User.findByIdAndUpdate(req.params.id, req.body)
-  //           .populate("goals")
+  //           .populate("goals").populate("joinedGroup")
   //           .then((user) => {
   //               updateUser = user;
   //             // res.send({ status: "all goals added", user: user, err: null });
@@ -305,7 +306,7 @@ exports.addGoalsForm = (req, res) => {
   //       console.log({ user });
   //       if (user.goals.length === 0) {
   //         User.findByIdAndUpdate(req.params.id, req.body)
-  //           .populate("goals")
+  //           .populate("goals").populate("joinedGroup")
   //           .then((user) => {
   //             return user;
   //             // res.send({ status: "all goals added", user: user, err: null });
@@ -340,7 +341,7 @@ exports.addGoalsForm = (req, res) => {
   //           });
   //         });
   //         User.findByIdAndUpdate(req.params.id, { goals: user.goals })
-  //           .populate("goals")
+  //           .populate("goals").populate("joinedGroup")
   //           .then((user) => {
   //             res.send({ status: "all goals added", user: user, err: null });
   //           });
@@ -413,4 +414,94 @@ exports.resetUserPassword = (req, res) => {
         });
       });
   });
+};
+
+// join new group
+exports.joinNewGroup = (req, res) => {
+  let userID = req.params.user
+  let groupID = req.params.group
+  let upadateUser = [];
+  User.findById(userID)
+    .then((data) => {
+      console.log({ fromDB: data.joinedGroup });
+      let check = data.joinedGroup.indexOf(groupID) === -1;
+      if (check) {
+        upadateUser = [...data.joinedGroup, groupID];
+
+        User.findByIdAndUpdate(userID, { joinedGroup: upadateUser })
+        .then(() => {
+          Group.findById(groupID)
+          .then((data) => {
+            Group.findByIdAndUpdate(groupID , { members: [...data.members, userID]})
+            .then(groupInfo => console.log(groupInfo.members)) 
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+          User.findById(userID).populate("goals").populate("joinedGroup")
+            .then((user) => {
+              res.send({ status: "Wellcome You joind the group successfully", user: user, err: null, });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.send({ status: "group not joined  something wrong", user: null, err: err, });
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send({ status: "group not joined  something wrong", user: null, err: err, });
+        });
+      } else {
+        res.send({ status: "You joined this group before", user: null, err: null, });
+      }
+      
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ status: "group not joined  something wrong", user: null, err: err, });
+    });
+};
+
+// leave group
+exports.leaveGroup = (req, res) => {
+  let userID = req.params.user
+  let groupID = req.params.group
+  let upadateUser = [];
+  User.findById(userID)
+    .then((data) => {
+      upadateUser = data.joinedGroup.filter(x => x != groupID)
+      if (JSON.stringify(data.joinedGroup) !== JSON.stringify(upadateUser)) {
+        
+        User.findByIdAndUpdate(userID, { joinedGroup: upadateUser })
+        .then(() => {
+          Group.findById(groupID)
+          .then((data) => {
+            let newMembers = data.members.filter(x => x != userID)
+            Group.findByIdAndUpdate(groupID , { members: newMembers})
+            .then(groupInfo => console.log(groupInfo.members)) 
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+          User.findById(userID).populate("goals").populate("joinedGroup")
+            .then((user) => {
+              res.send({ status: "You left the group successfully", user: user, err: null, });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.send({ status: "group not left  something wrong", user: null, err: err, });
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send({ status: "group not left  something wrong", user: null, err: err, });
+        });
+      } else {
+        res.send({ status: "You left this group before", user: null, err: null, });
+      }   
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ status: "group not left  something wrong", user: null, err: err, });
+    });
 };
