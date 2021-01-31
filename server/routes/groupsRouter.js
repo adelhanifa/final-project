@@ -1,8 +1,32 @@
 const router = require('express').Router();
 const controller = require('../controllers/groupsController');
+const multer = require('multer');
 
-router.get('/', controller.findAllgroups);
+//multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => { cb(null, './public/img/groups'); },
+    filename: (req, file, cb) => {
+        let fileName = file.originalname.split('.');
+        cb(null, file.fieldname + '-' + Date.now() + '.' + fileName[fileName.length-1])
+    }
+});
 
-router.post('/create', controller.createNewGroup);
+var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+
+router.get('/', controller.findAllGroups);
+
+router.get('/:id', controller.findOneGroup);
+
+router.post('/create', upload.single('groupImg'), controller.createNewGroup);
 
 module.exports = router;

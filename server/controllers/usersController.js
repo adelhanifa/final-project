@@ -22,7 +22,7 @@ exports.findAllUsers = (req, res) => {
 exports.createNewUser = (req, res) => {
   console.log("req.body", req.body);
   console.log("req.file", req.file);
-  req.body.profileImg = "/img/" + req.file.filename;
+  req.body.profileImg = "/img/users" + req.file.filename;
 
   console.log("******************************************");
 

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
-
 const groupSchema = new Schema({
   titel: { type: String, required: true },
   photo: String,
@@ -14,7 +12,5 @@ const groupSchema = new Schema({
 {
   timestamps: true,
 });
-
 const Group = mongoose.model('Group', groupSchema);
-
 module.exports = Group;

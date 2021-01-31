@@ -4,14 +4,11 @@ const multer = require('multer');
 
 //multer
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => { cb(null, './public/img'); },
+    destination: (req, file, cb) => { cb(null, './public/img/users'); },
     filename: (req, file, cb) => {
         let fileName = file.originalname.split('.');
         cb(null, file.fieldname + '-' + Date.now() + '.' + fileName[fileName.length-1])
     }
-    // filename: function (req, file, res) {
-    //     res(null, file.originalname.toLowerCase().split(' ').join('-'))
-    // },
 });
 
 var upload = multer({
@@ -27,7 +24,7 @@ var upload = multer({
 });
 
 router.get('/', controller.findAllUsers);
-router.post('/create',  upload.single('profileImg'), controller.createNewUser);
+router.post('/create', upload.single('profileImg'), controller.createNewUser);
 router.post('/log-in', controller.loginUser);
 router.post('/google-log-in', controller.googleLogIn);
 router.patch('/addGoalsForm/:id',  controller.addGoalsForm);
