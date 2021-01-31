@@ -8,9 +8,9 @@ exports.findAllGroups = (req, res) => {
     .catch(err => res.send({ status: "all Groups are not founded", group: null, err: err }));
 }
 
-// get all groups
+// get one groups
 exports.findOneGroup = (req, res) => {
-    Group.findById( req.props.id ).populate("goal").populate("admin").populate("members")
+    Group.findById( req.params.id ).populate("goal").populate("admin").populate("members")
     .then(group => res.send({ status: "this Group is founded", group: group, err: null }))
     .catch(err => res.send({ status: "Group is not founded", group: null, err: err }));
 }

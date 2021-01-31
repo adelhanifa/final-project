@@ -32,10 +32,9 @@ let history = useHistory();
         <Route path='/user/confirm/:id' exact component={ConfirmUserEmail} />
         <Route path='/user/profile' exact component={ProfilePage} />
         <Route path='/user/createGoal' exact component={CreateGoals} />
-        <Route path='/interestedgoals' exact component={CardDisplay} />
         <Route path='/group-page' exact component={GroupPage} /> 
         <Route path='/group-page/post' exact component={GroupPagePost} />
-        <Route path='/goal-card' exact component={CardDisplay} />
+        <Route path='/groups-card' exact component={CardDisplay} />
         <Route path='/group-page/member' exact component={GroupPageMember} />
         <Route path='/user/forget-password' exact component={FormForgetPassword} />
         <Route path='/user/reset/:id' exact component={FormResetPassword} />
