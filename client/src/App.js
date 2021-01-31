@@ -13,7 +13,7 @@ import ProfilePage from "./components/ProfilePage.jsx";
 import FormGoals from "./components/signin-register/FormGoals";
 import CreateGoals from "./components/groups/CreateGoals";
 import GroupPage from "./components/groups/GroupPage";
-import CardDisplay from "./components/groups/CardDisplay";
+import CardDisplay from "./components/groups/CardDisplay.jsx";
 import FormForgetPassword from "./components/signin-register/FormForgetPassword";
 import FormResetPassword from "./components/signin-register/FormResetPassword";
 import GroupPageMember from "./components/groups/GroupPage-member";

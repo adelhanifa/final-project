@@ -47,6 +47,9 @@
         height: 160px;
         bottom: -90px;
     }
+    #goals-container{
+       display: grid;
+       }
 }
 .single_advisor_profile .advisor_thumb .social-info {
     position: absolute;
