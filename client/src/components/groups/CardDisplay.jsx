@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../cssComponents/card-display.css";
 import SideBar from "./SideBar";
 import axios from 'axios';
 
-const CardDisplay = () => {
+const CardDisplay = (props) => {
   const [groupList, setGroupList] = useState([])
 
-  axios.get('/group/')
-  .then(res => setGroupList(res.data.group))
+  useEffect(()=>{
+     axios.get('/group/')
+    .then(res => setGroupList(res.data.group))
+  }, [])
+ 
 
   return (
     <div className="body-page mb-3 min-vh-100">
@@ -61,9 +64,9 @@ const CardDisplay = () => {
                             alt=""
                           />
                           <div className="social-info">
-                            <a href="/">
-                             Join
-                            </a>
+                            <span type="button"  onClick={() =>props.history.push({ pathname: '/group-page', state: item._id})}>
+                             Show Group
+                            </span>
                           </div>
                         </div>
                         <div className="single_advisor_details_info">
