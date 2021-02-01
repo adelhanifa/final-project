@@ -105,7 +105,6 @@ class FormUser extends React.Component {
 
     else {
       console.log('form valid')
-
       console.log({ image: this.state.profileImg })
       const formData = new FormData()
       formData.append('profileImg', this.state.profileImg)

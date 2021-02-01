@@ -21,7 +21,7 @@ exports.createNewGroup = (req, res) => {
     console.log("req.body", req.body);
     console.log("req.file", req.file);
     req.body.photo = "/img/groups/" + req.file.filename;
-
+    req.body.members=[req.body.admin]
     const newGroup = new Group(req.body);
     newGroup.save()
     .then(group => {
@@ -32,5 +32,5 @@ exports.createNewGroup = (req, res) => {
         })
         .catch((err) => res.send({ status: "Group is not created", group: null, err: err }));
     })
-    .catch(err => res.send({ status: "Group is not created", group: null, err: err }));
+    .catch(err => res.send({ status: "Group is not created 35", group: null, err: err }));
 }
