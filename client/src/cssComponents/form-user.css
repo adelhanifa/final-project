@@ -116,3 +116,12 @@
   margin-bottom: -15%;
   color: #495057;
 }
+/* .btn-group{
+  background-color: rgb(236, 138, 138);
+  color:black;
+} */
+section.border.p-3{
+  background-color: rgb(231, 140, 140);
+  border-top-left-radius:10px ; 
+  border-bottom-left-radius:10px ;
+}
