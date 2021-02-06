@@ -8,14 +8,14 @@ const CreateGroupForm = (props) => {
     admin: loggedInUser ? loggedInUser._id : "",
     titel: "",
     description: "",
-    photo: "",
+    groupImg: "",
   });
   console.log({ admin: group.admin });
   const onSubmit = () => {
     console.log({ group });
     const formData = new FormData();
     formData.append("admin", group.admin);
-    formData.append("photo", group.photo);
+    formData.append("groupImg", group.groupImg);
     formData.append("titel", group.titel);
     formData.append("description", group.description);
     console.log({ formData });
@@ -57,8 +57,8 @@ const CreateGroupForm = (props) => {
           <input
             placeholder="choose a picture"
             type="file"
-            name="photo"
-            onChange={(e) => setGroup({ ...group, photo: e.target.files[0] })}
+            name="groupImg"
+            onChange={(e) => setGroup({ ...group, groupImg: e.target.files[0] })}
             required
           />
         </Form.Field>
