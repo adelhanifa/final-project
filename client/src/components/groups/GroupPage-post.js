@@ -4,18 +4,17 @@ import React from "react";
 class GroupPagePost extends React.Component {
   constructor(props) {
     super(props);
-    console.log('postInfo',this.props.post)
     let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    this.state = { newComment: " ",user: loggedInUser };
+    this.state = { newComment: "",user: loggedInUser };
     axios.get('comment/'+this.props.post._id)
     .then(res => { 
         this.setState({ comments: res.data.comments })
     })
   }
+
   getDate = (date) => {
     let d1 = new Date()
     let d2 = new Date(date)
-    console.log(d1)
     if (d1.getFullYear() === d2.getFullYear()){
       if (d1.getMonth() === d2.getMonth()){
         if (d1.getDate() - d2.getDate() === 0){
@@ -27,6 +26,7 @@ class GroupPagePost extends React.Component {
     }
     return(d2.toLocaleDateString('en-GB'))
   }
+
   getTime = (time) => {
     let d1 = new Date()
     let d2 = new Date(time)
@@ -47,10 +47,18 @@ class GroupPagePost extends React.Component {
     }
     return(d2.getHours()+':'+d2.getMinutes())
   }
-  onSubmitComment = (e) => {
-    e.preventDefault();
-    console.log({ comment: this.state.comment });
-  };
+
+  saveNewComment = () => {
+    this.setState({ newComment: this.state.newComment.trim() })
+    if (this.state.newComment){
+        axios.post('comment/create/'+this.state.user._id+'/'+this.props.post._id, { commentMsg: this.state.newComment })
+        .then(res => { 
+            res.data.comment.user = this.state.user;
+            this.setState({ comments: [res.data.comment, ...this.state.comments], newComment: '' })
+        })
+    } 
+  }
+
   getComments = () => {
   
     // return this.state.comments.map((comment, index) => {
@@ -75,6 +83,7 @@ class GroupPagePost extends React.Component {
   };
 
   render() {
+    console.log(this.state)
     return (
       <li>
         <div className="timeline-time text-light">
@@ -118,29 +127,27 @@ class GroupPagePost extends React.Component {
               />
             </div>
             <div className="input">
-              <form onSubmit={this.onSubmitNewComment}>
-                <div className="input-group">
-                  <textarea
-                    type="text"
-                    name="newComment"
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      this.setState({ newComment: e.target.value });
-                      console.log({ newComment: this.state.newComment });
-                    }}
-                    className="form-control rounded-corner"
-                    placeholder="Write a comment..."
-                  ></textarea>
-                  <span className="input-group-btn pl-4 d-flex align-items-end">
-                    <button
-                      className="btn btn-primary f-s-12 rounded-corner"
-                      type="submit"
-                    >
-                      Comment
-                    </button>
-                  </span>
-                </div>
-              </form>
+              <div className="input-group">
+                <textarea
+                  value={this.state.newComment}
+                  type="text"
+                  name="newComment"
+                  onChange={(e) => {
+                    this.setState({ newComment: e.target.value });
+                  }}
+                  className="form-control rounded-corner"
+                  placeholder="Write a comment..."
+                ></textarea>
+                <span className="input-group-btn pl-4 d-flex align-items-end">
+                  <button
+                    className="btn btn-primary f-s-12 rounded-corner"
+                    type="button"
+                    onClick={()=> this.saveNewComment()}
+                  >
+                    Comment
+                  </button>
+                </span>
+              </div>
             </div>
           </div>
         </div>

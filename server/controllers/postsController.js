@@ -2,7 +2,7 @@ const Post = require("../models/Post");
 
 // get all Posts
 exports.findAllPosts = (req, res) => {
-  Post.find({ group: req.params.group })
+  Post.find({ group: req.params.group }).sort( { createdAt: -1 } )
   .populate("user")
     .then((posts) => res.json({ status: "all posts this group are fonded", posts: posts, err: null }))
     .catch((err) => res.send({ status: "all posts this group are not fonded", post: null, err: err }));

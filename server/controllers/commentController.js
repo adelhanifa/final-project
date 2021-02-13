@@ -3,7 +3,7 @@ const Comment = require('../models/Comment');
 
 // get all Comment
 exports.findAllComments = (req, res) => {
-    Comment.find({ post: req.params.post })
+    Comment.find({ post: req.params.post }).sort( { createdAt: -1 } )
     .populate("user")
       .then((comments) => res.json({ status: "all comments this post are fonded", comments: comments, err: null }))
       .catch((err) => res.send({ status: "all comments this post are not fonded", comments: null, err: err }));

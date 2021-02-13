@@ -11,7 +11,8 @@ class GroupPage extends React.Component {
         this.state = {
           user: loggedInUser,
           group: this.props.location.state,
-          posts: []
+          posts: [],
+          newPost: ''
         }
         if (!this.props.location.state)
         {
@@ -117,6 +118,17 @@ class GroupPage extends React.Component {
         )
     }
 
+    saveNewPost = () => {
+        this.setState({ newPost: this.state.newPost.trim() })
+        if (this.state.newPost){
+            axios.post('post/create/'+this.state.user._id+'/'+this.props.location.state, { postMsg: this.state.newPost })
+            .then(res => { 
+                res.data.post.user = this.state.user;
+                this.setState({ posts: [res.data.post, ...this.state.posts], newPost: '' })
+            })
+        } 
+    }
+
     render() {
         console.log(this.state)
         return (
@@ -191,7 +203,23 @@ class GroupPage extends React.Component {
                                                         <span>&nbsp;</span>
                                                     </div>
                                                     <div className="timeline-body">
-                                                        add post ...
+                                                            <div className="tab-content" id="myTabContent">
+                                                                <div className="tab-pane fade active show" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                                                                    <div className="form-group">
+                                                                        <textarea className="form-control" id="message" rows="3" 
+                                                                        value={this.state.newPost}
+                                                                        placeholder="What are you thinking? write new post"
+                                                                        onChange={(e) => {
+                                                                            this.setState({ newPost: e.target.value })
+                                                                          }}></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="btn-toolbar justify-content-end">
+                                                                <div className="btn-group">
+                                                                    <button type="button" className="btn btn-primary f-s-12 rounded-corner" onClick={() => this.saveNewPost()}>share</button>
+                                                                </div>  
+                                                            </div>
                                                     </div>
                                                 </li>
                                                 {this.state.posts &&
