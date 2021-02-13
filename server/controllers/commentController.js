@@ -5,8 +5,8 @@ const Comment = require('../models/Comment');
 exports.findAllComments = (req, res) => {
     Comment.find({ post: req.params.post })
     .populate("user")
-      .then((comments) => res.json({ status: "all comments this post are fonded", comments: comments, err: null }))
-      .catch((err) => res.send({ status: "all comments this post are not fonded", comments: null, err: err }));
+      .then((comments) => res.json({ status: "all comments this post are founded", comments: comments, err: null }))
+      .catch((err) => res.send({ status: "all comments this post are not founded", comments: null, err: err }));
   };
   
   //create a new Comment
