@@ -10,11 +10,19 @@ class GroupPage extends React.Component {
         let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
         this.state = {
           user: loggedInUser,
-          group: this.props.location.state
+          group: this.props.location.state,
+        }
+        if (!this.props.location.state)
+        {
+            window.location = '/groups-card'    
         }
         axios.get('group/'+this.props.location.state)
         .then(res => {
-           this.setState({ group: res.data.group })
+            let toEdit = {
+                titel: res.data.group.titel,
+                description: res.data.group.description || '',
+            }
+           this.setState({ group: res.data.group, toEdit })
         })
         .then(()=> {
             let isJoined = this.state.group.members.find(x => x._id === this.state.user._id)
@@ -27,9 +35,82 @@ class GroupPage extends React.Component {
             this.setState({ isJoined, isAdmin })
         })
         .then(()=> console.log(this.state))
-      }
+    }
+
+    joinBTN = () => {
+        return (
+            <span className="btn btn-sm btn-info" onClick={(e) => {
+                axios.patch('user/joinNewGroup/'+this.state.user._id+'/'+this.props.location.state)
+                .then(res => {
+                    if (res.data.user) {
+                        window.location.reload();
+                    }
+                })
+                .catch(err => console.log(err))
+                }
+            }>Join Group</span>
+        )
+    }
+
+    leaveBTN = () => {
+        return (
+            <span className="btn btn-sm btn-danger " onClick={(e) => {
+                axios.patch('user/leaveGroup/'+this.state.user._id+'/'+this.props.location.state)
+                .then(res => {
+                    if (res.data.user) {
+                        window.location.reload();
+                    }
+                })
+                .catch(err => console.log(err))
+                }
+            }>Leave Group</span>
+        )
+    }
+
+    deleteBTN = () => {
+        return (
+            <span className="btn btn-sm btn-danger " onClick={(e) => {
+                axios.get('group/delete/'+this.state.user._id+'/'+this.props.location.state)
+                .then(res => {
+                    if (res.data.group) {
+                        window.location = '/groups-card';
+                    }
+                })
+                .catch(err => console.log(err))
+                }
+            }>Delete Group</span>
+        )
+    }
+
+    updateBTN = () => {
+        return (
+            <span className="btn btn-sm btn-info " onClick={(e) => {
+                let toSend = {};
+                if (this.state.toEdit.titel !== this.state.group.titel) {
+                    toSend.titel = this.state.toEdit.titel
+                    console.log({ toSend })
+                }
+                if (this.state.toEdit.description !== this.state.group.description) {
+                    toSend.description = this.state.toEdit.description
+                    console.log({ toSend })
+                }
+                if (toSend.titel || toSend.description || toSend.description === '') {
+                    console.log({ toSend, id: this.props.location.state })
+                    axios.patch('group/'+this.props.location.state, toSend)
+                    .then(res => {
+                        if (res.data.group) {
+                            window.location.reload();
+                        }
+                    })
+                    .catch(err => console.log(err))
+                }
+            }}>Update Group</span>
+        )
+    }
+
     render() {
         let test = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        
         return (
             <div className="body-page min-vh-100">
 
@@ -64,10 +145,16 @@ class GroupPage extends React.Component {
                                             <div className="profile-header-info">
                                                 <h4 className="m-t-10 m-b-5">{this.state.group.titel}</h4>
                                                 <p className="m-b-10"> {this.state.group.description ? this.state.group.description : 'no description'}</p>
-                                                {this.state.isJoined ?
-                                                    <span className="btn btn-sm btn-danger mb-2">Leave Group</span>
+                                                {this.state.isJoined ? 
+                                                <>
+                                                    {this.state.group.members.length === 1 ?
+                                                    this.deleteBTN()
+                                                    :
+                                                    this.leaveBTN()
+                                                    }
+                                                </>
                                                 :
-                                                    <span className="btn btn-sm btn-info mb-2">Join Group</span>
+                                                    this.joinBTN()
                                                 }
                                             </div>
 
@@ -109,14 +196,12 @@ class GroupPage extends React.Component {
                                         {/* Members  */}
                                         {this.state.isJoined &&
                                         <div className="tab-pane fade" id="profile-friends">
-                                            <h4 className="m-t-0 m-b-20 text-light">Memners List (14)</h4>
+                                            <h4 className="m-t-0 m-b-20 text-light">Memners List ({this.state.group.members.length})</h4>
 
                                             <div className="row row-space-2">
-                                                {
-                                                    test.map((index) => { return <GroupPageMember /> })
+                                                {this.state.group.members && 
+                                                    this.state.group.members.map((item) => { return <GroupPageMember member={item} admin={this.state.group.admin._id}/> })
                                                 }
-
-
                                             </div>
                                         </div>
                                         }
@@ -124,11 +209,21 @@ class GroupPage extends React.Component {
                                         <div className={this.state.isJoined ? "tab-pane fade" : "tab-pane fade active show"} id="profile-about">
                                             <div className="table-responsive">
                                                 <table className="table table-profile">
-                                                    
+                                                    {this.state.toEdit &&
                                                     <tbody>
                                                         <tr className="highlight">
                                                             <td className="field">Name</td>
-                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Mood Message" disabled={!this.state.isAdmin}/></td>
+                                                            <td><input 
+                                                                className=" bg-transparent border-0 text-light" 
+                                                                type="text"
+                                                                placeholder="No Group Name"
+                                                                value={this.state.toEdit.titel} 
+                                                                disabled={!this.state.isAdmin} 
+                                                                onChange={(e) => {
+                                                                    let x = this.state.toEdit
+                                                                    x.titel = e.target.value
+                                                                    this.setState({ toEdit: x })
+                                                                }}/></td>
                                                         </tr>
                                                        
                                                         <tr className="divider">
@@ -137,14 +232,34 @@ class GroupPage extends React.Component {
 
                                                         <tr className="highlight">
                                                             <td className="field">Description</td>
-                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Description" disabled={!this.state.isAdmin}/></td>
+                                                            <td><input 
+                                                                className=" bg-transparent border-0 text-light" 
+                                                                type="text"
+                                                                placeholder="No Group Description" 
+                                                                value={this.state.toEdit.description} 
+                                                                disabled={!this.state.isAdmin} 
+                                                                onChange={(e) => {
+                                                                    let x = this.state.toEdit
+                                                                    x.description = e.target.value
+                                                                    this.setState({ toEdit: x })
+                                                                }}/></td>
                                                         </tr>
                                                         <tr className="divider">
                                                             <td colSpan="2"></td>
                                                         </tr>
+                                                        {!this.state.isAdmin &&
                                                         <tr className="highlight">
-                                                            <td className="field">Name</td>
-                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Mood Message" disabled={!this.state.isAdmin}/></td>
+                                                            <td className="field">Admin</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value={this.state.group.admin.firstName+' '+this.state.group.admin.lastName} disabled/></td>
+                                                        </tr>}
+                                                        {!this.state.isAdmin &&
+                                                        <tr className="divider">
+                                                            <td colSpan="2"></td>
+                                                        </tr>}
+
+                                                        <tr className="highlight">
+                                                            <td className="field">Members</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value={this.state.group.members.length} disabled/></td>
                                                         </tr>
                                                        
                                                         <tr className="divider">
@@ -152,8 +267,8 @@ class GroupPage extends React.Component {
                                                         </tr>
 
                                                         <tr className="highlight">
-                                                            <td className="field">Description</td>
-                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value="Add Description" disabled={!this.state.isAdmin}/></td>
+                                                            <td className="field">Created at</td>
+                                                            <td><input className=" bg-transparent border-0 text-light" type="text" value={new Date(this.state.group.createdAt).toLocaleDateString('en-GB')} disabled/></td>
                                                         </tr>
                                                         <tr className="divider">
                                                             <td colSpan="2"></td>
@@ -163,21 +278,32 @@ class GroupPage extends React.Component {
                                                             <td className="field">&nbsp;</td>
                                                             {this.state.isAdmin ?
                                                             <td className="p-t-10 p-b-10">
-                                                                <button type="submit" className="btn btn-primary width-150 mx-2">Update</button>
-                                                                <button type="submit" className="btn btn-danger btn-white-without-border width-150 mx-2">Cancel</button>
+                                                                {this.updateBTN()} &nbsp;
+                                                                {this.state.group.members.length === 1 ?
+                                                                this.deleteBTN()
+                                                                :
+                                                                this.leaveBTN()
+                                                                }
                                                             </td>
                                                             :
                                                             <td className="p-t-10 p-b-10">
                                                                 { this.state.isJoined ?
-                                                                <button type="submit" className="btn btn-danger width-150 mx-2">Leave Group</button>
+                                                                <>
+                                                                    {this.state.group.members.length === 1 ?
+                                                                    this.deleteBTN()
+                                                                    :
+                                                                    this.leaveBTN()
+                                                                    }
+                                                                </>
                                                                 :
-                                                                <button type="submit" className="btn btn-primary btn-white-without-border width-150 mx-2">Join Group</button>
+                                                                this.joinBTN()
                                                                 }
                                                             </td>
                                                                 
                                                             }
                                                         </tr>
                                                     </tbody>
+                                                    }
                                                 </table>
                                             </div>
                                         </div>

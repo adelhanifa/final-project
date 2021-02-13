@@ -34,3 +34,32 @@ exports.createNewGroup = (req, res) => {
     })
     .catch(err => res.send({ status: "Group is not created 35", group: null, err: err }));
 }
+
+// edit one groups
+exports.editOneGroup = (req, res) => {
+    Group.findByIdAndUpdate( req.params.id , req.body).populate("goal").populate("admin").populate("members")
+    .then(group => res.send({ status: "this Group is updated", group: group, err: null }))
+    .catch(err => res.send({ status: "Group is not updated", group: null, err: err }));
+}
+
+
+// delete group
+exports.deleteGroup = (req, res) => {
+    let groupID = req.params.group, userID = req.params.user
+    let upadateUser = [];
+    User.findById(userID)
+      .then((data) => {
+        upadateUser = data.joinedGroup.filter(x => x != groupID)
+          User.findByIdAndUpdate(userID, { joinedGroup: upadateUser })
+          .then(() => Group.findByIdAndDelete(groupID) )
+          .then(()=> res.send({ status: "group is deleted", group: true, err: null, }) )
+          .catch((err) => {
+            console.log(err);
+            res.send({ status: "group not deleted  something wrong", group: null, err: err, });
+          }); 
+      })
+      .catch((err) => {
+        console.log(err);
+        res.send({ status: "group not deleted  something wrong", group: null, err: err, });
+      });
+  }

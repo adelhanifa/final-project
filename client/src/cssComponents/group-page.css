@@ -392,6 +392,7 @@ body.flat-black {
 }
 .media.media-xs .media-object {
     width: 32px;
+    height: 32px;
 }
 .m-b-2 {
     margin-bottom: 2px!important;

@@ -477,7 +477,11 @@ exports.leaveGroup = (req, res) => {
           Group.findById(groupID)
           .then((data) => {
             let newMembers = data.members.filter(x => x != userID)
-            Group.findByIdAndUpdate(groupID , { members: newMembers})
+            let newAdmin = data.admin
+            if (userID == data.admin) {
+              newAdmin = newMembers[0]
+            }
+            Group.findByIdAndUpdate(groupID , { members: newMembers, admin: newAdmin })
             .then(groupInfo => console.log(groupInfo.members)) 
           })
           .catch((err) => {
