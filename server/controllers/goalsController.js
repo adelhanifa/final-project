@@ -21,5 +21,4 @@ exports.createNewGoal = (req, res) => {
         }
         else console.log('goal found already created', goal)
     })
-   
 }
