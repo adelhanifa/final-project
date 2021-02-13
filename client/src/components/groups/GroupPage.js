@@ -11,6 +11,7 @@ class GroupPage extends React.Component {
         this.state = {
           user: loggedInUser,
           group: this.props.location.state,
+          posts: []
         }
         if (!this.props.location.state)
         {
@@ -34,7 +35,15 @@ class GroupPage extends React.Component {
             let isAdmin = this.state.group.admin._id === this.state.user._id
             this.setState({ isJoined, isAdmin })
         })
-        .then(()=> console.log(this.state))
+        .then(()=> {
+            if (this.state.isJoined) {
+                axios.get('post/'+this.props.location.state)
+                .then(res => { 
+                    this.setState({ posts: res.data.posts })
+                })
+            } 
+        })
+        // .then(()=> console.log(this.state))
     }
 
     joinBTN = () => {
@@ -109,8 +118,7 @@ class GroupPage extends React.Component {
     }
 
     render() {
-        let test = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        
+        console.log(this.state)
         return (
             <div className="body-page min-vh-100">
 
@@ -178,12 +186,20 @@ class GroupPage extends React.Component {
                                         <div className="tab-pane fade active show" id="profile-post">
 
                                             <ul className="timeline">
-                                                {
-                                                    test.map((index) => { return <GroupPagePost key={index}/> })
+                                                <li>
+                                                    <div className="timeline-icon">
+                                                        <span>&nbsp;</span>
+                                                    </div>
+                                                    <div className="timeline-body">
+                                                        add post ...
+                                                    </div>
+                                                </li>
+                                                {this.state.posts &&
+                                                    this.state.posts.map((post) => <GroupPagePost key={post._id} post={post}/> )
                                                 }
                                                 <li>
                                                     <div className="timeline-icon">
-                                                        <   span>&nbsp;</span>
+                                                        <span>&nbsp;</span>
                                                     </div>
                                                     <div className="timeline-body">
                                                         Loading...
@@ -200,7 +216,7 @@ class GroupPage extends React.Component {
 
                                             <div className="row row-space-2">
                                                 {this.state.group.members && 
-                                                    this.state.group.members.map((item) => { return <GroupPageMember member={item} admin={this.state.group.admin._id}/> })
+                                                    this.state.group.members.map((item) => { return <GroupPageMember key={item._id} member={item} admin={this.state.group.admin._id}/> })
                                                 }
                                             </div>
                                         </div>
