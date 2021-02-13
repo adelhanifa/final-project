@@ -1,15 +1,44 @@
+import axios from "axios";
 import React from "react";
 
 class GroupPagePost extends React.Component {
   constructor(props) {
     super(props);
     let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    this.state = { comment: " ",user: loggedInUser._id };
+    this.state = { comment: " ", user: loggedInUser._id, comments: [] };
   }
   onSubmitComment = (e) => {
     e.preventDefault();
     console.log({ comment: this.state.comment });
   };
+  getComments = () => {
+    axios.get(`/comment/${postId}`).then((res) => {
+      console.log({comments: res.data})
+      let userId=res.data.user;
+      axios.get(`user/${userId}`).then(res => console.log({userComment:res.data}))
+      this.setState({...this.state, comments:res.data})
+    });
+    // return this.state.comments.map((comment, index) => {
+    //   return (
+    //     <>
+    //       <div class="timeline-comment" key={index}>
+    //         <div class="timeline-comment-header">
+    //           <img
+    //             src="https://bootdey.com/img/Content/avatar/avatar7.png"
+    //             alt="user"
+    //           />
+    //           <p>
+    //             Memila moriya <small>1 hour ago</small>
+    //           </p>
+    //         </div>
+    //         <p class="timeline-comment-text">{comment}</p>
+    //       </div>
+    //       <textarea class="form-control" placeholder="Replay"></textarea>
+    //     </>
+    //   );
+    // });
+  };
+
   render() {
     return (
       <li>
@@ -62,9 +91,10 @@ class GroupPagePost extends React.Component {
             <a href="/" className="m-r-15 text-inverse-lighter">
               <i className="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like
             </a>
-            <a href="/" className="m-r-15 text-inverse-lighter">
-              <i className="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment
-            </a>
+            <button className="m-r-15 text-inverse-lighter" onClick={this.getComments}>
+              <i className="fa fa-comments fa-fw fa-lg m-r-3"></i>{" "}
+              Comments
+            </button>
             <a href="/" className="m-r-15 text-inverse-lighter">
               <i className="fa fa-share fa-fw fa-lg m-r-3"></i> Share
             </a>
