@@ -24,13 +24,14 @@ app.use(session({ secret: process.env.SESSION_SECRET }));
 const usersRouter = require('./routes/usersRouter.js');
 const goalsRouter = require('./routes/goalsRouter.js');
 const groupsRouter = require('./routes/groupsRouter.js');
+const commentRouter = require('./routes/commentRouter.js');
 const sendEmailRouter = require('./routes/sendEmailRouter.js');
 
 app.use('/user', usersRouter);
 app.use('/goal', goalsRouter);
 app.use('/group', groupsRouter);
 app.use('/send-email', sendEmailRouter);
-
+app.use('/comment', commentRouter);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 

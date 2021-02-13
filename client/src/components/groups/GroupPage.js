@@ -179,7 +179,7 @@ class GroupPage extends React.Component {
 
                                             <ul className="timeline">
                                                 {
-                                                    test.map((index) => { return <GroupPagePost /> })
+                                                    test.map((index) => { return <GroupPagePost key={index}/> })
                                                 }
                                                 <li>
                                                     <div className="timeline-icon">

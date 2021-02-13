@@ -15,15 +15,16 @@ class FormGoals extends React.Component {
       goals: ["60021099041de14af00c02ec"],
     };
 
-    axios
-      .get("/goal/")
-      .then((res) => {
-        console.log(res.data);
-        displayGoals = res.data;
-      })
-      .then(() => {
-        this.setState({ displayGoals: displayGoals });
-      });
+  axios
+  .get("/goal/")
+  .then((res) => {
+    // console.log(res.data);
+    displayGoals = res.data;
+  })
+  .then(() => {
+    this.setState({ displayGoals: displayGoals });
+  });
+
   }
 
   handleChange = (evt) => {
@@ -59,9 +60,9 @@ class FormGoals extends React.Component {
       axios
         .post("/goal/create", newUserGoal)
         .then((res) => {
-          console.log({ data: res.data });
+          // console.log({ data: res.data });
           this.setState({ goals: [...this.state.goals, res.data._id] });
-          console.log({ state: this.state.displayGoals });
+          // console.log({ state: this.state.displayGoals });
         })
         .then(() => {
           axios
@@ -69,7 +70,7 @@ class FormGoals extends React.Component {
               goals: this.state.goals,
             })
             .then((res) => {
-              console.log({ userGoal: res.data });
+              // console.log({ userGoal: res.data });
               localStorage.setItem(
                 "loggedInUser",
                 JSON.stringify(res.data.user)
@@ -78,16 +79,18 @@ class FormGoals extends React.Component {
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log({ err }));
+        this.props.history.push("/groups-card");
     } else {
       axios
         .patch(`/user/addGoalsForm/${this.state.userId}`, {
           goals: this.state.goals,
         })
         .then((res) => {
-          console.log({ else: res.data });
+          // console.log({ else: res.data });
           localStorage.setItem("loggedInUser", JSON.stringify(res.data.user));
         })
         .catch((err) => console.log(err));
+        this.props.history.push("/groups-card");
     }
   };
   onClickAction = (e) => {

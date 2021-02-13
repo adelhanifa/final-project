@@ -6,7 +6,7 @@ const groupSchema = new Schema({
   description: String,
   admin: { type: Schema.Types.ObjectId, ref: 'User'},
   members: [{ type: Schema.Types.ObjectId, ref: 'User'}]
-  // books: {type:Array}
+ 
 }, 
 {
   timestamps: true,
