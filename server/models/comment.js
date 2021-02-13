@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema({
   commentMsg: String,
   user: { type: Schema.Types.ObjectId, ref: 'User'},
-  group: { type: Schema.Types.ObjectId, ref: 'Group'}
+  post: { type: Schema.Types.ObjectId, ref: 'Post'}
 }, 
 {
   timestamps: true,

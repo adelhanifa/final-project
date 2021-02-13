@@ -3,7 +3,8 @@ import React from "react";
 class GroupPagePost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { comment: " " };
+    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    this.state = { comment: " ",user: loggedInUser._id };
   }
   onSubmitComment = (e) => {
     e.preventDefault();
@@ -81,12 +82,11 @@ class GroupPagePost extends React.Component {
                   <textarea
                     type="text"
                     name="comment"
-                    onChange={(e) =>{
-                        console.log(e.target.value) 
-                        this.setState({ comment: e.target.value })
-                        console.log({ comment: this.state.comment });
-                    }
-                    }
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      this.setState({ comment: e.target.value });
+                      console.log({ comment: this.state.comment });
+                    }}
                     className="form-control rounded-corner"
                     placeholder="Write a comment..."
                   ></textarea>
