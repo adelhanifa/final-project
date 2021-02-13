@@ -32,23 +32,24 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="col-lg-3 col-md-6 footer-contact">
+            <div className="col-lg-3 col-md-6 footer-links">
               <h4>Contact Us</h4>
-              <p>
-                Musterstraße A1212 <br />
-                 Düsseldorf 32323<br />
-                    Germany <br />
-                <strong>Phone:</strong> +1 5589 55488 55<br />
-                <strong>Email:</strong> goalfiy@hotmail.com <br />
-              </p>
-
-              <div className="social-links">
-                <i className="fa fa-twitter"></i>
-                <i className="fa fa-facebook"></i>
-                <i className="fa fa-instagram"></i>
-                <i className="fa fa-google-plus"></i>
-                <i className="fa fa-linkedin"></i>
-              </div>
+              <ul>
+                <li>Musterstraße A123<br />Düsseldorf 12345 Germany <br /></li>
+                <li><strong>Phone:</strong> +49 123 456 7890<br /></li>
+                <li><strong>Email:</strong> <br />ontarget.yourplatform@gmail.com <br /></li>
+                <li>
+                  <i className="fab fa-twitter"></i>
+                  <i className="fab fa-facebook"></i>
+                  <i className="fab fa-skype"></i>
+                  <i className="fab fa-instagram"></i>
+                  <i className="fab fa-google-plus"></i>
+                  <i className="fab fa-youtube"></i>
+                  <i className="fab fa-linkedin"></i>
+                  <i className="fab fa-xing"></i>
+                  <i className="fab fa-github"></i>
+                </li>
+              </ul>
 
             </div>
           </div>

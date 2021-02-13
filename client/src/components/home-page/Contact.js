@@ -42,7 +42,7 @@ const Contact = () => {
             <div className="contact-phone">
               <i className="ion-ios-telephone-outline"></i>
               <h3>Phone Number</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+              <p><a href="tel:+491234567890">+49 123 456 7890</a></p>
             </div>
           </div>
 
@@ -50,7 +50,7 @@ const Contact = () => {
             <div className="contact-email">
               <i className="ion-ios-email-outline"></i>
               <h3>Email</h3>
-              <p><a href="mailto:info@example.com">strids-forword@company.com</a></p>
+              <p><a href="mailto:ontarget.yourplatform@gmail.com">ontarget.yourplatform@gmail.com</a></p>
             </div>
           </div>
 
