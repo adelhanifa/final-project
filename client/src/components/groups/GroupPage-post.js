@@ -4,20 +4,60 @@ import React from "react";
 class GroupPagePost extends React.Component {
   constructor(props) {
     super(props);
+    console.log('postInfo',this.props.post)
     let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    this.state = { comment: " ", user: loggedInUser._id, comments: [] };
+    this.state = { newComment: " ",user: loggedInUser };
+    axios.get('comment/'+this.props.post._id)
+    .then(res => { 
+        this.setState({ comments: res.data.comments })
+    })
+  }
+  getDate = (date) => {
+    let d1 = new Date()
+    let d2 = new Date(date)
+    console.log(d1)
+    if (d1.getFullYear() === d2.getFullYear()){
+      if (d1.getMonth() === d2.getMonth()){
+        if (d1.getDate() - d2.getDate() === 0){
+          return('Today')
+        } else if (d1.getDate() - d2.getDate() === 1){
+          return('Yesterday')
+        }
+      }
+    }
+    return(d2.toLocaleDateString('en-GB'))
+  }
+  getTime = (time) => {
+    let d1 = new Date()
+    let d2 = new Date(time)
+    if (d1.getFullYear() === d2.getFullYear()){
+      if (d1.getMonth() === d2.getMonth()){
+        if (d1.getDate() === d2.getDate()){
+          if (d1.getHours() === d2.getHours()){
+            if (d1.getMinutes() === d2.getMinutes()){
+              return('Now')
+            } else {
+              return((d1.getMinutes() - d2.getMinutes())+' min ago')
+            }
+          } else {
+            return((d1.getHours() - d2.getHours())+' hours ago')
+          }
+        }
+      }
+    }
+    return(d2.getHours()+':'+d2.getMinutes())
   }
   onSubmitComment = (e) => {
     e.preventDefault();
     console.log({ comment: this.state.comment });
   };
   getComments = () => {
-    axios.get(`/comment/${postId}`).then((res) => {
-      console.log({comments: res.data})
-      let userId=res.data.user;
-      axios.get(`user/${userId}`).then(res => console.log({userComment:res.data}))
-      this.setState({...this.state, comments:res.data})
-    });
+    // axios.get(`/comment/${}`).then((res) => {
+    //   console.log({comments: res.data})
+    //   let userId=res.data.user;
+    //   axios.get(`user/${userId}`).then(res => console.log({userComment:res.data}))
+    //   this.setState({...this.state, comments:res.data})
+    // });
     // return this.state.comments.map((comment, index) => {
     //   return (
     //     <>
