@@ -119,7 +119,7 @@ class GroupPagePost extends React.Component {
                                 <div className="author">
                                   {comment.user.firstName}
                                 </div>
-                                <div className="metadata">
+                                <div className="metadata float-right">
                                   <span className="date">
                                     {this.getDate(comment.createdAt)}
                                   </span>
