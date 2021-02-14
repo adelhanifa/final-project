@@ -51,7 +51,7 @@ class GroupPage extends React.Component {
 
   onSubmitEditGroup = (e) => {
     e.preventDefault();
-    console.log({onSubmit:e })
+    console.log({ onSubmit: e });
     let toSend = this.state.toEdit;
     // if (this.state.toEdit.title !== this.state.group.title) {
     //   toSend.title = this.state.toEdit.title;
@@ -384,11 +384,11 @@ class GroupPage extends React.Component {
                       id="profile-about"
                     >
                       <div className="table-responsive">
-                        <form onSubmit={ e => this.onSubmitEditGroup(e)}>
+                        <form onSubmit={(e) => this.onSubmitEditGroup(e)}>
                           <table className="table table-profile">
                             {this.state.toEdit && (
                               <tbody>
-                                {this.state.toEdit && (
+                                {this.state.isAdmin && (
                                   <tr className="highlight">
                                     <td className="field">title</td>
                                     <td>

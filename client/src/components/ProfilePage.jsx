@@ -1,7 +1,7 @@
 import React from 'react';
 import '../cssComponents/profile.css';
 import { Navbar, Button } from 'react-bootstrap'
-
+import axios from 'axios'
 class ProfilePage extends React.Component {
     constructor() {
         super()
@@ -9,7 +9,14 @@ class ProfilePage extends React.Component {
         let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
         this.state = { user: loggedInUser }
     }
-
+    userSignOut = () => {
+        let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+        if (loggedInUser) {
+            axios.get("/user/log-out/")
+            localStorage.removeItem('loggedInUser');
+            window.location = '/'
+        }
+    }
     render() {
         if (this.state.user) {
             console.log({ id: this.state.user._id })
@@ -54,9 +61,14 @@ class ProfilePage extends React.Component {
                                             </div>
 
                                         </div>
-                                        <Button variant="danger" size="lg" active className="mb-2 ">
+                                        <Button 
+                                        variant="danger" 
+                                        size="lg" 
+                                        active className="mb-2"
+                                        onClick={this.userSignOut}
+                                        >
                                             Sign out
-                                            </Button>{' '}
+                                        </Button>{' '}
                                     </div>
                                 </div>
                                 <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">

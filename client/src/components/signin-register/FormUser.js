@@ -96,16 +96,15 @@ class FormUser extends React.Component {
 
   onSubmitFormUser = (event) => {
     event.preventDefault();
-
     if (this.state.isError.firstName || this.state.isError.lastName ||
       this.state.isError.email || this.state.isError.password ||
       this.state.isError.profileImg) {
-      console.log('form in valid')
+      // console.log('form invalid')
     }
 
     else {
-      console.log('form valid')
-      console.log({ image: this.state.profileImg })
+      // console.log('form valid')
+      // console.log({ image: this.state.profileImg })
       const formData = new FormData()
       formData.append('profileImg', this.state.profileImg)
       formData.append('firstName', this.state.firstName)
@@ -118,7 +117,7 @@ class FormUser extends React.Component {
         .then(res => {
           console.log(res.data)
           if (res.data === true) {
-            console.log('This email is already exist, try to log in.')
+            // console.log('This email is already exist, try to log in.')
             let isError = this.state.isError
             isError.email = 'This email is already exist, try to log in.'
             this.setState({ isError })

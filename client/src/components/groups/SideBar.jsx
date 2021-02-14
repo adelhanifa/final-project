@@ -26,7 +26,7 @@ const SideBar = () => {
 
       <h2 className="text-danger"> Books </h2>
 
-      <div className="d-grid w-50">
+      <div className="d-grid" style={{width: '200px'}}>
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg1LRLJmKce23RrOHBqtyeJ4uOa6wMGpoig&usqp=CAU"
           alt="book"
