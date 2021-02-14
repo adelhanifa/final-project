@@ -60,7 +60,7 @@ class GroupPagePost extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <li>
         <div className="timeline-time text-light">

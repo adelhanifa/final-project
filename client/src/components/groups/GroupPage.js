@@ -21,9 +21,9 @@ class GroupPage extends React.Component {
       .get("group/" + this.props.location.state)
       .then((res) => {
         let toEdit = {
-          titel: res.data.group.titel,
+          title: res.data.group.title,
           description: res.data.group.description || "",
-          groupImg: res.data.group.photo
+          photo: res.data.group.photo,
         };
         this.setState({ group: res.data.group, toEdit });
       })
@@ -48,6 +48,48 @@ class GroupPage extends React.Component {
       });
     // .then(()=> console.log(this.state))
   }
+
+  onSubmitEditGroup = (e) => {
+    e.preventDefault();
+    console.log({onSubmit:e })
+    let toSend = this.state.toEdit;
+    // if (this.state.toEdit.title !== this.state.group.title) {
+    //   toSend.title = this.state.toEdit.title;
+    //   console.log({ toSend });
+    // }
+    // if (this.state.toEdit.description !== this.state.group.description) {
+    //   toSend.description = this.state.toEdit.description;
+    //   console.log({ toSend });
+    // }
+    // if (this.state.toEdit.photo !== this.state.group.photo) {
+    //   toSend.photo = this.state.toEdit.photo;
+    //   console.log({ toSend });
+    // }
+    if (toSend.title) {
+      console.log({ toSend, id: this.props.location.state });
+      const formData = new FormData();
+      formData.append("groupImg", toSend.photo);
+      formData.append("oldImg", this.state.group.photo);
+      formData.append("title", toSend.title);
+      formData.append("description", toSend.description);
+      console.log({ formData });
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      axios
+        .patch("group/" + this.props.location.state, formData, config)
+        .then((res) => {
+          if (res.data.group) {
+            window.location.reload();
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   joinBTN = () => {
     return (
@@ -126,33 +168,9 @@ class GroupPage extends React.Component {
 
   updateBTN = () => {
     return (
-      <span
-        className="btn btn-sm btn-info "
-        onClick={(e) => {
-          let toSend = {};
-          if (this.state.toEdit.titel !== this.state.group.titel) {
-            toSend.titel = this.state.toEdit.titel;
-            console.log({ toSend });
-          }
-          if (this.state.toEdit.description !== this.state.group.description) {
-            toSend.description = this.state.toEdit.description;
-            console.log({ toSend });
-          }
-          if (toSend.titel || toSend.description || toSend.description === "") {
-            console.log({ toSend, id: this.props.location.state });
-            axios
-              .patch("group/" + this.props.location.state, toSend)
-              .then((res) => {
-                if (res.data.group) {
-                  window.location.reload();
-                }
-              })
-              .catch((err) => console.log(err));
-          }
-        }}
-      >
+      <button className="btn btn-sm btn-info " type="submit">
         Update Group
-      </span>
+      </button>
     );
   };
 
@@ -205,12 +223,12 @@ class GroupPage extends React.Component {
 
                     <div className="profile-header-content">
                       <div className="profile-header-img">
-                        <img src={this.state.group.photo} alt="" />
+                        <img src={this.state.group.photo} alt="group pic" />
                       </div>
 
                       <div className="profile-header-info">
                         <h4 className="m-t-10 m-b-5">
-                          {this.state.group.titel}
+                          {this.state.group.title}
                         </h4>
                         <p className="m-b-10">
                           {" "}
@@ -366,133 +384,156 @@ class GroupPage extends React.Component {
                       id="profile-about"
                     >
                       <div className="table-responsive">
-                        <table className="table table-profile">
-                          {this.state.toEdit && (
-                            <tbody>
-                              <tr className="highlight">
-                                <td className="field">Name</td>
-                                <td>
-                                  <input
-                                    className=" bg-transparent border-0 text-light"
-                                    type="text"
-                                    placeholder="No Group Name"
-                                    value={this.state.toEdit.titel}
-                                    disabled={!this.state.isAdmin}
-                                    onChange={(e) => {
-                                      let x = this.state.toEdit;
-                                      x.titel = e.target.value;
-                                      this.setState({ toEdit: x });
-                                    }}
-                                  />
-                                </td>
-                              </tr>
-
-                              <tr className="divider">
-                                <td colSpan="2"></td>
-                              </tr>
-
-                              <tr className="highlight">
-                                <td className="field">Description</td>
-                                <td>
-                                  <input
-                                    className=" bg-transparent border-0 text-light"
-                                    type="text"
-                                    placeholder="No Group Description"
-                                    value={this.state.toEdit.description}
-                                    disabled={!this.state.isAdmin}
-                                    onChange={(e) => {
-                                      let x = this.state.toEdit;
-                                      x.description = e.target.value;
-                                      this.setState({ toEdit: x });
-                                    }}
-                                  />
-                                </td>
-                              </tr>
-                              <tr className="divider">
-                                <td colSpan="2"></td>
-                              </tr>
-                              {!this.state.isAdmin && (
+                        <form onSubmit={ e => this.onSubmitEditGroup(e)}>
+                          <table className="table table-profile">
+                            {this.state.toEdit && (
+                              <tbody>
+                                {this.state.toEdit && (
+                                  <tr className="highlight">
+                                    <td className="field">title</td>
+                                    <td>
+                                      <input
+                                        className=" bg-transparent border-0 text-light"
+                                        type="file"
+                                        placeholder={this.state.photo}
+                                        name="groupImg"
+                                        disabled={!this.state.isAdmin}
+                                        onChange={(e) => {
+                                          let x = this.state.toEdit;
+                                          x.photo = e.target.files[0];
+                                          this.setState({ toEdit: x });
+                                        }}
+                                      />
+                                    </td>
+                                  </tr>
+                                )}
                                 <tr className="highlight">
-                                  <td className="field">Admin</td>
+                                  <td className="field">Name</td>
                                   <td>
                                     <input
                                       className=" bg-transparent border-0 text-light"
                                       type="text"
-                                      value={
-                                        this.state.group.admin.firstName +
-                                        " " +
-                                        this.state.group.admin.lastName
-                                      }
+                                      name="title"
+                                      placeholder="No Group Name"
+                                      value={this.state.toEdit.title}
+                                      disabled={!this.state.isAdmin}
+                                      onChange={(e) => {
+                                        let x = this.state.toEdit;
+                                        x.title = e.target.value;
+                                        this.setState({ toEdit: x });
+                                      }}
+                                    />
+                                  </td>
+                                </tr>
+
+                                <tr className="divider">
+                                  <td colSpan="2"></td>
+                                </tr>
+
+                                <tr className="highlight">
+                                  <td className="field">Description</td>
+                                  <td>
+                                    <input
+                                      className=" bg-transparent border-0 text-light"
+                                      type="text"
+                                      name="description"
+                                      placeholder="No Group Description"
+                                      value={this.state.toEdit.description}
+                                      disabled={!this.state.isAdmin}
+                                      onChange={(e) => {
+                                        let x = this.state.toEdit;
+                                        x.description = e.target.value;
+                                        this.setState({ toEdit: x });
+                                      }}
+                                    />
+                                  </td>
+                                </tr>
+                                <tr className="divider">
+                                  <td colSpan="2"></td>
+                                </tr>
+                                {!this.state.isAdmin && (
+                                  <tr className="highlight">
+                                    <td className="field">Admin</td>
+                                    <td>
+                                      <input
+                                        className=" bg-transparent border-0 text-light"
+                                        type="text"
+                                        value={
+                                          this.state.group.admin.firstName +
+                                          " " +
+                                          this.state.group.admin.lastName
+                                        }
+                                        disabled
+                                      />
+                                    </td>
+                                  </tr>
+                                )}
+                                {!this.state.isAdmin && (
+                                  <tr className="divider">
+                                    <td colSpan="2"></td>
+                                  </tr>
+                                )}
+
+                                <tr className="highlight">
+                                  <td className="field">Members</td>
+                                  <td>
+                                    <input
+                                      className=" bg-transparent border-0 text-light"
+                                      type="text"
+                                      value={this.state.group.members.length}
                                       disabled
                                     />
                                   </td>
                                 </tr>
-                              )}
-                              {!this.state.isAdmin && (
+
                                 <tr className="divider">
                                   <td colSpan="2"></td>
                                 </tr>
-                              )}
 
-                              <tr className="highlight">
-                                <td className="field">Members</td>
-                                <td>
-                                  <input
-                                    className=" bg-transparent border-0 text-light"
-                                    type="text"
-                                    value={this.state.group.members.length}
-                                    disabled
-                                  />
-                                </td>
-                              </tr>
-
-                              <tr className="divider">
-                                <td colSpan="2"></td>
-                              </tr>
-
-                              <tr className="highlight">
-                                <td className="field">Created at</td>
-                                <td>
-                                  <input
-                                    className=" bg-transparent border-0 text-light"
-                                    type="text"
-                                    value={new Date(
-                                      this.state.group.createdAt
-                                    ).toLocaleDateString("en-GB")}
-                                    disabled
-                                  />
-                                </td>
-                              </tr>
-                              <tr className="divider">
-                                <td colSpan="2"></td>
-                              </tr>
-
-                              <tr className="highlight">
-                                <td className="field">&nbsp;</td>
-                                {this.state.isAdmin ? (
-                                  <td className="p-t-10 p-b-10">
-                                    {this.updateBTN()} &nbsp;
-                                    {this.state.group.members.length === 1
-                                      ? this.deleteBTN()
-                                      : this.leaveBTN()}
+                                <tr className="highlight">
+                                  <td className="field">Created at</td>
+                                  <td>
+                                    <input
+                                      className=" bg-transparent border-0 text-light"
+                                      type="text"
+                                      value={new Date(
+                                        this.state.group.createdAt
+                                      ).toLocaleDateString("en-GB")}
+                                      disabled
+                                    />
                                   </td>
-                                ) : (
-                                  <td className="p-t-10 p-b-10">
-                                    {this.state.isJoined ? (
-                                      <>
-                                        {this.state.group.members.length === 1
-                                          ? this.deleteBTN()
-                                          : this.leaveBTN()}
-                                      </>
-                                    ) : (
-                                      this.joinBTN()
-                                    )}
-                                  </td>
-                                )}
-                              </tr>
-                            </tbody>
-                          )}
-                        </table>
+                                </tr>
+                                <tr className="divider">
+                                  <td colSpan="2"></td>
+                                </tr>
+
+                                <tr className="highlight">
+                                  <td className="field">&nbsp;</td>
+                                  {this.state.isAdmin ? (
+                                    <td className="p-t-10 p-b-10">
+                                      {this.updateBTN()} &nbsp;
+                                      {this.state.group.members.length === 1
+                                        ? this.deleteBTN()
+                                        : this.leaveBTN()}
+                                    </td>
+                                  ) : (
+                                    <td className="p-t-10 p-b-10">
+                                      {this.state.isJoined ? (
+                                        <>
+                                          {this.state.group.members.length === 1
+                                            ? this.deleteBTN()
+                                            : this.leaveBTN()}
+                                        </>
+                                      ) : (
+                                        this.joinBTN()
+                                      )}
+                                    </td>
+                                  )}
+                                </tr>
+                              </tbody>
+                            )}
+                          </table>
+                        </form>
                       </div>
                     </div>
                   </div>
