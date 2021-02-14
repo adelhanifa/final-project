@@ -74,8 +74,8 @@ const CardDisplay = (props) => {
                           </div>
                         </div>
                         <div className="single_advisor_details_info">
-                          <h6 className="text-truncate" title={item.titel}>
-                            {item.titel}
+                          <h6 className="text-truncate" title={item.title}>
+                            {item.title}
                           </h6>
                           <p className="designation">
                             {item.members.length} members
