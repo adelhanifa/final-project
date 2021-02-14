@@ -25,7 +25,7 @@ var upload = multer({
 
 router.get('/', controller.findAllGroups);
 router.get('/:id', controller.findOneGroup);
-router.patch('/:id', controller.editOneGroup);
+router.patch('/:id', upload.single('groupImg') ,controller.editOneGroup);
 router.post('/create', upload.single('groupImg'), controller.createNewGroup);
 router.get('/delete/:user/:group', controller.deleteGroup);
 

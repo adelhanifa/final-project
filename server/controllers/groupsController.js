@@ -2,6 +2,7 @@ const Group = require('../models/Group');
 const User = require("../models/User");
 const Post = require('../models/Post');
 const Comment = require("../models/Comment");
+const fs = require('fs')
 
 // get all groups
 exports.findAllGroups = (req, res) => {
@@ -39,6 +40,20 @@ exports.createNewGroup = (req, res) => {
 
 // edit one groups
 exports.editOneGroup = (req, res) => {
+    console.log(req.body)
+    console.log(req.file)
+    if(req.file){
+      let path=`./public${req.body.oldImg}`
+      console.log({ path })
+      fs.unlink(path, (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+      })
+      req.body.photo = "/img/groups/" + req.file.filename;
+
+    }
     Group.findByIdAndUpdate( req.params.id , req.body).populate("goal").populate("admin").populate("members")
     .then(group => res.send({ status: "this Group is updated", group: group, err: null }))
     .catch(err => res.send({ status: "Group is not updated", group: null, err: err }));

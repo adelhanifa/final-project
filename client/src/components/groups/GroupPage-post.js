@@ -60,7 +60,7 @@ class GroupPagePost extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <li>
         <div className="timeline-time text-light">
@@ -119,7 +119,7 @@ class GroupPagePost extends React.Component {
                                 <div className="author">
                                   {comment.user.firstName}
                                 </div>
-                                <div className="metadata">
+                                <div className="metadata float-right">
                                   <span className="date">
                                     {this.getDate(comment.createdAt)}
                                   </span>
