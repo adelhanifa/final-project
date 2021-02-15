@@ -208,7 +208,9 @@ class GroupPage extends React.Component {
                 className="d-inline-block align-top mylogo"
               />
             </a>
-            <h3 className="text-light">Group Page</h3>
+            <a href="/groups-card">
+             <h3 className="text-light">Group Page</h3>  
+            </a>
           </div>
         </div>
 

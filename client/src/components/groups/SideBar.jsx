@@ -20,7 +20,7 @@ const SideBar = () => {
         </Link>
         <Link to="/" className="item">All groups</Link>
         <Link to="/" className="item">Members</Link>
-        <Link to="/" className="item">Settings</Link>
+        <Link to="/user/profile" className="item">My profile</Link>
         <Link to="/" className="item">About</Link>
       </div>
 
