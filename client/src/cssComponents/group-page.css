@@ -642,3 +642,8 @@ select.form-control:not([size]):not([multiple]) {
 .text-danger, .text-red {
     color: #ff5b57!important;
 }
+.btn-xs {
+    font-size: x-small;
+    padding: 3px;
+    margin-left: 2px;
+}

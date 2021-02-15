@@ -51,7 +51,6 @@ class GroupPage extends React.Component {
 
   onSubmitEditGroup = (e) => {
     e.preventDefault();
-    console.log({ onSubmit: e });
     let toSend = this.state.toEdit;
     // if (this.state.toEdit.title !== this.state.group.title) {
     //   toSend.title = this.state.toEdit.title;
@@ -66,13 +65,11 @@ class GroupPage extends React.Component {
     //   console.log({ toSend });
     // }
     if (toSend.title) {
-      console.log({ toSend, id: this.props.location.state });
       const formData = new FormData();
       formData.append("groupImg", toSend.photo);
       formData.append("oldImg", this.state.group.photo);
       formData.append("title", toSend.title);
       formData.append("description", toSend.description);
-      console.log({ formData });
 
       const config = {
         headers: {
@@ -196,7 +193,6 @@ class GroupPage extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="body-page min-vh-100">
         <div className="bg-dark  p-2">
@@ -342,7 +338,14 @@ class GroupPage extends React.Component {
                           </li>
                           {this.state.posts &&
                             this.state.posts.map((post) => (
-                              <GroupPagePost key={post._id} post={post} />
+                              <GroupPagePost key={post._id} post={post} deletePost={(option) => {
+                                if (option) {
+                                axios.get("post/delete/" +this.state.user._id +"/" +post._id)
+                                .then(()=> {
+                                  let posts = this.state.posts.filter(x => x._id !== post._id)
+                                  this.setState({posts: posts})
+                                })}
+                              }}/>
                             ))}
                           <li>
                             <div className="timeline-icon">
