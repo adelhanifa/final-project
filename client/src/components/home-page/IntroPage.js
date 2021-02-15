@@ -10,6 +10,7 @@ import { Modal } from "react-bootstrap";
 const IntroPage = () => {
   const [showVideo, setShowVedio] = useState(false);
   let d = new Date();
+  let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
 
   const onClickFunc = () => {
     setShowVedio(true);
@@ -53,10 +54,17 @@ const IntroPage = () => {
               data-vbtype="video"
               data-autoplay="true"
             ></button>
+            {loggedInUser ? 
+             <Link to="/groups-card" className="about-btn scrollto">
+             {" "}
+             Go groups page
+           </Link> :
             <Link to="/login/register" className="about-btn scrollto">
               {" "}
               Get Started
             </Link>
+            }
+           
           </div>
         )}
       </section>
