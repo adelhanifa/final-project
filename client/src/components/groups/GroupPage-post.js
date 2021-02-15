@@ -6,7 +6,7 @@ class GroupPagePost extends React.Component {
   constructor(props) {
     super(props);
     let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    this.state = { newComment: " ", user: loggedInUser, visible: false };
+    this.state = { newComment: "", user: loggedInUser, visible: false };
     axios.get("comment/" + this.props.post._id).then((res) => {
       this.setState({ comments: res.data.comments });
     });
@@ -45,7 +45,7 @@ class GroupPagePost extends React.Component {
         }
       }
     }
-    return(d2.getHours()+':'+d2.getMinutes())
+    return(d2.toLocaleTimeString('en-GB').slice(0,5))
   }
 
   saveNewComment = () => {
@@ -145,6 +145,7 @@ class GroupPagePost extends React.Component {
                           <div className="input-group">
                             <input
                               type="text"
+                              value={this.state.newComment}
                               name="newComment"
                               onChange={(e) => {
                                 this.setState({ newComment: e.target.value });

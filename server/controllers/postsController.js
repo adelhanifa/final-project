@@ -1,4 +1,6 @@
 const Post = require("../models/Post");
+const Comment = require('../models/Comment');
+
 
 // get all Posts
 exports.findAllPosts = (req, res) => {
@@ -36,6 +38,9 @@ exports.deletePost = (req, res) => {
   let userID = req.params.user
   
   Post.findOneAndDelete({_id: postID, user: userID})
-  .then(post => res.send({ status: "this post is deleted", post: post, err: null }))
+  .then(post => {
+    Comment.deleteMany({ post: postID})
+    .then(()=> res.send({ status: "this post is deleted", post: post, err: null }))
+  })
   .catch(err => res.send({ status: "Post is not deleted", post: null, err: err }));
 }

@@ -1,5 +1,7 @@
 const Group = require('../models/Group');
 const User = require("../models/User");
+const Post = require('../models/Post');
+const Comment = require("../models/Comment");
 const fs = require('fs')
 
 // get all groups
@@ -66,7 +68,18 @@ exports.deleteGroup = (req, res) => {
       .then((data) => {
         upadateUser = data.joinedGroup.filter(x => x != groupID)
           User.findByIdAndUpdate(userID, { joinedGroup: upadateUser })
-          .then(() => Group.findByIdAndDelete(groupID) )
+          .then(() => Group.findByIdAndDelete(groupID)
+                      .then((gdata) => fs.unlink(`./public${gdata.photo}` , (err) => {
+                        if (err) console.error(err)
+                        })) 
+          )
+          .then(() => Post.find({group: groupID})
+                      .then(data => data.map(async item => {
+                        await Comment.deleteMany({ post: item._id})
+                        await console.log(item._id)
+                      }))
+          )
+          .then(()=> Post.deleteMany({group: groupID}))
           .then(()=> res.send({ status: "group is deleted", group: true, err: null, }) )
           .catch((err) => {
             console.log(err);

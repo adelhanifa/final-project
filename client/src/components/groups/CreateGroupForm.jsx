@@ -6,7 +6,7 @@ const CreateGroupForm = (props) => {
   let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const [group, setGroup] = useState({
     admin: loggedInUser ? loggedInUser._id : "",
-    titel: "",
+    title: "",
     description: "",
     groupImg: "",
   });
@@ -16,7 +16,7 @@ const CreateGroupForm = (props) => {
     const formData = new FormData();
     formData.append("admin", group.admin);
     formData.append("groupImg", group.groupImg);
-    formData.append("titel", group.titel);
+    formData.append("title", group.title);
     formData.append("description", group.description);
     console.log({ formData });
     axios
@@ -36,8 +36,8 @@ const CreateGroupForm = (props) => {
           <label>Group title</label>
           <input
             placeholder="Which goal is this group about?"
-            name="titel"
-            onChange={(e) => setGroup({ ...group, titel: e.target.value })}
+            name="title"
+            onChange={(e) => setGroup({ ...group, title: e.target.value })}
             required
           />
         </Form.Field>
