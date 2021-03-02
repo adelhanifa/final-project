@@ -1,4 +1,6 @@
 import React from "react";
+import { Link as SLink } from "react-scroll";
+
 const Footer = () => {
   return (
     <div id="footer">
@@ -25,7 +27,9 @@ const Footer = () => {
               <h4>Useful Links</h4>
               <ul>
                 <li><i className="fa fa-angle-right"></i><a href="/"> Home</a></li>
-                <li><i className="fa fa-angle-right"></i><a href="/aboutus"> About us</a></li>
+                <li><i className="fa fa-angle-right"></i><SLink style={{ cursor: 'pointer' }} to="about" offset={-70} smooth={true}>
+                    About us
+                  </SLink></li>
                 <li><i className="fa fa-angle-right"></i>Services </li>
                 <li><i className="fa fa-angle-right"></i> Terms of service</li>
                 <li><i className="fa fa-angle-right"></i> Privacy policy</li>

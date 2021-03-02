@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { Link as SLink } from "react-scroll";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -51,33 +51,33 @@ class HeaderProfile extends React.Component {
                 </li>
                 <li>
                   {" "}
-                  <Nav.Link as={SLink} to="about" offset={-70} smooth={true}>
+                  <Nav.Link as={SLink} style={{ cursor: 'pointer' }} to="about" offset={-70} smooth={true}>
                     About us
                   </Nav.Link>
                 </li>
                 <li>
                   {" "}
-                  <Nav.Link as={SLink} to="speakers" offset={-70} smooth={true}>
+                  <Nav.Link as={SLink} style={{ cursor: 'pointer' }} to="speakers" offset={-70} smooth={true}>
                     Our Team
                   </Nav.Link>
                 </li>
                 <li>
                   {" "}
-                  <Nav.Link as={SLink} to="contact" offset={-70} smooth={true}>
+                  <Nav.Link as={SLink} style={{ cursor: 'pointer' }} to="contact" offset={-70} smooth={true}>
                     Contact
                   </Nav.Link>
                 </li>
                 <li>
                   {" "}
                   <Nav.Link as={Link} to="/user/profile">
-                    profile
+                    Profile
                   </Nav.Link>
                 </li>
                 {this.state.user === null ? (
                   <li>
                     {" "}
                     <Nav.Link as={Link} to="/login/register">
-                      login/register
+                      Login/Register
                     </Nav.Link>
                   </li>
                 ) : (
@@ -85,13 +85,13 @@ class HeaderProfile extends React.Component {
                     <li>
                       {" "}
                       <Nav.Link as={Link} to="/groups-card">
-                        groups
+                        Groups
                       </Nav.Link>
                     </li>
                     <li>
                       {" "}
                       <Nav.Link as={Link} to="" onClick={this.userSignOut}>
-                        sign out
+                        Sign out
                       </Nav.Link>
                     </li>
                   </>
